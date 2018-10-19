@@ -1,0 +1,106 @@
+<%= form_with(model: @item, local: true) do |form| %>
+<div class="module-workarea">
+  <div class="item-area">
+  	<div class="item-header">
+  	  <div class="item-backlink">
+  	    <a href="/cmdb">◀ Regresar al inventario</a>
+  	  </div>
+  	  <div class="item-actions">
+  	  	<%= form.submit 'Guardar', class: 'waves-effect waves-light btn-small blue-grey darken-4' %>
+  	  </div>
+  	</div>
+  	<div class="item-workarea">
+  	  <h2>Nuevo</h2>
+
+          <% if @item.errors.any? %>
+		    <div id="error_explanation">
+		      <h2><%= pluralize(department.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+		      <ul>
+		      <% @item.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+    
+	      <div class="row">
+	        <div class="input-field col s6">
+	          <%= form.text_field :name, id: :item_name %>
+	          <%= form.label :name, 'Nombre' %>
+	        </div>
+
+	        <div class="input-field col s6">
+	          <%= form.text_field :identificator, id: :item_identificator %>
+	          <%= form.label :identificator, 'Identificador' %>
+	        </div>
+	      </div>
+
+
+	      <div class="row">
+	        <div class="input-field col s6">
+	          <%= form.collection_select :type_id, ItemType.all, :id, :type_id  %>
+	          <%= form.label :type_id, "Tipo" %>
+	        </div>
+
+	        <div class="input-field col s6">
+	          <% impact_array = Item::IMPACT.invert %>
+              <%= form.select :impact, options_for_select(impact_array, @item.impact) %>
+	          <%= form.label :impact, 'Impacto' %>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <%= form.text_area :description, id: :item_description, 'class': "materialize-textarea" %>
+	          <%= form.label :description, 'Descripción' %>
+	        </div>
+	      </div>
+
+
+	      <div class="item-section">
+	      	<div class="item-section-title">Asignación</div>
+	      	<div class="item-section-workarea">
+              <div class="row">
+		        <div class="input-field col s6">
+		          <%= form.collection_select :location_id, Location.all, :id, :location_id  %>
+	              <%= form.label :location_id, "Ubicación" %>
+		        </div>
+
+		        <div class="input-field col s6">
+		          <%= form.collection_select :department_id, Department.all, :id, :department_id  %>
+	              <%= form.label :department_id, "Departamento" %>
+		        </div>
+	          </div>
+
+	          <div class="row">
+		        <div class="input-field col s6">
+		          <%= form.collection_select :used_by, Person.all, :id, :used_by  %>
+	              <%= form.label :used_by, "Usado por" %>
+		        </div>
+
+		        <div class="input-field col s6">
+		          <%= form.collection_select :managed_by, Agent.all, :id, :managed_by  %>
+	              <%= form.label :managed_by, "Administrado por" %>
+		        </div>
+	          </div>
+
+	          <div class="row">
+		        <div class="input-field col s6">
+		          <%= form.text_field :assigned_on, id: :item_assigned_on, 'class': 'datepicker' %>
+	              <%= form.label :assigned_on, "Fecha de asignación" %>
+		        </div>
+
+		        
+	          </div>
+	      	</div>
+	      </div>
+
+
+      
+
+
+  	</div>
+  </div>
+</div>
+<% end %>

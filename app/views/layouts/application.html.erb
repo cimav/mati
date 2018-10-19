@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mati</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+  </head>
+
+  <body>
+    <div id="sidebar">
+      <div class="dashboard-link">
+        <a href="/"><i class="material-icons">dashboard</i></a>
+      </div>
+      <div class="sidebar-item">
+        <a href="/cmdb" class="tooltipped" data-position="right" data-tooltip="Inventario"><i class="material-icons">layers</i></a>
+      </div>
+    </div>
+    <div id="header">
+      <a href="/"><%= image_tag "logo.svg" %></a>
+      <div class="header-title"><a href="/">Tecnologías de la Información</a></div>
+    </div>
+    <div id="workarea">
+      <%= yield %>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <script>
+    $(document).ready(function(){
+      $('.tooltipped').tooltip();
+      $('select').formSelect();
+      $('.datepicker').datepicker();
+    });
+    </script>
+  </body>
+</html>

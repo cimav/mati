@@ -1,0 +1,32 @@
+<div class="module-header">
+  <div class="module-title"><strong>Inventario</strong></div>
+  <div class="module-actions">
+  	<a class="waves-effect waves-light btn-small blue-grey darken-4" href="/cmdb/items/new">Agregar nuevo</a>
+  </div>
+</div>
+<div class="module-workarea">
+  <table class="highlight">
+  	<thead>
+  	  <tr>
+  	    <th>Nombre</th>
+  	    <th>Tipo</th>
+  	    <th>Ubicación</th>
+  	    <th>Usado por</th>
+  	    <th>Departamento</th>
+  	    <th>Administrado por</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+	      <tr>
+	  	    <td><%= item.name %></td>
+	  	    <td><%= item.item_type.name rescue '--'%></td>
+	  	    <td><%= item.location.name  rescue '--'%></td>
+	  	    <td><%= item.used_by.full_name rescue '--' %></td>
+	  	    <td><%= item.department.name rescue '--' %></td>
+	  	    <td><%= item.managed_by.people.full_name rescue '--' %></td>
+	      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

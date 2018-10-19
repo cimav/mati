@@ -1,0 +1,2 @@
+class ItemField < ApplicationRecord
+end
