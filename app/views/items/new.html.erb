@@ -39,7 +39,7 @@
 
 	      <div class="row">
 	        <div class="input-field col s6">
-	          <%= form.collection_select :type_id, ItemType.all, :id, :type_id  %>
+	          <%= form.collection_select :type_id, ItemType.all, :id, :name  %>
 	          <%= form.label :type_id, "Tipo" %>
 	        </div>
 
