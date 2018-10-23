@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get '/cmdb', to: redirect('/cmdb/items')
 
+  get '/cmdb/item_types/:id/ui' => 'item_types#ui'
+
 
   scope 'cmdb' do
   	resources :items

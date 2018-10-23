@@ -1,0 +1,17 @@
+<% @item_types.each do |item_type| %>
+<div class="item-section">
+  <div class="item-section-title"><%= item_type.name %></div>
+  <div class="item-section-workarea">
+  	<% item_type.item_fields.each do |field| %>
+      <div class="row">
+        <div class="input-field col s6">
+          <% if field.field_type == ItemField::TYPE_TEXT %> 
+            <input id="<%= field.name %>" type="text">
+            <label for="<%= field.name %>"><%= field.name %></label>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% end %>

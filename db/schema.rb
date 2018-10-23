@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_190420) do
+ActiveRecord::Schema.define(version: 2018_10_23_224857) do
 
   create_table "agents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "people_id"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_190420) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "item_type_id"
   end
 
   create_table "item_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
