@@ -4,11 +4,10 @@ class ItemTypesController < ApplicationController
 
   def ui
   	@ids = []
-  	get_parent_id(@item_type.id)
-  	puts @ids
-  	render :inline => @ids
-  	#@item_types = ItemType.find(ids)
-    #render :layout => false
+    @ids << @item_type.id
+  	get_parent_id(@item_type.item_type_id)
+  	@item_types = ItemType.find(@ids.reverse)
+    render :layout => false
   end
 
   private
@@ -23,10 +22,10 @@ class ItemTypesController < ApplicationController
     end
 
     def get_parent_id(id)
-      if id 
+      if id
+        @ids << id
         i = ItemType.find(id)
-        @ids << get_parent_id(i.item_type_id)
-        i.id
+        get_parent_id(i.item_type_id)
       end
     end
 end
