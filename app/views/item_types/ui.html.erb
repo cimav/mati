@@ -2,15 +2,26 @@
 <div class="item-section">
   <div class="item-section-title"><%= item_type.name %></div>
   <div class="item-section-workarea">
+    <% cols = 2 %>
+    <% col = 0 %>
   	<% item_type.item_fields.each do |field| %>
-      <div class="row">
-        <div class="input-field col s6">
+      <% col = col + 1 %>
+      <% if col == 1 %>
+        <div class="row">
+      <% end %>
+        <div class="input-field col s<%= 12 / cols %>">
           <% if field.field_type == ItemField::TYPE_TEXT %> 
             <input id="<%= field.name %>" type="text">
             <label for="<%= field.name %>"><%= field.name %></label>
           <% end %>
         </div>
-      </div>
+      <% if col == cols 
+           col = 0       %>
+          </div>
+      <% end %>
+    <% end %>
+    <% if col < cols %> 
+          </div>
     <% end %>
   </div>
 </div>
