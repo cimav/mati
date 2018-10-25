@@ -16,10 +16,19 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-
+    puts params
     respond_to do |format|
       if @item.save
-        
+        params.each do |k,v|
+          if k.start_with?('extra-')
+            extra_id = k.sub('extra-', '')
+            data = ItemDatum.new
+            data.item_id = @item.id
+            data.item_field_id = extra_id
+            data.value = v
+            data.save
+          end
+        end
         format.html { redirect_to items_path, notice: 'Elemento creado.' }
         format.json { render :show, status: :created, location: @item }
       else
