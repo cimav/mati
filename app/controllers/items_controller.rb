@@ -11,7 +11,6 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
-
   def edit
   end
 
@@ -20,6 +19,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
+        
         format.html { redirect_to items_path, notice: 'Elemento creado.' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -57,6 +57,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :description, :type_id, :identificator, :impact, :location_id, :department_id, :used_by, :managed_by, :assigned_on)
+      params.require(:item).permit(:name, :description, :item_type_id, :identificator, :impact, :location_id, :department_id, :used_by, :managed_by, :assigned_on)
     end
 end

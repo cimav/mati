@@ -22,9 +22,9 @@
 	  	    <td><%= item.name %></td>
 	  	    <td><%= item.item_type.name rescue '--'%></td>
 	  	    <td><%= item.location.name  rescue '--'%></td>
-	  	    <td><%= item.used_by.full_name rescue '--' %></td>
+	  	    <td><%= item.user.full_name rescue '--' %></td>
 	  	    <td><%= item.department.name rescue '--' %></td>
-	  	    <td><%= item.managed_by.people.full_name rescue '--' %></td>
+	  	    <td><%= item.agent.full_name rescue '--' %></td>
 	      </tr>
       <% end %>
     </tbody>
