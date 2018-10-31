@@ -9,7 +9,7 @@
 </div>
 <div class="module-workarea">
 
-  	<div class="item-workarea">
+  	<div class="item-workarea" data-id=<%= @item.id %>>
   	  <div class="item-section">
   	    <div class="item-section-title">General</div>
         <div class="item-section-workarea">
@@ -40,7 +40,7 @@
 
 	      <div class="row">
 	        <div class="input-field col s6">
-	          <%= form.collection_select :item_type_id, ItemType.all, :id, :name  %>
+	          <%= form.collection_select :item_type_id, ItemType.all, :id, :name %>
 	          <%= form.label :item_type_id, "Tipo" %>
 	        </div>
 
