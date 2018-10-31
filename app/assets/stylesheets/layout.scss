@@ -78,7 +78,6 @@ body {
   bottom: 0;
   left: 64px;
   right: 0;
-  overflow-y: auto;
 }
 
 .module-header {
@@ -103,6 +102,12 @@ body {
 
 .module-workarea {
   padding: 16px;
+  position: absolute;
+  top: 64px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
   table {
     background-color: #fff;
     border: 1px solid #ddd;

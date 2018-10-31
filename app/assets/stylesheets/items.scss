@@ -1,3 +1,45 @@
 // Place all the styles related to the items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+.item-nav {
+  ul {
+    width: 100%;
+    .active {
+      border: 1px solid #ddd;
+      background: #fcfcfc;
+      border-radius: 24px;
+    }
+    li {
+      padding: 6px 6px 6px 16px;
+      a {
+        
+      }
+    }
+  }
+}
+
+.item-main {
+  border-left: 1px solid #ddd;
+  .item-main-section-title {
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+    margin-left: 16px !important;
+    margin-top: 8px;
+    padding: 8px;
+  }
+  .item-main-field {
+    margin-left: 32px !important;
+  }
+}
+
+
+.item-field-name {
+  width: 10em;
+  min-width: 10em;
+}
+.item-field-value {
+	
+}

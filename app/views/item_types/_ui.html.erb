@@ -1,0 +1,89 @@
+<% item_types.each do |item_type| %>
+  <div class="item-section">
+    <div class="item-section-title"><%= item_type.name %></div>
+    <div class="item-section-workarea">
+      <% cols = 2 %>
+      <% col = 0 %>
+  	  <% item_type.item_fields.each do |field| %>
+        <% col = col + 1 %>
+        <% if col == 1 %>
+          <div class="row">
+        <% end %>
+        <div class="input-field col s<%= 12 / cols %>">
+         <%
+         if idata = item.item_data.where(item_field: field.id).first
+           value = idata.value
+         else 
+           value = ''
+         end
+         %>
+         <% if field.field_type == ItemField::TYPE_TEXT %> 
+            <input id="extra-<%= field.id %>" type="text" name="extra-<%= field.id %>" value="<%= value  %>">
+            <label for="extra-<%= field.id %>"><%= field.name %></label>
+          <% end %>
+
+          <% if field.field_type == ItemField::TYPE_TEXTAREA %> 
+            <textarea id="extra-<%= field.id %>"" class="materialize-textarea" name="extra-<%= field.id %>"><%= value %></textarea>
+            <label for="extra-<%= field.id %>"><%= field.name %></label>
+          <% end %>
+
+          <% if field.field_type == ItemField::TYPE_SELECT %> 
+            <select id="extra-<%= field.id %>" class="materialize-textarea" name="extra-<%= field.id %>">
+              <% values = JSON.parse(field.values) %>
+              <% values.each do |k,v| %>
+                <% selected = k == value ? 'selected':'' %>
+                <option value="<%= k %>" <%= selected %>><%= v %></option>
+              <% end %> 
+            </select>
+            <label for="extra-<%= field.id %>"><%= field.name %></label>
+            <script>
+              $('#extra-<%= field.id %>').formSelect();
+            </script>
+          <% end %>
+
+          <% if field.field_type == ItemField::TYPE_CHECKBOX %> 
+            <%= field.name %>
+            <% values = JSON.parse(field.values) %>
+            <% checked_values = JSON.parse(value) rescue '' %>
+            <% values.each do |k,v| %>
+              <% checked = checked_values.include?(k) ? 'checked="checked':'' %>
+              <p>
+                <label>
+                  <input type="checkbox" value="<%= k %>" <%= checked %> id="extra-<%= field.id %>" name="extra-<%= field.id %>[]"/>
+                  <span><%= v %></span>
+                </label>
+              </p>
+            <% end %>
+            
+            
+          <% end %>
+
+          <% if field.field_type == ItemField::TYPE_RADIO %> 
+            <%= field.name %>
+            <% values = JSON.parse(field.values) %>
+            <% values.each do |k,v| %>
+              <% checked = k == value ? 'checked="checked"':'' %>
+              <p>
+                <label>
+                  <input type="radio" value="<%= k %>" <%= checked %> id="extra-<%= field.id %>"  name="extra-<%= field.id %>"/>
+                  <span><%= v %></span>
+                </label>
+              </p>
+            <% end %>
+            
+            
+          <% end %>
+
+
+        </div>
+        <% if col == cols 
+           col = 0       %>
+          </div>
+        <% end %>
+      <% end %>
+      <% if col > 0 && col < cols %> 
+          </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

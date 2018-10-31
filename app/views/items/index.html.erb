@@ -19,7 +19,7 @@
     <tbody>
       <% @items.each do |item| %>
 	      <tr>
-	  	    <td><%= item.name %></td>
+	  	    <td><%= link_to item.name, item %></td>
 	  	    <td><%= item.item_type.name rescue '--'%></td>
 	  	    <td><%= item.location.name  rescue '--'%></td>
 	  	    <td><%= item.user.full_name rescue '--' %></td>

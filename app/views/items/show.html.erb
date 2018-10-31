@@ -1,0 +1,94 @@
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @item.name %> </a>
+  </div>
+  <div class="module-actions">
+  	<%= link_to 'Editar', edit_item_path(@item), 'class' => 'waves-effect waves-light btn-small blue-grey darken-4' %>
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s2 item-nav">
+      	  <ul>
+      	    <li class="active"><a href="#">Detalles</a></li>
+      	    <li><a href="#">Relaciones</a></li>
+      	    <li><a href="#">Contratos</a></li>
+      	    <li><a href="#">Gastos</a></li>
+      	    <li><a href="#">Archivos</a></li>
+      	    <li><a href="#">Actividad</a></li>
+      	  </ul>
+        </div>
+        <div class="col s10 item-main">
+      	  <div class="row">
+      	  	<div class="col s12 item-main-section-title">General</div>
+      	  </div>
+  	  	  <div class="row item-main-field item-main-field">
+  	  	    <div class="col s3 item-field-name">Nombre</div>
+  	  	    <div class="col s9 item-field-value"><%= @item.name %></div>
+  	      </div>
+  	      <div class="row item-main-field">
+  	  	    <div class="col s3 item-field-name">Identificador</div>
+  	  	    <div class="col s9 item-field-value"><%= @item.identificator %></div>
+  	      </div>
+  	      <div class="row item-main-field">
+  	  	    <div class="col s3 item-field-name">Tipo</div>
+  	  	    <div class="col s9 item-field-value"><%= @item.item_type.name %></div>
+  	      </div>
+  	      <div class="row item-main-field">
+  	  	    <div class="col s3 item-field-name">Impacto</div>
+  	  	    <div class="col s9 item-field-value"><%= @item.impact %></div>
+  	      </div>
+  	      <div class="row item-main-field">
+  	    	<div class="col s3 item-field-name">Descripción</div>
+  	    	<div class="col s9 item-field-value"><%= @item.description %></div>
+  	      </div>
+
+          <% @item_types.each do |item_type| %>
+            <div class="row">
+      	  	  <div class="col s12 item-main-section-title"><%= item_type.name %></div>
+      	  	</div>
+      	  	<% data = @item.item_data.joins(:item_field).where('item_fields.item_type_id' => item_type.id).order('item_fields.position') %>
+      	  	<% data.each do |d| %>
+      	  	  <div class="row item-main-field">
+      	  	    <div class="col s3 item-field-name"><%= d.item_field.name %></div>
+                <% if d.item_field.field_type == ItemField::TYPE_CHECKBOX %>
+                  <div class="col s9 item-field-value"><%= JSON.parse(d.value).join(', ') %></div>
+                <% else %>
+      	  	      <div class="col s9 item-field-value"><%= d.value %></div>
+                <% end %>
+      	      </div>
+      	  	<% end %>
+
+          <% end %>
+
+      	  <div class="row">
+      	  	<div class="col s12 item-main-section-title">Asignación</div>
+      	  </div>
+      	  <div class="row item-main-field">
+      	  	<div class="col s3 item-field-name">Ubicación</div>
+      	  	<div class="col s9 item-field-value"><%= @item.location.name %></div>
+      	  </div>
+      	  <div class="row item-main-field">
+      	  	<div class="col s3 item-field-name">Departamento</div>
+      	    <div class="col s9 item-field-value"><%= @item.department.name %></div>
+      	  </div>
+      	  <div class="row item-main-field">
+      	  	<div class="col s3 item-field-name">Usado por</div>
+      	  	<div class="col s9 item-field-value"><%= @item.user.full_name %></div>
+      	  </div>
+      	  <div class="row item-main-field">
+      	  	<div class="col s3 item-field-name">Administrador por</div>
+      	  	<div class="col s9 item-field-value"><%= @item.agent.full_name %></div>
+      	  </div>
+      	  <div class="row item-main-field">
+      	  	<div class="col s3 item-field-name">Fecha de asignación</div>
+      	  	<div class="col s9 item-field-value"><%= @item.assigned_on %></div>
+      	  </div>
+      	  
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>

@@ -7,6 +7,11 @@ class ItemTypesController < ApplicationController
     @ids << @item_type.id
   	get_parent_id(@item_type.item_type_id)
   	@item_types = ItemType.find(@ids.reverse)
+    if (params[:item_id])
+      @item = Item.find(params[:item_id])
+    else
+      @item = Item.new
+    end
     render :layout => false
   end
 
@@ -18,7 +23,7 @@ class ItemTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_type_params
-      params.require(:item).permit(:name, :field_type, :values, :default, :position)
+      params.require(:item_type).permit(:name, :field_type, :values, :default, :position)
     end
 
     def get_parent_id(id)
