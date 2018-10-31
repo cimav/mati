@@ -12,8 +12,8 @@
   	  <div class="row">
         <div class="col s2 item-nav">
       	  <ul>
-      	    <li class="active"><a href="#">Detalles</a></li>
-      	    <li><a href="#">Relaciones</a></li>
+      	    <li class="active"><%= link_to 'Detalles', item_path(@item) %></li>
+      	    <li><%= link_to 'Relaciones', item_item_relationships_path(@item) %></a></li>
       	    <li><a href="#">Contratos</a></li>
       	    <li><a href="#">Gastos</a></li>
       	    <li><a href="#">Archivos</a></li>

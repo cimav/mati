@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
 
   scope 'cmdb' do
-  	resources :items
+  	resources :items do
+      resources :item_relationships, :path=>'rel'
+    end
   end
 end

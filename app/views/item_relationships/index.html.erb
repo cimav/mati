@@ -1,0 +1,60 @@
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @item.name %> </a>
+  </div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s2 item-nav">
+      	  <ul>
+      	    <li><%= link_to 'Detalles', item_path(@item) %></li>
+      	    <li class="active"><%= link_to 'Relaciones', item_item_relationships_path(@item) %></a></li>
+      	    <li><a href="#">Contratos</a></li>
+      	    <li><a href="#">Gastos</a></li>
+      	    <li><a href="#">Archivos</a></li>
+      	    <li><a href="#">Actividad</a></li>
+      	  </ul>
+        </div>
+        <div class="col s10 item-main">
+
+          <table>
+          	<% 
+          	rels = {}
+            
+            @item.relationship_children.order(:relationship_id).each do |rel| 
+              rels[rel.relationship.name] = [] if !rels[rel.relationship.name]
+              rels[rel.relationship.name] << rel.parent 
+            end
+            @item.relationship_parents.order(:relationship_id).each do |rel|
+              rels[rel.relationship.inverse] = [] if !rels[rel.relationship.inverse]
+              rels[rel.relationship.inverse] << rel.child 
+            end 
+            rels.each do |k,v| %>
+              <tr>
+                <td rowspan="<%= v.count %>"><%= k %></td>
+                <% first = true %>
+                <% v.each do |i| %>
+                  <% if first %>
+                    <td><%= link_to i.name, i %> (<%= i.item_type.name %>)</td>
+                    </tr>
+                  <% else %>
+                    <tr>
+                      <td><%= link_to i.name, i %> (<%= i.item_type.name %>)</td>
+                    </tr>
+                  <% end %>
+                <% end %>
+            <% end %>
+          </table>
+          <div class="add-relationship-button-area">
+          	<a class="btn-floating btn-small waves-effect waves-light blue-grey"><i class="material-icons">add</i></a>
+          </div>
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>
