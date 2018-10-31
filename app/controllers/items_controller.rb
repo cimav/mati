@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
             data.save
           end
         end
-        format.html { redirect_to items_path, notice: 'Elemento creado.' }
+        format.html { redirect_to @item, notice: 'Elemento creado.' }
         format.json { render :show, status: :created, location: @item }
       else
         format.html { render :new }
@@ -68,7 +68,7 @@ class ItemsController < ApplicationController
           end
         end
         # TODO: Borrar campos huerfanos.
-        format.html { redirect_to items_path, notice: 'Elemento actualizado correctamente.' }
+        format.html { redirect_to @item, notice: 'Elemento actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
