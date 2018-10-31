@@ -28,6 +28,7 @@
       <div class="header-title"><a href="/">Tecnologías de la Información</a></div>
     </div>
     <div id="workarea">
+
       <%= yield %>
     </div>
     
@@ -37,6 +38,9 @@
       $('.tooltipped').tooltip();
       $('select').formSelect();
       $('.datepicker').datepicker();
+      <% if notice.present? %>
+        M.toast({html: '<%= notice %>'})
+      <% end %>
     });
     </script>
   </body>
