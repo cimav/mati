@@ -1,0 +1,31 @@
+<div class="module-header">
+  <div class="module-title"><strong>Personas</strong></div>
+  <div class="module-actions">
+  	<a class="waves-effect waves-light btn-small blue-grey" href="/people/new">Agregar</a>
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="people-letter-links">
+    <% ("A".."Z").each do |l| %>
+      <span class="people-letter"><a href="#"><%= l %></a> </span>
+    <% end %>
+  </div>
+  <table class="highlight">
+  	<thead>
+  	  <tr>
+  	    <th>Nombre</th>
+  	    <th>Correo</th>
+  	    <th>Departamento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @people.each do |person| %>
+	      <tr>
+	  	    <td><%= link_to person.full_name, person  %></td>
+	  	    <td><%= person.email rescue '--'%></td>
+	  	    <td><%= person.department.name  rescue '--'%></td>
+	      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -13,4 +13,6 @@ Rails.application.routes.draw do
       resources :item_relationships, :path=>'rel'
     end
   end
+
+ resources :people
 end
