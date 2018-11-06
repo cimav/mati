@@ -175,5 +175,13 @@ body {
   }
 }
 
+.module-menu {
+  border: 1px solid #ddd;
+  border-bottom: 0;   
+}
 
+.no-items {
+  padding: 32px !important;
+  text-align: center;
+}
 

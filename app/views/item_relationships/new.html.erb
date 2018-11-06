@@ -1,0 +1,85 @@
+<%= form_for [@item, @item_relationship] do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @item.name %> </a>
+  </div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"items/menu", locals: {active: 'relaciones'} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <div class="item-relationship-title row">
+            <div class="col s10">
+        	  <%= @item.name %> (<%= @item.item_type.name %>) 
+        	  <span id="item-relationship-name"></span> <span id="item-relationship-to">...</span>
+            </div>
+            <div class="col s2">
+              <%= form.submit 'Crear relación', class: 'waves-effect waves-light btn-small blue-grey' %>
+            </div>
+          </div>
+          <div class="row">
+          	<div class="col s6">
+          	  <table>
+          	  	<tr>
+          	  	  <th colspan="2">Forma en que se relaciona</th>
+          	  	</tr>
+          	    <% Relationship.all.each do |r| %>
+                  <tr>
+                  	<td>
+                  	  <label>
+                        <input type="radio" value="dir-<%= r.id %>" name="relationship" class="rel-radio" />
+                        <span id="label-dir-<%= r.id %>"><%= r.name %></span>
+                      </label>
+                    </td>
+                    <td>
+                      <label>
+                        <input type="radio" value="inv-<%= r.id %>" name="relationship" class="rel-radio" />
+                        <span id="label-inv-<%= r.id %>"><%= r.inverse %></span>
+                      </label>    
+                    </td>
+                  </tr>
+          	    <% end %>
+          	  </table>
+          	</div>
+          	<div class="col s6">
+          	  <table>
+          	  	<tr>
+          	  	  <th colspan="2">Con</th>
+          	  	</tr>
+          	  	<tr>
+          	  	  <td>
+          	  	    <%= select_tag :search_type_id, options_from_collection_for_select(ItemType.all, :id, :name), prompt: "Selecciona el tipo" %>
+
+          	  	  </td>
+          	  	</tr>
+          	  	<tr>
+          	  	  <td>
+          	  	  	<%= text_field_tag :q, nil, placeholder: 'Busca...' %>
+          	  	  </td>
+          	  	</tr>
+          	    <% Item.all.each do |i| %>
+                  <tr>
+                  	<td>
+                  	  <label>
+                        <input type="checkbox" value="<%= i.id %>" name="item[]" class="rel-cb-item" data-name="<%= i.name %>" />
+                        <span><%= i.name %> (<%= i.item_type.name %>)</span>
+                      </label>
+                    </td>
+                  </tr>
+          	    <% end %>
+          	  </table>
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

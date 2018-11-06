@@ -2,7 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.relationships-table {
+  margin-top: 16px;
+}
+
 .add-relationship-button-area {
   margin-top: 32px;
   float: right;
+}
+
+
+.item-relationship-title {
+  margin: 1em 0;
+  font-weight: 500;
+  font-size: 120%;	
+  padding: 16px;
+  border: 1px solid #ddd;
+}
+
+#item-relationship-name {
+  font-style: italic; 
 }

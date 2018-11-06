@@ -6,21 +6,15 @@
   	<%= link_to 'Editar', edit_item_path(@item), 'class' => 'waves-effect waves-light btn-small blue-grey' %>
   </div>
 </div>
+
 <div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'detalles'} %>
+  </div>
   <div class="item-area">
   	<div class="item-workarea">
   	  <div class="row">
-        <div class="col s2 item-nav">
-      	  <ul>
-      	    <li class="active"><%= link_to 'Detalles', item_path(@item) %></li>
-      	    <li><%= link_to 'Relaciones', item_item_relationships_path(@item) %></a></li>
-      	    <li><a href="#">Contratos</a></li>
-      	    <li><a href="#">Gastos</a></li>
-      	    <li><a href="#">Archivos</a></li>
-      	    <li><a href="#">Actividad</a></li>
-      	  </ul>
-        </div>
-        <div class="col s10 item-main">
+        <div class="col s12 item-main">
       	  <div class="row">
       	  	<div class="col s12 item-main-section-title">General</div>
       	  </div>

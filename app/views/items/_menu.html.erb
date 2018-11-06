@@ -1,0 +1,16 @@
+<%
+detalle_class = active == 'detalle'? 'active' : ''
+relaciones_class = active == 'relaciones'? 'active' : ''
+contratos_class = active == 'contratos'? 'active' : ''
+gastos_class = active == 'gastos'? 'active' : ''
+archivos_class = active == 'archivos'? 'active' : ''
+actividad_class = active == 'actividad'? 'active' : ''
+%>
+<ul class="tabs">
+  <li class="tab col s2"><%= link_to 'Detalles', item_path(@item), target: "_self", class: detalle_class  %></li>
+  <li class="tab col s2"><%= link_to 'Relaciones', item_item_relationships_path(@item), target: "_self", class: relaciones_class%></a></li>
+  <li class="tab col s2"><a href="#">Contratos</a></li>
+  <li class="tab col s2"><a href="#">Gastos</a></li>
+  <li class="tab col s2"><a href="#">Archivos</a></li>
+  <li class="tab col s2"><a href="#">Actividad</a></li>
+</ul>
