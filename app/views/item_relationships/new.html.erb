@@ -64,16 +64,9 @@
           	  	  	<%= text_field_tag :q, nil, placeholder: 'Busca...' %>
           	  	  </td>
           	  	</tr>
-          	    <% Item.all.each do |i| %>
-                  <tr>
-                  	<td>
-                  	  <label>
-                        <input type="checkbox" value="<%= i.id %>" name="item[]" class="rel-cb-item" data-name="<%= i.name %>" />
-                        <span><%= i.name %> (<%= i.item_type.name %>)</span>
-                      </label>
-                    </td>
-                  </tr>
-          	    <% end %>
+                <tbody id="select-search-results">
+                  <%= render partial:"items/select_search", locals: {items: Item.order('created_at DESC').limit(20)} %>
+                </tbody>
           	  </table>
           	</div>
           </div>

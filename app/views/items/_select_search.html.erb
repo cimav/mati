@@ -1,0 +1,15 @@
+<% items.all.each do |i| %>
+  <tr>
+	<td>
+	  <label>
+        <input type="checkbox" value="<%= i.id %>" name="item[]" class="rel-cb-item" data-name="<%= i.name %>" />
+        <span><%= i.name %> (<%= i.item_type.name %>)</span>
+      </label>
+    </td>
+  </tr>
+<% end %>
+<% if items.count == 0 %>
+  <tr>
+  	<td class="no-items">No existen elementos</td>
+  </tr>
+<% end %>

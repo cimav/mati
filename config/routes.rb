@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
 
   scope 'cmdb' do
+    get 'items/select_search' => 'items#select_search'
   	resources :items do
       resources :item_relationships, :path=>'rel'
     end

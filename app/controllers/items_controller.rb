@@ -2,6 +2,20 @@ class ItemsController < ApplicationController
 
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
+  def select_search
+    @items = Item.all
+    
+    if params[:q] && params[:q] != ''
+      @items = @items.where("name LIKE :q", q: "%#{params[:q]}%")
+    end
+
+    if params[:t] && params[:t] != ''
+      @items = @items.where("item_type_id = :t", t: params[:t])
+    end
+
+    render :layout => false
+  end
+
   def index
     @items = Item.all
   end

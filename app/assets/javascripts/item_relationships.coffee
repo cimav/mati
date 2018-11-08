@@ -13,3 +13,18 @@ $(document).on('change', '.rel-cb-item', () ->
 
   $('#item-relationship-to').html(selected.join(', '))
 )
+
+$(document).on('change', '#search_type_id', () ->
+  select_search(this.value, $('#q').val())
+)
+
+$(document).on('keyup', '#q', () ->
+  if (this.value.length >= 3) 
+    select_search($('#search_type_id').val(), this.value)
+)
+  
+select_search = (t, q) ->
+  url = '/cmdb/items/select_search?t=' + t + '&q=' + q 
+  $.get url, (data) ->
+    $('#select-search-results').html(data)
+
