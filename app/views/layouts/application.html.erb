@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mati</title>
+    <title>Tecnologías de la Información</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -49,6 +49,13 @@
     <div id="header">
       <a href="/"><%= image_tag "logo.svg" %></a>
       <div class="header-title"><a href="/">Tecnologías de la Información</a></div>
+      <div id="user-menu">
+        <a class="dropdown-trigger" href='#' data-target="user-dropdown"><img src="<%= current_user.picture_url %>" alt="" class="circle">
+        <ul id='user-dropdown' class='dropdown-content'>
+          <li><a href="/logout">Salir</a></li>
+        </ul>
+      </div>
+
     </div>
     <div id="workarea">
 
@@ -62,6 +69,7 @@
       $('select').formSelect();
       $('.datepicker').datepicker();
       $('.tabs').tabs();
+      $('.dropdown-trigger').dropdown();
       <% if notice.present? %>
         M.toast({html: '<%= notice %>'})
       <% end %>

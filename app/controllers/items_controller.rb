@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-
+  before_action :auth_required
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def select_search

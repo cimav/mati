@@ -1,5 +1,10 @@
 class Agent < ApplicationRecord
   belongs_to :person
+
+  STATUS_ACTIVE = 1
+  STATUS_INACTIVE = 2
+
+
   def full_name
   	person.full_name
   end

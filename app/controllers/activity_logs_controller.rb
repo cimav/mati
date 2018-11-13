@@ -10,7 +10,7 @@ class ActivityLogsController < ApplicationController
 
   def create
     @activity_log = @element.activity_logs.new(activity_log_params)	
-    @activity_log.agent_id = 1
+    @activity_log.agent_id = current_user.id
     puts @activity_log.message
     respond_to do |format|
       if @activity_log.save

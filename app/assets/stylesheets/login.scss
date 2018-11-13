@@ -1,0 +1,22 @@
+// Place all the styles related to the login controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+h5 {
+ line-height: 2.5ex;
+}
+#login-area {
+  padding: 32px;
+  margin: 0 auto;
+  top: 48px;
+  width: 300px;
+  background-color: rgba(255,255,255,0.95);
+  text-align: center;
+}
+
+#app-logo {
+  width: 180px;
+}
+#logo-area {
+  text-align: center;
+}
