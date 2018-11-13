@@ -1,0 +1,42 @@
+// Place all the styles related to the ActivityLogs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.log-items {
+  border: 1px solid #ddd;	
+}
+
+.log-item-new {
+  border-bottom: 3px solid #ddd;
+}
+
+.log-item {
+  border-bottom: 1px solid #ddd;
+  padding: 16px;
+  img {
+    width: 48px;
+    height: 48px;
+  }
+  .log-picture {
+    width: 48px;
+    float: left;
+    margin-right: 16px;
+  }
+  .log-date {
+    color: #999;
+  }
+
+  .log-date:before {
+    content: "\00b7";
+  }
+
+  .log-input {
+    padding-left: 64px;
+  }
+
+  .log-picture-input {
+    margin-top: 16px;
+  }
+
+}

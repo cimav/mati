@@ -1,0 +1,58 @@
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @element.name %> </a>
+  </div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+  	<% @item = @element %>
+    <%= render partial:"items/menu", locals: {active: 'actividad'} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <% current_user = Agent.find(1) %>
+          <div class="log-items">
+          <div class="log-item log-item-new">
+              <div class="log-picture log-picture-input">
+                <img src="<%= current_user.picture_url %>" alt="" class="circle responsive-img">
+            </div>
+            <div class="log-input">
+              <%= form_for [@element, @activity_log] do |form| %>
+		        <div class="input-field">
+			      <%= form.text_field :message, id: :message %>
+			      <%= form.label :message, 'Escribe tu mensaje' %>
+			    </div>
+			   <% end %>          
+            </div>
+            <div class="clearfix"></div>
+          </div>
+               
+          <% @activity_logs.each do |msg| %>
+            <div class="log-item">
+              <div class="log-picture">
+                <img src="<%= msg.agent.picture_url %>" alt="" class="circle responsive-img">
+              </div>
+              <div class="log-content">
+                <strong><%= msg.agent.full_name %></strong> <span class="log-date"> <%= msg.created_at %></span><br>
+                  <%= msg.message %>            
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          <% end %>
+          </div>
+            
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>
+
+
+
+
+

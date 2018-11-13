@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'items/select_search' => 'items#select_search'
   	resources :items do
       resources :item_relationships, :path=>'rel'
+      resources :activity_logs, :path=>'log'
     end
   end
 

@@ -12,5 +12,5 @@ actividad_class = active == 'actividad'? 'active' : ''
   <li class="tab col s2"><a href="#">Contratos</a></li>
   <li class="tab col s2"><a href="#">Gastos</a></li>
   <li class="tab col s2"><a href="#">Archivos</a></li>
-  <li class="tab col s2"><a href="#">Actividad</a></li>
+  <li class="tab col s2"><%= link_to 'Actividad', item_activity_logs_path(@item), target: "_self", class: actividad_class%></li>
 </ul>

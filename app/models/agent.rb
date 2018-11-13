@@ -3,4 +3,7 @@ class Agent < ApplicationRecord
   def full_name
   	person.full_name
   end
+  def picture_url
+  	person.picture_url
+  end
 end

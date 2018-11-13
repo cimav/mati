@@ -31,6 +31,6 @@ class ItemRelationshipsController < ApplicationController
       @item = Item.find(params[:item_id])
     end
     def set_item_relationship
-      @item = ItemRelationship.find(params[:id])
+      @item_activity_log = ItemRelationship.find(params[:id])
     end
 end
