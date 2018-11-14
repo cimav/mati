@@ -52,6 +52,10 @@ class ItemsController < ApplicationController
             data.save
           end
         end
+        @activity_log = @item.activity_logs.new
+        @activity_log.agent_id = current_user.id
+        @activity_log.message = "El elemento #{@item.name} fue creado."
+        @activity_log.save
         format.html { redirect_to @item, notice: 'Elemento creado.' }
         format.json { render :show, status: :created, location: @item }
       else
@@ -63,7 +67,10 @@ class ItemsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @item.update(item_params)
+      @item.assign_attributes(item_params)
+      changes = @item.changes.to_json
+      
+      if @item.save
         params.each do |k,v|
           if k.start_with?('extra-')
             extra_id = k.sub('extra-', '')
@@ -80,8 +87,14 @@ class ItemsController < ApplicationController
             data.save
           end
         end
+        @activity_log = @item.activity_logs.new
+        @activity_log.agent_id = current_user.id
+        @activity_log.changed_values = changes
+        @activity_log.message = "El elemento #{@item.name} fue actualizado."
+        @activity_log.save
+
         # TODO: Borrar campos huerfanos.
-        format.html { redirect_to @item, notice: 'Elemento actualizado correctamente.' }
+        format.html { redirect_to @item, notice: "Elemento actualizado correctamente." }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
