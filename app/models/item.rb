@@ -24,4 +24,28 @@ class Item < ApplicationRecord
     IMPACT_MEDIUM => 'Medio',
     IMPACT_HIGH   => 'Alto'
   }
+
+
+  FIELDS = {
+    'name' => 'Nombre',
+    'description' => 'Descripción',
+    'item_type_id' => 'Tipo',
+    'identificator' => 'Identificador',
+    'impact' => 'Impacto',
+    'location_id' => 'Ubicación',
+    'department_id' => 'Departamento',
+    'used_by' => 'Usado por',
+    'managed_by' => 'Administrado por',
+    'assigned_on' => 'Fecha asignación'
+  }
+
+  def field_text(f)
+    if FIELDS[f]
+      v = FIELDS[f]
+    else 
+      v = f
+    end
+    return v 
+  end
+
 end

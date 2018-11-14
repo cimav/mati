@@ -68,28 +68,35 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       @item.assign_attributes(item_params)
-      changes = @item.changes.to_json
+      changes = @item.changes
       
       if @item.save
+        field_changes = {}
         params.each do |k,v|
           if k.start_with?('extra-')
             extra_id = k.sub('extra-', '')
 
             if data = @item.item_data.where(item_field: extra_id).first
-              data.value = v
+              if data.value != v
+                changes[data.item_field.name] = [data.value, v]
+                data.value = v
+              end
             else 
               data = ItemDatum.new
               data.item_id = @item.id
               data.item_field_id = extra_id
               data.value = v
+              changes[data.item_field.name] = [data.value, v]
             end
-
+            
             data.save
           end
+          
         end
+
         @activity_log = @item.activity_logs.new
         @activity_log.agent_id = current_user.id
-        @activity_log.changed_values = changes
+        @activity_log.changed_values = changes.to_json
         @activity_log.message = "El elemento #{@item.name} fue actualizado."
         @activity_log.save
 

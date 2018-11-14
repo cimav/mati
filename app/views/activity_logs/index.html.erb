@@ -48,7 +48,7 @@
                   <%
                     changes.each do |k,v|
                   %>
-                        <tr><td><%= k %></td><td><%= v[0] %></td><td><%= v[1] %></td></tr>
+                        <tr><td><%= @element.field_text(k) %></td><td><%= v[0] %></td><td><%= v[1] %></td></tr>
                   <%    
                     end
                   %>

@@ -11,6 +11,8 @@ class ItemRelationshipsController < ApplicationController
     respond_to do |format|
       params[:item].each do |i|
         rel_params = params[:relationship].split('-')
+        
+
         if rel_params[0] == 'dir'
           rel = @item.relationship_children.new
           rel.child_id  = i
@@ -19,6 +21,18 @@ class ItemRelationshipsController < ApplicationController
           rel.parent_id  = i
         end
         rel.relationship_id = rel_params[1]
+        
+        if rel_params[0] == 'dir'
+          rel_type = rel.relationship.name
+        else
+          rel_type = rel.relationship.inverse
+        end
+        
+        @activity_log = @item.activity_logs.new
+        @activity_log.agent_id = current_user.id
+        rel_i = Item.find(i)
+        @activity_log.message = "Se agrego la relación: #{rel_type} #{rel_i.name}"
+        @activity_log.save
         rel.save
       end
       format.html { redirect_to item_item_relationships_path(@item), notice: 'Relación creada.' }
