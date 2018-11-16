@@ -39,12 +39,20 @@ class ItemRelationshipsController < ApplicationController
     end
   end
 
+  def destroy
+    @item_relationship.destroy
+    respond_to do |format|
+      format.html { redirect_to item_item_relationships_path(@item), notice: 'Relacion eliminada.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
       @item = Item.find(params[:item_id])
     end
     def set_item_relationship
-      @item_activity_log = ItemRelationship.find(params[:id])
+      @item_relationship = ItemRelationship.find(params[:id])
     end
 end

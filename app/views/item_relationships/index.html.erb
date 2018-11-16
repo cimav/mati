@@ -21,11 +21,11 @@
             
             @item.relationship_children.order(:relationship_id).each do |rel| 
               rels[rel.relationship.name] = [] if !rels[rel.relationship.name]
-              rels[rel.relationship.name] << rel.child 
+              rels[rel.relationship.name] << [rel.id, rel.child] 
             end
             @item.relationship_parents.order(:relationship_id).each do |rel|
               rels[rel.relationship.inverse] = [] if !rels[rel.relationship.inverse]
-              rels[rel.relationship.inverse] << rel.parent 
+              rels[rel.relationship.inverse] << [rel.id, rel.parent] 
             end 
 
             if rels.count == 0 %>
@@ -40,12 +40,16 @@
                 <td rowspan="<%= v.count %>"><%= k %></td>
                 <% first = true %>
                 <% v.each do |i| %>
+                  <% r = ItemRelationship.find(i[0]) %>
                   <% if first %>
-                    <td><%= link_to i.name, i %> (<%= i.item_type.name %>)</td>
+                    <td><%= link_to i[1].name %> (<%= i[1].item_type.name %>) 
+                      <%= link_to item_item_relationship_path(@item, r), method: :delete, class: 'delete-link' do %> 
+                        <i class="material-icons">delete</i> 
+                      <% end %>
                     </tr>
                   <% else %>
                     <tr>
-                      <td><%= link_to i.name, i %> (<%= i.item_type.name %>)</td>
+                      <td><%= link_to i[1].name, i[1] %> (<%= i[1].item_type.name %>)</td>
                     </tr>
                   <% end %>
                 <% end %>
