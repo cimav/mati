@@ -1,4 +1,6 @@
 class ItemRelationshipsController < ApplicationController
+  before_action :auth_required
+
   before_action :set_item, only: [:index, :show, :new, :edit, :update, :destroy, :create]
   before_action :set_item_relationship, only: [:show, :edit, :update, :destroy]
 

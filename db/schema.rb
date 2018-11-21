@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_14_001951) do
+ActiveRecord::Schema.define(version: 2018_11_21_194158) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -129,15 +129,18 @@ ActiveRecord::Schema.define(version: 2018_11_14_001951) do
     t.string "title"
     t.string "email"
     t.string "phone"
-    t.string "department"
-    t.bigint "people_id"
+    t.integer "department_id"
+    t.bigint "person_id"
     t.string "timezone"
     t.bigint "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+    t.string "last_name2"
+    t.string "person_type"
+    t.string "identificator"
     t.index ["location_id"], name: "index_people_on_location_id"
-    t.index ["people_id"], name: "index_people_on_people_id"
+    t.index ["person_id"], name: "index_people_on_person_id"
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

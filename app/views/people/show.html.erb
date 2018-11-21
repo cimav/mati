@@ -1,9 +1,28 @@
 <div class="module-header">
-  <div class="module-title"><strong>Personas</strong> <span class="grey-text">></span> <%= @person.full_name %></div>
+  <div class="module-title"><a href="/people">Personas</a> <span class="grey-text">></span> <%= @person.full_name rescue '--' %></div>
   <div class="module-actions">
   	<%= link_to 'Editar', edit_person_path(@person), 'class' => 'waves-effect waves-light btn-small blue-grey' %>
   </div>
 </div>
 <div class="module-workarea">
-  
+  <div class="item-workarea">
+  	<div class="row">
+      <div class="col s2">
+      	<img class="materialboxed responsive-img" src="<%= @person.picture_url %>">
+      </div>
+      <div class="col s10">
+      	<div class="row">
+      	  <div class="col s12">
+      	  	<div class="person-name"><%= @person.full_name_with_title %></div>
+      	  	<div class="person-email"><%= @person.email %></div>
+      	  	<div class="person-department"><%= @person.department.name rescue '--' %></div>
+      	  	<% if @person.person %>
+      	  	  <div class="person-reports-to">Reporta a: <%= link_to @person.person.full_name, @person.person %></div>
+      	  	<% end %>
+      	  	<div class="person-location">Ubicación: <%= @person.location.name rescue '--' %></div>
+      	  </div>
+      	</div>
+      </div>
+  	</div>
+  </div>
 </div>
