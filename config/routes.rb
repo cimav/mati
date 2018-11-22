@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get '/cmdb/item_types/:id/ui' => 'item_types#ui'
   get '/cmdb/item_types/:id/ui/:item_id' => 'item_types#ui'
 
+  resources :contracts
+
 
   scope 'cmdb' do
     get 'items/select_search' => 'items#select_search'

@@ -1,0 +1,91 @@
+<%= form_with(model: @contract, local: true) do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/contracts">Contratos</a> <span class="grey-text">></span> Nuevo</a>
+  </div>
+  <div class="module-actions">
+  	<%= form.submit 'Guardar', class: 'waves-effect waves-light btn-small blue-grey' %>
+  </div>
+</div>
+<div class="module-workarea">
+
+  	<div class="item-workarea">
+  	  <div class="item-section">
+  	  	<div class="item-section-title">Detalles</div>
+        <div class="item-section-workarea">
+          <% if @contract.errors.any? %>
+		    <div id="error_explanation">
+		      <h2><%= pluralize(@contract.errors.count, "error") %> no permitieron que el contrato fuera guardado:</h2>
+
+		      <ul>
+		      <% @contract.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+    
+	      <div class="row">
+	      	<div class="input-field col s4">
+	          <%= form.collection_select :contract_type_id, ContractType.all, :id, :name  %>
+	          <%= form.label :contract_type_id, "Tipo" %>
+	        </div>
+	        <div class="input-field col s4">
+	          <%= form.text_field :name, id: :contract_name %>
+	          <%= form.label :name, 'Nombre' %>
+	        </div>
+
+	        <div class="input-field col s4">
+	          <%= form.text_field :number, id: :contract_number %>
+	          <%= form.label :number, 'Identificador' %>
+	        </div>
+	      </div>
+
+	      <div class="row">
+	        <div class="input-field col s12">
+	          <%= form.text_area :description, id: :item_description, 'class': "materialize-textarea" %>
+	          <%= form.label :description, 'Descripción' %>
+	        </div>
+	      </div>
+
+        </div>
+        
+	     
+
+
+	      <div class="item-section">
+	      	<div class="item-section-title">Duración</div>
+	      	<div class="item-section-workarea">
+             
+
+	          <div class="row">
+		        <div class="input-field col s3">
+		          <%= form.text_field :start_date, id: :contract_start_date, 'class': 'datepicker' %>
+	              <%= form.label :start_date, "Fecha de inicio" %>
+		        </div>
+                <div class="input-field col s3">
+		          <%= form.text_field :start_date, id: :contract_start_date, 'class': 'datepicker' %>
+	              <%= form.label :start_date, "Fecha de termino" %>
+		        </div>
+		        <div class="input-field col s4">
+	              <%= form.text_field :notify_to, id: :notify_to %>
+	              <%= form.label :notify_to, 'Notificar al correo' %>
+	            </div>
+		        <div class="input-field col s2">
+	              <%= form.text_field :notify_days, id: :notify_days %>
+	              <%= form.label :notify_days, 'Días antes' %>
+	            </div>
+		        
+	          </div>
+
+	      	</div>
+	      </div>
+
+
+      
+
+
+  	</div>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,30 @@
+<div class="module-header">
+  <div class="module-title"><strong>Contratos</strong></div>
+  <div class="module-actions">
+  	<a class="waves-effect waves-light btn-small blue-grey" href="/contracts/new">Agregar</a>
+  </div>
+</div>
+<div class="module-workarea">
+  <table class="highlight">
+  	<thead>
+  	  <tr>
+  	    <th>Nombre</th>
+  	    <th>Identificador</th>
+  	    <th>Tipo</th>
+  	    <th>Inicio</th>
+  	    <th>Fin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @contracts.each do |contract| %>
+	      <tr>
+	  	    <td><%= link_to contract.name, contract  %></td>
+	  	    <td><%= contract.number rescue '--'%></td>
+            <td><%= contract.contract_type.name rescue '--'%></td>
+            <td><%= contract.start_date rescue '--'%></td>
+            <td><%= contract.end_date rescue '--'%></td>
+	      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
