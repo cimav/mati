@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_21_194158) do
+ActiveRecord::Schema.define(version: 2018_11_24_003256) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2018_11_21_194158) do
     t.integer "status"
   end
 
+  create_table "contract_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "contract_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contract_id"], name: "index_contract_items_on_contract_id"
+    t.index ["item_id"], name: "index_contract_items_on_item_id"
+  end
+
   create_table "contract_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -48,6 +57,8 @@ ActiveRecord::Schema.define(version: 2018_11_21_194158) do
     t.string "notify_to"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "cost", precision: 8, scale: 2
+    t.integer "status"
     t.index ["contract_type_id"], name: "index_contracts_on_contract_type_id"
   end
 

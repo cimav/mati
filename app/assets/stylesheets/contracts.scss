@@ -1,3 +1,22 @@
 // Place all the styles related to the Contracts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.contract-name {
+  font-weight: 500;
+  font-size: 150%;
+}
+
+.contract-extra {
+  color: #999;
+  font-size: 90%;
+}
+
+.contract-status {
+  font-weight: 500;
+  font-size: 110%;
+}
+
+.contract-to-end {
+  margin-top: 2em;
+}

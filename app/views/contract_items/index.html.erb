@@ -1,0 +1,44 @@
+<div class="module-header">
+  <div class="module-title"><a href="/contracts">Contratos</a> <span class="grey-text">></span> <%= @contract.name rescue '--' %></div>
+  <div class="module-actions">
+  	<%= link_to 'Editar', edit_contract_path(@contract), 'class' => 'waves-effect waves-light btn-small blue-grey' %>
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"contracts/menu", locals: {active: 'elementos'} %>
+  </div>
+  <div class="item-area">
+  <div class="item-workarea">
+
+
+	<table>
+	  <tr>
+	  	<th>Elemento</th>
+	  	<th>Fecha agregado</th>
+      <th></th>
+	  </tr>
+	  <% if @contract.contract_items.count == 0 %>
+              <tr>
+                <td colspan="3" class="no-items">No existen elementos</td>
+              </tr>
+      <% end %>
+	<% @contract.contract_items.each do |ci| %>
+	  <tr>
+	  	<td><%= link_to ci.item.name, ci.item %></td>
+	  	<td><%= ci.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td>
+        <%= link_to contract_contract_item_path(@contract, ci), method: :delete, class: 'delete-link' do %> 
+                        <i class="material-icons">delete</i> 
+                      <% end %>
+      </td>
+	  </tr>
+	<% end %>
+	</table>
+  <div class="add-contract-item-button-area">
+            <a class="btn-floating btn-small waves-effect waves-light blue-grey" href="<%=new_contract_contract_item_url(@contract) %>"><i class="material-icons">add</i></a>
+  </div>
+  <div class="clearfix"></div>
+  </div>
+</div>
+</div>

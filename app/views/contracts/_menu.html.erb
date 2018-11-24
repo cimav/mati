@@ -1,0 +1,12 @@
+<%
+detalle_class = active == 'detalle'? 'active' : ''
+elementos_class = active == 'elementos'? 'active' : ''
+archivos_class = active == 'archivos'? 'active' : ''
+actividad_class = active == 'actividad'? 'active' : ''
+%>
+<ul class="tabs">
+  <li class="tab col s2"><%= link_to 'Detalles', contract_path(@contract), target: "_self", class: detalle_class  %></li>
+  <li class="tab col s2"><%= link_to 'Elementos', contract_contract_items_path(@contract), target: "_self", class: elementos_class%></a></li>
+  <li class="tab col s2"><a href="#">Archivos</a></li>
+  <li class="tab col s2"><%= link_to 'Actividad', contract_activity_logs_path(@contract), target: "_self", class: actividad_class%></li>
+</ul>

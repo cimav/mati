@@ -56,7 +56,7 @@ class ContractsController < ApplicationController
     end
 
     def contract_params
-      params.require(:contract).permit(:name, :number, :contract_type, :description, :start_date, :end_date, :notify_days, :notify_to)
+      params.require(:contract).permit(:name, :number, :contract_type, :description, :start_date, :end_date, :notify_days, :notify_to, :cost, :status)
     end
 end
 

@@ -1,17 +1,46 @@
 <div class="module-header">
-  <div class="module-title"><a href="/people">Contratos</a> <span class="grey-text">></span> <%= @contract.name rescue '--' %></div>
+  <div class="module-title"><a href="/contracts">Contratos</a> <span class="grey-text">></span> <%= @contract.name rescue '--' %></div>
   <div class="module-actions">
   	<%= link_to 'Editar', edit_contract_path(@contract), 'class' => 'waves-effect waves-light btn-small blue-grey' %>
   </div>
 </div>
 <div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'detalles'} %>
+  </div>
+  <div class="item-area">
   <div class="item-workarea">
 
   	<div class="row">
-  	  <div class="col s12">
+  	  <div class="col s8">
   	  	<div class="contract-name"><%= @contract.name %></div>
+  	  	<div class="contract-description"><%= simple_format(@contract.description) %></div>
   	  </div>
+  	  <div class="col s4 contract-extra">
+  	  	<%   to_end = @contract.days - @contract.transcurred 
+  	  	     percentage = (@contract.transcurred * 100) / @contract.days
+  	  	     if percentage > 100 
+  	  	       to_end = 0
+  	  	       percentage = 100
+  	  	     end
+  	  	%>
+  	  	<div class="progress">
+          <div class="determinate" style="width: <%= percentage %>%"></div>
+        </div>
+        <div class="contract-status"><%= @contract.contract_type.name %> <%= @contract.status_text %></div>
+        
+        <div class="contract-duration">Del <%= @contract.start_date.strftime("%Y-%m-%d") %> al <%= @contract.end_date.strftime("%Y-%m-%d") %></div>
+        <div class="contract-cost">Monto: <%= number_to_currency(@contract.cost) %></div>
+
+        <% if to_end > 0 %>
+           <div class="contract-to-end">
+           	El contrato finaliza en <%= to_end %> días.<br/>
+           	Se enviará un correo <%= @contract.notify_days %> días antes de finalizar a <%= @contract.notify_to %> 
+           </div>
+        <% end %>
+      </div>
   	</div>
       
+  </div>
   </div>
 </div>

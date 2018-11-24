@@ -14,10 +14,10 @@ class ActivityLogsController < ApplicationController
 
     respond_to do |format|
       if @activity_log.save
-        format.html { redirect_to item_activity_logs_url(@element), notice: 'Mensaje creado.' }
+        format.html { redirect_to @element_url, notice: 'Mensaje creado.' }
         format.json { render :show, status: :created, location: @element }
       else
-        format.html { redirect_to @element, notice: 'No se pudo guardar mensaje.' }
+        format.html { redirect_to @element_url, notice: 'No se pudo guardar mensaje.' }
         format.json { render json: @activity_log.errors, status: :unprocessable_entity }
       end
     end  
@@ -29,7 +29,23 @@ class ActivityLogsController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_element
-      @element = Item.find(params[:item_id])
+      # Hack para element
+      uri = URI(request.referrer).path.split('/')
+      @referer = ''
+      
+      if uri[1] == 'contracts'
+        @element = Contract.find(params[:contract_id])
+        @referer = 'contracts'
+        @element_url = contract_activity_logs_url(@element)
+      end
+
+      if uri[2] == 'items'
+        @element = Item.find(params[:item_id])
+        @referer = 'items'
+        @element_url = item_activity_logs_url(@element)
+      end
+
+
     end
     def set_activity_log
       @activity_log = ActivityLog.find(params[:id])

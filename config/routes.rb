@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   get '/cmdb/item_types/:id/ui' => 'item_types#ui'
   get '/cmdb/item_types/:id/ui/:item_id' => 'item_types#ui'
 
-  resources :contracts
+  resources :contracts do
+    resources :contract_items, :path=>'items'
+    resources :activity_logs, :path=>'log'
+  end
 
 
   scope 'cmdb' do

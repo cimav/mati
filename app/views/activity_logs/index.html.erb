@@ -1,6 +1,11 @@
 <div class="module-header">
   <div class="module-title">
-  	<a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @element.name %> </a>
+    <% if @referer == 'items' %>
+  	  <a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @element.name %> </a>
+    <% end %>
+    <% if @referer == 'contracts' %>
+      <a href="/contracts">Contratos</a> <span class="grey-text">></span> <%= @element.name %> </a>
+    <% end %>
   </div>
   <div class="module-actions">
   	
@@ -8,8 +13,16 @@
 </div>
 <div class="module-workarea">
   <div class="module-menu">
-  	<% @item = @element %>
-    <%= render partial:"items/menu", locals: {active: 'actividad'} %>
+  	
+    <% if @referer == 'items' %>
+      <% @item = @element %>
+      <%= render partial:"items/menu", locals: {active: 'actividad'} %>
+    <% end %>
+
+    <% if @referer == 'contracts' %>
+      <% @contract = @element %>
+      <%= render partial:"contracts/menu", locals: {active: 'actividad'} %>
+    <% end %>
   </div>
   <div class="item-area">
   	<div class="item-workarea">
