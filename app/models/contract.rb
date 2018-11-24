@@ -14,6 +14,28 @@ class Contract < ApplicationRecord
   	CANCELED => 'Cancelado'
   }
 
+  FIELDS = {
+    'name' => 'Nombre',
+    'number' => 'Identificador',
+    'contract_type_id' => 'Tipo',
+    'description' => 'Descripción',
+    'start_date' => 'Fecha inicio',
+    'end_date' => 'Fecha termino',
+    'notify_days' => 'Días de notificación',
+    'notify_to' => 'Notificar a',
+    'cost' => 'Costo',
+    'status' => 'Estado'
+  }
+
+  def field_text(f)
+    if FIELDS[f]
+      v = FIELDS[f]
+    else 
+      v = f
+    end
+    return v 
+  end
+
   def status_text
     STATUS_TEXT[status]
   end

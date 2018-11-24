@@ -14,10 +14,10 @@ class ContractsController < ApplicationController
     @contract = Contract.new(contract_params)
     respond_to do |format|
       if @contract.save
-        # @activity_log = @item.activity_logs.new
-        # @activity_log.agent_id = current_user.id
-        # @activity_log.message = "El elemento #{@item.name} fue creado."
-        # @activity_log.save
+        @activity_log = @contract.activity_logs.new
+        @activity_log.agent_id = current_user.id
+        @activity_log.message = "El contrato #{@contract.name} fue creado."
+        @activity_log.save
         format.html { redirect_to @contract, notice: 'Contrato creado.' }
         format.json { render :show, status: :created, location: @contract }
       else
@@ -34,13 +34,12 @@ class ContractsController < ApplicationController
       
       if @contract.save
 
-        # @activity_log = @item.activity_logs.new
-        # @activity_log.agent_id = current_user.id
-        # @activity_log.changed_values = changes.to_json
-        # @activity_log.message = "El elemento #{@item.name} fue actualizado."
-        # @activity_log.save
+        @activity_log = @contract.activity_logs.new
+        @activity_log.agent_id = current_user.id
+        @activity_log.changed_values = changes.to_json
+        @activity_log.message = "El contrato #{@contract.name} fue actualizado."
+        @activity_log.save
 
-        # TODO: Borrar campos huerfanos.
         format.html { redirect_to @contract, notice: "Contrato actualizado correctamente." }
         format.json { render :show, status: :ok, location: @contract }
       else
