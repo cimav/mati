@@ -13,16 +13,11 @@
 
 
 	<table>
-	  <tr>
-	  	<th>Elemento</th>
-	  	<th>Fecha agregado</th>
-      <th></th>
-	  </tr>
-	  <% if @contract.contract_items.count == 0 %>
-              <tr>
-                <td colspan="3" class="no-items">No existen elementos</td>
-              </tr>
-      <% end %>
+  <% if @contract.contract_items.count == 0 %>
+    <tr><td class="no-items">No existen elementos</td></tr>
+  <% else %>
+    <tr><th>Elemento</th><th>Fecha agregado</th><th></th></tr>
+	<% end %>
 	<% @contract.contract_items.each do |ci| %>
 	  <tr>
 	  	<td><%= link_to ci.item.name, ci.item %></td>
