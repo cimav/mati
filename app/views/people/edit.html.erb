@@ -71,8 +71,8 @@
 		    </div>
 
 		    <div class="input-field col s4">
-		      <%= form.collection_select :people_id, Person.all, :id, :full_name  %>
-	          <%= form.label :people_id, "Jefe" %>
+		      <%= form.collection_select :person_id, Person.all, :id, :full_name  %>
+	          <%= form.label :person_id, "Jefe" %>
 		    </div>
           </div>
 	    </div>
@@ -81,3 +81,6 @@
   </div>
 </div>
 <% end %>
+<script>
+  M.updateTextFields()
+</script>
