@@ -39,6 +39,12 @@ class ActivityLogsController < ApplicationController
         @element_url = contract_activity_logs_url(@element)
       end
 
+      if uri[1] == 'people'
+        @element = Person.find(params[:person_id])
+        @referer = 'people'
+        @element_url = person_activity_logs_url(@element)
+      end
+
       if uri[2] == 'items'
         @element = Item.find(params[:item_id])
         @referer = 'items'

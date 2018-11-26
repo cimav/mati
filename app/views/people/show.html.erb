@@ -4,8 +4,13 @@
   	<%= link_to 'Editar', edit_person_path(@person), 'class' => 'waves-effect waves-light btn-small blue-grey' %>
   </div>
 </div>
+
 <div class="module-workarea">
-  <div class="item-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'detalles'} %>
+  </div>
+  <div class="item-area">
+    <div class="item-workarea">
   	<div class="row">
       <div class="col s2">
       	<img class="materialboxed responsive-img" src="<%= @person.picture_url %>">

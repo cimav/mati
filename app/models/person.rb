@@ -4,6 +4,9 @@ class Person < ApplicationRecord
   belongs_to :location, optional: true
   belongs_to :person, optional: true
 
+  has_many :activity_logs, as: :element
+  has_many :attachments, as: :element
+
 
   STATUS_ACTIVE = 1
   STATUS_INACTIVE = 2

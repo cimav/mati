@@ -18,6 +18,11 @@ Rails.application.routes.draw do
     resources :attachments, :path=>'attachments'
   end
 
+  resources :people do
+    resources :activity_logs, :path=>'log'
+    resources :attachments, :path=>'attachments'
+  end
+
 
   scope 'cmdb' do
     get 'items/select_search' => 'items#select_search'
@@ -29,5 +34,4 @@ Rails.application.routes.draw do
     end
   end
 
- resources :people
 end

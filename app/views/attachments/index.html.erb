@@ -6,6 +6,9 @@
     <% if @referer == 'contracts' %>
       <a href="/contracts">Contratos</a> <span class="grey-text">></span> <%= @element.name %> </a>
     <% end %>
+    <% if @referer == 'people' %>
+      <a href="/people">Personas</a> <span class="grey-text">></span> <%= @element.full_name %> </a>
+    <% end %>
   </div>
   <div class="module-actions">
   	
@@ -21,6 +24,10 @@
     <% if @referer == 'contracts' %>
       <% @contract = @element %>
       <%= render partial:"contracts/menu", locals: {active: 'archivos'} %>
+    <% end %>
+    <% if @referer == 'people' %>
+      <% @person = @element %>
+      <%= render partial:"people/menu", locals: {active: 'archivos'} %>
     <% end %>
   </div>
   <div class="item-area">
