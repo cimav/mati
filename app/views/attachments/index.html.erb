@@ -1,0 +1,62 @@
+<div class="module-header">
+  <div class="module-title">
+    <% if @referer == 'items' %>
+  	  <a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @element.name %> </a>
+    <% end %>
+    <% if @referer == 'contracts' %>
+      <a href="/contracts">Contratos</a> <span class="grey-text">></span> <%= @element.name %> </a>
+    <% end %>
+  </div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <% if @referer == 'items' %>
+      <% @item = @element %>
+      <%= render partial:"items/menu", locals: {active: 'archivos'} %>
+    <% end %>
+
+    <% if @referer == 'contracts' %>
+      <% @contract = @element %>
+      <%= render partial:"contracts/menu", locals: {active: 'archivos'} %>
+    <% end %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <div class="log-items">
+          <div class="log-item log-item-new">
+              <%= form_for [@element, @attachment], :html => {:multipart => true}  do |form| %>
+		            <div class="file-field input-field">
+                  <div class="btn">
+                    <span>Archivos</span>
+                    <input id="file" name="file[]" type="file" multiple>
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" placeholder="Sube uno o más archivos">
+                  </div>
+                </div>
+			        <% end %>          
+            <div class="clearfix"></div>
+          </div>
+          <% @attachments.each do |attachment| %>
+            <a class="file-item col s3" href="<%= attachment.file.url %>">
+              <div class="file-ico"><div class="file-ico-inner <%= attachment.ext %>-ico"><%= attachment.ext %></div></div>
+
+              <div class="file-name"><%= truncate(File.basename(attachment.file.path), length: 24) %></div>
+              <div class="file-size"><%= attachment.created_at.strftime("%Y-%m-%d") %></div>
+              <div class="file-size"><%= number_to_human_size(attachment.size) %></div>
+
+            </a>
+          <% end %>
+          <div class="clearfix"></div>
+          </div>
+            
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>

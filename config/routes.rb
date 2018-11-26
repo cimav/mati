@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :contracts do
     resources :contract_items, :path=>'items'
     resources :activity_logs, :path=>'log'
+    resources :attachments, :path=>'attachments'
   end
 
 
@@ -23,6 +24,8 @@ Rails.application.routes.draw do
   	resources :items do
       resources :item_relationships, :path=>'rel'
       resources :activity_logs, :path=>'log'
+      resources :attachments, :path=>'attachments'
+      get 'contracts'
     end
   end
 

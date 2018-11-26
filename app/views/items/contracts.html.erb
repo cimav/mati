@@ -1,0 +1,36 @@
+<div class="module-header">
+  <div class="module-title">
+    <a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @item.name %> </a>
+  </div>
+</div>
+
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'contratos'} %>
+  </div>
+  <div class="item-area">
+    <div class="item-workarea">
+
+
+	<table>
+  <% if @item.contract_items.count == 0 %>
+    <tr><td class="no-items">No pertenece a ningún contrato</td></tr>
+  <% else %>
+    <tr><th>Contrato</th><th>Fecha agregado</th><th></th></tr>
+	<% end %>
+	<% @item.contract_items.each do |ci| %>
+	  <tr>
+	  	<td><%= link_to ci.contract.name, ci.contract %></td>
+	  	<td><%= ci.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td>
+        <%= link_to contract_contract_item_path(ci.contract, ci), method: :delete, class: 'delete-link' do %> 
+                        <i class="material-icons">delete</i> 
+                      <% end %>
+      </td>
+	  </tr>
+	<% end %>
+	</table>
+  <div class="clearfix"></div>
+  </div>
+</div>
+</div>

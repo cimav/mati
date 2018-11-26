@@ -2,6 +2,8 @@ class Contract < ApplicationRecord
   belongs_to :contract_type, optional: true
   has_many :contract_items
   has_many :activity_logs, as: :element
+  has_many :attachments, as: :element
+
 
 
   ACTIVE = 1

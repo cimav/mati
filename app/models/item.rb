@@ -13,6 +13,9 @@ class Item < ApplicationRecord
 
 
   has_many :activity_logs, as: :element
+  has_many :attachments, as: :element
+
+  has_many :contract_items
 
 
   IMPACT_LOW    = 1
