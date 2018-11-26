@@ -8,7 +8,7 @@ actividad_class = active == 'actividad'? 'active' : ''
 %>
 <ul class="tabs">
   <li class="tab col s2"><%= link_to 'Detalles', item_path(@item), target: "_self", class: detalle_class  %></li>
-  <li class="tab col s2"><%= link_to 'Relaciones', item_item_relationships_path(@item), target: "_self", class: relaciones_class%></a></li>
+  <li class="tab col s2"><%= link_to 'Relaciones', item_item_relationships_path(@item), target: "_self", class: relaciones_class%></li>
   <li class="tab col s2"><%= link_to 'Contratos', item_contracts_path(@item), target: "_self", class: contratos_class%></li>
   <li class="tab col s2"><a href="#">Gastos</a></li>
   <li class="tab col s2"><%= link_to 'Archivos', item_attachments_path(@item), target: "_self", class: archivos_class%></li>
