@@ -54,6 +54,12 @@ class PeopleController < ApplicationController
     end
   end
 
+  def items
+    @person = Person.find(params[:person_id])
+  end
+
+
+
   private
     def set_person
       @person = Person.find(params[:id])

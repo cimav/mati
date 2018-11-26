@@ -4,6 +4,9 @@ class Person < ApplicationRecord
   belongs_to :location, optional: true
   belongs_to :person, optional: true
 
+  has_many :items, :foreign_key => "used_by", :class_name => "Item"
+
+
   has_many :activity_logs, as: :element
   has_many :attachments, as: :element
 

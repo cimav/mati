@@ -1,0 +1,32 @@
+<div class="module-header">
+  <div class="module-title">
+    <a href="/people">Personas</a> <span class="grey-text">></span> <%= @person.full_name %> </a>
+  </div>
+</div>
+
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'inventario'} %>
+  </div>
+  <div class="item-area">
+    <div class="item-workarea">
+
+
+	<table>
+  <% if @person.items.count == 0 %>
+    <tr><td class="no-items">No tiene nada en su inventario</td></tr>
+  <% else %>
+    <tr><th>Tipo</th><th>Elemento</th><th>Fecha asignado</th></tr>
+	<% end %>
+	<% @person.items.each do |i| %>
+	  <tr>
+      <td><%= i.item_type.name %></td>
+	  	<td><%= link_to i.name, i %></td>
+	  	<td><%= i.assigned_on.strftime("%Y-%m-%d %H:%M") rescue '--'%></td>
+	  </tr>
+	<% end %>
+	</table>
+  <div class="clearfix"></div>
+  </div>
+</div>
+</div>

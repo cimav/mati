@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :people do
     resources :activity_logs, :path=>'log'
     resources :attachments, :path=>'attachments'
+    get 'items'
   end
 
 
