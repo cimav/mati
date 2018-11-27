@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     resources :attachments, :path=>'attachments'
   end
 
+  resources :loans do
+    resources :activity_logs, :path=>'log'
+  end
+
   resources :people do
     resources :activity_logs, :path=>'log'
     resources :attachments, :path=>'attachments'
