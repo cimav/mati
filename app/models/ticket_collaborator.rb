@@ -1,0 +1,2 @@
+class TicketCollaborator < ApplicationRecord
+end

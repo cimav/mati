@@ -24,6 +24,12 @@ Rails.application.routes.draw do
     get 'items'
   end
 
+  resources :tickets do
+    resources :activity_logs, :path=>'log'
+    resources :attachments, :path=>'attachments'
+    resources :ticket_items, :path=>'items'
+  end
+
 
   scope 'cmdb' do
     get 'items/select_search' => 'items#select_search'
