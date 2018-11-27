@@ -80,7 +80,10 @@
       	  	<div class="col s3 item-field-name">Fecha de asignación</div>
       	  	<div class="col s9 item-field-value"><%= @item.assigned_on %></div>
       	  </div>
-      	  
+      	  <div class="row item-main-field">
+            <div class="col s3 item-field-name">¿Disponible para préstamo?</div>
+            <div class="col s9 item-field-value"><%= @item.is_loanable?? 'SI':'NO'  %></div>
+          </div>
         </div>
       </div>
   	</div>

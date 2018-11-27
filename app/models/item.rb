@@ -39,7 +39,8 @@ class Item < ApplicationRecord
     'department_id' => 'Departamento',
     'used_by' => 'Usado por',
     'managed_by' => 'Administrado por',
-    'assigned_on' => 'Fecha asignación'
+    'assigned_on' => 'Fecha asignación',
+    'is_loanable' => 'Disponible para préstamo'
   }
 
   def field_text(f)

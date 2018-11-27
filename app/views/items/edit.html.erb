@@ -98,7 +98,12 @@
 	              <%= form.label :assigned_on, "Fecha de asignación" %>
 		        </div>
 
-		        
+		        <div class="input-field col s6">
+		          <label>
+		          <%= form.check_box :is_loanable %>
+                  <span>Disponible para préstamo</span>
+                </label>
+		        </div>
 	          </div>
 	      	</div>
 	      </div>
