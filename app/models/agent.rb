@@ -1,5 +1,7 @@
 class Agent < ApplicationRecord
   belongs_to :person
+  has_many :tickets
+
 
   STATUS_ACTIVE = 1
   STATUS_INACTIVE = 2

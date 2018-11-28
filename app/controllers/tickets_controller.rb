@@ -10,19 +10,19 @@ class TicketsController < ApplicationController
   end
 
   def new
-    @ticket = Item.new
+    @ticket = Ticket.new
   end
 
   def edit
   end
 
   def create
-    @ticket = Ticket.new(item_params)
+    @ticket = Ticket.new(ticket_params)
     respond_to do |format|
       if @ticket.save
-        @activity_log = @item.activity_logs.new
+        @activity_log = @ticket.activity_logs.new
         @activity_log.agent_id = current_user.id
-        @activity_log.message = "El ticket #{@item.identificator} fue creado."
+        @activity_log.message = "El ticket #{@ticket.identificator} fue creado."
         @activity_log.save
         format.html { redirect_to @ticket, notice: 'Elemento creado.' }
         format.json { render :show, status: :created, location: @ticket }

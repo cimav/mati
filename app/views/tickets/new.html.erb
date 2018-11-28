@@ -1,0 +1,65 @@
+<%= form_with(model: @ticket, local: true) do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/tickets">Tickets</a> <span class="grey-text">></span> Nuevo</a>
+  </div>
+  <div class="module-actions">
+  	<%= form.submit 'Guardar', class: 'waves-effect waves-light btn-small blue-grey' %>
+  </div>
+</div>
+<div class="module-workarea">
+
+  	<div class="item-workarea">
+  	  <div class="item-section">
+        <div class="item-section-workarea">
+          <% if @ticket.errors.any? %>
+		    <div id="error_explanation">
+		      <h2><%= pluralize(@ticket.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+		      <ul>
+		      <% @ticket.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+
+          <div class="row">
+	      	<div class="input-field col s12">
+		      <%= form.collection_select :person_id, Person.order('first_name', 'last_name'), :id, :full_name  %>
+	          <%= form.label :person_id, "Solicitante" %>
+		    </div>
+          </div>
+          <div class="row">
+	      	<div class="input-field col s12">
+		      <%= form.collection_select :service_id, Service.order(:name), :id, :name, {:selected => 1}  %>
+	          <%= form.label :service_id, "Tipo" %>
+		    </div>
+          </div>
+          <div class="row">
+	      	<div class="input-field col s12">
+	          <%= form.text_area :description, id: :ticket_description, 'class': "materialize-textarea" %>
+	          <%= form.label :description, 'Descripción' %>
+	        </div>
+          </div>
+          <div class="row">
+          	<div class="input-field col s4">
+		      <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name, {:selected => current_user.id}  %>
+	          <%= form.label :agent_id, "Agente" %>
+		    </div>
+          	<div class="input-field col s4">
+              <% priority_array = Ticket::PRIORITIES.invert %>
+              <%= form.select :priority, options_for_select(priority_array) %>
+	          <%= form.label :priority, 'Prioridad' %>
+            </div>
+	      	<div class="input-field col s4">
+              <% status_array = Ticket::STATUS_TEXT.invert %>
+              <%= form.select :priority, options_for_select(status_array) %>
+	          <%= form.label :priority, 'Estado' %>
+            </div>
+          </div>
+	    </div>
+  	</div>
+  </div>
+</div>
+<% end %>
