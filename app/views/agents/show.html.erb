@@ -1,0 +1,24 @@
+<div class="module-header">
+  <div class="module-title">
+    <%= link_to 'Configuración', admin_path %> <span class="grey-text">></span> 
+    <%= link_to 'Agentes', agents_path %> <span class="grey-text">></span> <%= @agent.full_name %>
+  </div>
+  <div class="module-actions">
+  	<%= link_to 'Editar', edit_agent_path(@agent), 'class' => 'waves-effect waves-light btn-small blue-grey' %>
+  </div>
+</div>
+<div class="module-workarea">
+
+    <div class="item-workarea">
+      <div class="item-section">
+        <div class="item-section-workarea">
+          <div class="catalog-title"><%= @agent.full_name %></div>
+          <div class="catalog-fields">
+          	Tipo: <%= @agent.type_text %><br/>
+            Estado: <%= @agent.status_text %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

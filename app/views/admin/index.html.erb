@@ -9,15 +9,25 @@
 <div class="module-workarea">
   <div class="item-area">
     <div class="item-workarea">
+      <div class="item-section">
+          <div class="item-section-title">Sistema</div>
+          <div class="item-section-workarea">
+            <div class="row">
+              <div class="col s3">
+                <%= link_to 'Agentes', agents_path %>
+              </div>
+              <div class="col s3">
+                <%= link_to 'Servicios', services_path %>
+              </div>
+            </div>
+          </div>
+      </div>
     	<div class="item-section">
   	      <div class="item-section-title">Catálogos</div>
           <div class="item-section-workarea">
           	<div class="row">
               <div class="col s3">
               	<%= link_to 'Departamentos', departments_path %>
-              </div>
-              <div class="col s3">
-                <%= link_to 'Servicios', services_path %>
               </div>
           	</div>
           </div>

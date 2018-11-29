@@ -1,0 +1,62 @@
+<%= form_with(model: agent, local: true) do |form| %>
+<div class="module-header">
+  <div class="module-title">
+    <%= link_to 'Configuración', admin_path %> <span class="grey-text">></span> 
+    <%= link_to 'Agentes', agents_path %> <span class="grey-text">></span> 
+    <% if title == 'Editar' %>
+      <%= link_to agent.full_name, agent_path(agent) %>
+    <% else %>
+      <%= title %>
+    <% end %>
+  </div>
+  <div class="module-actions">
+    <%= form.submit 'Guardar', class: 'waves-effect waves-light btn-small blue-grey' %>
+  </div>
+</div>
+<div class="module-workarea">
+
+    <div class="item-workarea">
+      <div class="item-section">
+        <div class="item-section-workarea">
+
+  <% if agent.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(agent.errors.count, "error") %> prohibited this agent from being saved:</h2>
+
+      <ul>
+      <% agent.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <% if title == 'Editar' %>
+        <%= agent.full_name %>
+      <% else %>
+        <%= form.collection_select :person_id, Person.where('id NOT IN (SELECT person_id FROM agents)').order('first_name, last_name'), :id, :full_name  %>
+        <%= form.label :person_id, "Persona" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <% agent_type_array = Agent::AGENT_TYPES.invert %>
+      <%= form.select :agent_type, options_for_select(agent_type_array, agent.agent_type) %>
+      <%= form.label :agent_type, 'Tipo' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <% status_array = Agent::STATUS_TEXT.invert %>
+      <%= form.select :status, options_for_select(status_array, agent.status) %>
+      <%= form.label :status, 'Estado' %>
+    </div>
+  </div>
+<% end %>
+<script>
+  M.updateTextFields()
+</script>
+

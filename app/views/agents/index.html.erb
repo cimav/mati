@@ -1,0 +1,33 @@
+<div class="module-header"> 
+  <div class="module-title">
+    <%= link_to 'Configuración', admin_path %> <span class="grey-text">></span> Agentes
+  </div>
+  <div class="module-actions">
+    <%= link_to 'Agregar', new_agent_path, class: 'waves-effect waves-light btn-small blue-grey'%>
+  </div>
+</div>
+<div class="module-workarea">
+  <table class="highlight">
+  <thead>
+    <tr>
+      <th>Agente</th>
+      <th>Tipo</th>
+      <th>Estado</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @agents.each do |agent| %>
+      <tr>
+        <td><%= link_to agent.full_name, agent %></td>
+        <td><%= agent.type_text %></td>
+        <td><%= agent.status_text %></td>
+        <td>
+          <%= link_to edit_agent_path(agent) do %> 
+            <i class="material-icons">edit</i> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

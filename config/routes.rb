@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   scope 'admin' do
     resources :departments
     resources :services
+    resources :agents
   end
 
 end
