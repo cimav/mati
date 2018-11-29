@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'dashboard#index'
+  get '/admin' => 'admin#index'
 
 
   get '/auth/:provider/callback' => 'sessions#create'
