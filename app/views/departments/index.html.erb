@@ -1,0 +1,38 @@
+<div class="module-header">
+  <div class="module-title"><strong>Departamentos</strong></div>
+  <div class="module-actions">
+    <%= link_to 'Agregar', new_department_path, class: 'waves-effect waves-light btn-small blue-grey'%>
+  </div>
+</div>
+<div class="module-workarea">
+  <table class="highlight">
+  <thead>
+    <tr>
+      <th>Departamento</th>
+      <th>Responsable</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @departments.each do |department| %>
+      <tr>
+        <td><%= link_to department.name, department %></td>
+        <td>
+          <% if department.person %>
+            <%= link_to department.person.full_name, department.person %>
+          <% else %>
+            --
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_department_path(department), class: 'delete-link' do %> 
+            <i class="material-icons">edit</i> 
+          <% end %>
+          <%= link_to department_path(department), method: :delete, class: 'delete-link', data: {confirm: '¿Confirmar borrado?'} do %> 
+            <i class="material-icons">delete</i> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,29 @@
+<div class="module-header">
+  <div class="module-title">
+    <%= link_to 'Departamentos', departments_path %> <span class="grey-text">></span> <%= @department.name %>
+  </div>
+  <div class="module-actions">
+  	<%= link_to 'Editar', edit_department_path(@department), 'class' => 'waves-effect waves-light btn-small blue-grey' %>
+  </div>
+</div>
+<div class="module-workarea">
+
+    <div class="item-workarea">
+      <div class="item-section">
+        <div class="item-section-workarea">
+          <div class="catalog-title"><%= @department.name %></div>
+          <div class="catalog-fields">
+          	Responsable: <%= @department.person.full_name rescue '--' %>
+          </div>
+          <table>
+          	<tr><th>Miembros</th></tr>
+          	<% @department.members.each do |p| %>
+              <tr><td><%= link_to p.full_name, p %></td></tr>
+            <% end %>
+          </table>
+          </p>
+        </div>
+      </div>
+    </div>
+
+</div>

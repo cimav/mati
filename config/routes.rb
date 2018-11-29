@@ -45,4 +45,9 @@ Rails.application.routes.draw do
     end
   end
 
+
+  scope 'admin' do
+    resources :departments
+  end
+
 end
