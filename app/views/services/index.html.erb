@@ -1,0 +1,32 @@
+<div class="module-header"> 
+  <div class="module-title">
+    <%= link_to 'Configuración', admin_path %> <span class="grey-text">></span> Servicios
+  </div>
+  <div class="module-actions">
+    <%= link_to 'Agregar', new_service_path, class: 'waves-effect waves-light btn-small blue-grey'%>
+  </div>
+</div>
+<div class="module-workarea">
+  <table class="highlight">
+  <thead>
+    <tr>
+      <th>Servicio</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @services.each do |service| %>
+      <tr>
+        <td><%= link_to service.name, service %></td>
+        <td>
+          <%= link_to edit_service_path(service), class: 'delete-link' do %> 
+            <i class="material-icons">edit</i> 
+          <% end %>
+          <%= link_to service_path(service), method: :delete, class: 'delete-link', data: {confirm: '¿Confirmar borrado?'} do %> 
+            <i class="material-icons">delete</i> 
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
