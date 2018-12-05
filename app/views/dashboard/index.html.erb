@@ -1,1 +1,56 @@
-DASHBOARD
+<div class="module-header">
+  <div class="module-title">
+    Tablero de control
+  </div>
+  <div class="module-actions">
+  </div>
+</div>
+
+  	 
+<div class="module-workarea">
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="item-section">
+  	    
+  	  <div class="row">
+        <div class="col s6 activity log">
+        	<div class="item-section-title">Actividad</div>
+        <div class="item-section-workarea">
+          <% @activity_logs.each do |msg| %>
+            <div class="log-item">
+              <div class="log-picture">
+                <img src="<%= msg.agent.picture_url %>" alt="" class="circle responsive-img">
+              </div>
+              <div class="log-content">
+                <strong><%= msg.agent.full_name %></strong> <span class="log-date"> <%= msg.created_at %></span><br>
+                  <%= msg.message %>  
+                  <% 
+                  if msg.changed_values && msg.changed_values != '' 
+                    changes = JSON.parse(msg.changed_values) 
+                  %>
+                  <table class="record-changes">
+                    <tr><th>Campo</th><th>De</th><th>A</th></tr>
+                  <%
+                    changes.each do |k,v|
+                  %>
+                        <tr><td><%= msg.element_type %><%=" @element.field_text(k)" %></td><td><%= v[0] %></td><td><%= v[1] %></td></tr>
+                  <%    
+                    end
+                  %>
+                  </table>
+                  <%
+                  end
+                  %>
+
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          <% end %>
+
+
+        </div>
+      </div>
+  	</div>
+  </div></div>
+  </div>
+</div>

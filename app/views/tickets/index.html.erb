@@ -13,13 +13,13 @@
         <div class="col s12 item-main">
           <div class="log-items">
           <% @tickets.each do |ticket| %>
-            <div class="log-item">
+            <div class="log-item ticket-item">
               <div class="log-picture">
                 <img src="<%= ticket.person.picture_url %>" alt="" class="circle responsive-img">
               </div>
               <div class="log-content">
                 <strong><%= ticket.person.full_name %></strong> <span class="log-date"> <%= ticket.created_at %></span><br>
-                  <%= ticket.description %>  
+                  <a href="<%= ticket_path(ticket) %>"><%= ticket.description %></a> 
               </div>
               <div class="clearfix"></div>
             </div>

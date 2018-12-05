@@ -17,7 +17,7 @@
   	  	<div class="col s8">
   	  	  <div class="ticket-header">
   	  	  	<div class="ticket-picture"><img src="<%= @ticket.person.picture_url %>" alt="" class="circle responsive-img"></div>
-  	  	  	<div class="ticket-person"><%= @ticket.person.full_name %></div>
+  	  	  	<div class="ticket-person"><a href="<%= person_path(@ticket.person) %>"><%= @ticket.person.full_name %></a></div>
   	  	  	<div class="ticket-contact"><%= @ticket.person.email %> – <%= @ticket.person.phone %></div>
   	  	  	<div class="ticket-extra">Creado el <%= @ticket.created_at %></div>
   	  	  	<div class="clearfix"></div>
