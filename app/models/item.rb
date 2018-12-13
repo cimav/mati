@@ -16,6 +16,7 @@ class Item < ApplicationRecord
   has_many :attachments, as: :element
 
   has_many :contract_items
+  has_many :ticket_items
 
 
   IMPACT_LOW    = 1

@@ -72,6 +72,12 @@ class AttachmentsController < ApplicationController
         @element_url = person_attachments_url(@element)
       end
 
+      if uri[1] == 'tickets'
+        @element = Ticket.find(params[:ticket_id])
+        @referer = 'tickets'
+        @element_url = ticket_attachments_url(@element)
+      end
+
       if uri[2] == 'items'
         @element = Item.find(params[:item_id])
         @referer = 'items'

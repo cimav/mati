@@ -1,0 +1,39 @@
+<div class="module-header">
+  <div class="module-title"><a href="<%= tickets_path %>">Tickets</a> <span class="grey-text">></span> <%= @ticket.identificator rescue '--' %></div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"tickets/menu", locals: {active: 'elementos'} %>
+  </div>
+  <div class="item-area">
+  <div class="item-workarea">
+
+
+	<table>
+  <% if @ticket.ticket_items.count == 0 %>
+    <tr><td class="no-items">No existen elementos</td></tr>
+  <% else %>
+    <tr><th>Elemento</th><th>Fecha agregado</th><th></th></tr>
+	<% end %>
+	<% @ticket.ticket_items.each do |ti| %>
+	  <tr>
+	  	<td><%= link_to ti.item.name, ti.item %></td>
+	  	<td><%= ti.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td>
+        <%= link_to ticket_ticket_item_path(@ticket, ti), method: :delete, class: 'delete-link', data: {confirm: '¿Confirmar borrado?'} do %> 
+                        <i class="material-icons">delete</i> 
+                      <% end %>
+      </td>
+	  </tr>
+	<% end %>
+	</table>
+  <div class="add-ticket-item-button-area">
+            <a class="btn-floating btn-small waves-effect waves-light blue-grey" href="<%=new_ticket_ticket_item_url(@ticket) %>"><i class="material-icons">add</i></a>
+  </div>
+  <div class="clearfix"></div>
+  </div>
+</div>
+</div>
