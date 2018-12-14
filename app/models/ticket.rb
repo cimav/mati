@@ -3,6 +3,7 @@ class Ticket < ApplicationRecord
   has_many :activity_logs, as: :element
   has_many :attachments, as: :element
   has_many :ticket_items
+  has_many :ticket_responses
 
   belongs_to :agent
   belongs_to :person, optional: true

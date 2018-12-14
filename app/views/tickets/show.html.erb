@@ -1,4 +1,5 @@
-<%= form_with(model: @ticket, local: true) do |form| %>
+<%= form_with(model: @ticket, local: true, id: 'ticket-form') do |form| %>
+<%= form.hidden_field :status %>
 <div class="module-header">
   <div class="module-title">
   	<a href="/tickets">Tickets</a> <span class="grey-text">></span> <%= @ticket.identificator %> </a>
@@ -19,21 +20,50 @@
   	  	  	<div class="ticket-picture"><img src="<%= @ticket.person.picture_url %>" alt="" class="circle responsive-img"></div>
   	  	  	<div class="ticket-person"><a href="<%= person_path(@ticket.person) %>"><%= @ticket.person.full_name %></a></div>
   	  	  	<div class="ticket-contact"><%= @ticket.person.email %> – <%= @ticket.person.phone %></div>
-  	  	  	<div class="ticket-extra">Creado el <%= @ticket.created_at %></div>
+  	  	  	<div class="ticket-extra">Creado el <%= @ticket.created_at.strftime('%Y-%m-%d %H:%M') %></div>
   	  	  	<div class="clearfix"></div>
   	  	  </div>
           <div class="ticket-desc"><%= @ticket.description %></div>
+          <div id="ticket-responses">
+            <div class="ticket-responses-title">Respuestas</div>
+            <div class="input-field">
+              <%= text_area_tag :ticket_message, nil, 'class': "materialize-textarea" %>
+              <%= form.label :message, 'Respuesta' %>
+            </div>
+            <div class="ticket-responses-actions">
+              <a class="waves-effect waves-light btn blue" id="ticket-response-link">Responder <i class="material-icons right">send</i></a>
+              <a class="waves-effect waves-light btn green" id="ticket-close-link">Responder y cerrar <i class="material-icons right">done</i></a>
+            </div>
+
+            <div class="ticket-responses-area">
+              <% @ticket.ticket_responses.order('created_at DESC').each do |msg| %>
+              <div class="log-item">
+                <div class="log-picture">
+                  <img src="<%= msg.from.picture_url %>" alt="" class="circle responsive-img">
+                </div>
+                <div class="log-content">
+                  <strong><%= msg.from.full_name %></strong> <span class="log-date"> <%= msg.created_at.strftime('%Y-%m-%d %H:%M') %></span><br>
+                    <%= msg.message %>  
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+
           
+
 
   	  	</div>
   	  	<div class="col s4">
-  	  		<div class="input-field">
-		      <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name, {:selected => current_user.id}  %>
+  	  		<div class="input-field ticket-side-action">
+		      <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name  %>
 	          <%= form.label :agent_id, "Agente" %>
 		    </div>
-          	<div class="input-field">
+
+          	<div class="input-field ticket-side-action">
               <% priority_array = Ticket::PRIORITIES.invert %>
-              <%= form.select :priority, options_for_select(priority_array) %>
+              <%= form.select :priority, options_for_select(priority_array, @ticket.priority) %>
 	          <%= form.label :priority, 'Prioridad' %>
             </div>
   	  	</div>
