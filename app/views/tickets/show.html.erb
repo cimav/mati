@@ -5,6 +5,7 @@
   	<a href="/tickets">Tickets</a> <span class="grey-text">></span> <%= @ticket.identificator %> </a>
   </div>
   <div class="module-actions">
+    <div class="badge-status <%= @ticket.status_color %>"><%= @ticket.status_text %></div>
   </div>
 </div>
 
@@ -25,6 +26,7 @@
   	  	  </div>
           <div class="ticket-desc"><%= @ticket.description %></div>
           <div id="ticket-responses">
+            <% if @ticket.status == Ticket::STATUS_OPEN || @ticket.status == Ticket::STATUS_PENDING %>
             <div class="ticket-responses-title">Respuestas</div>
             <div class="input-field">
               <%= text_area_tag :ticket_message, nil, 'class': "materialize-textarea" %>
@@ -32,9 +34,11 @@
             </div>
             <div class="ticket-responses-actions">
               <a class="waves-effect waves-light btn blue" id="ticket-response-link">Responder <i class="material-icons right">send</i></a>
-              <a class="waves-effect waves-light btn green" id="ticket-close-link">Responder y cerrar <i class="material-icons right">done</i></a>
+              <% if @ticket.status == Ticket::STATUS_OPEN %>
+              <a class="waves-effect waves-light btn green lighten-1" id="ticket-close-link">Responder y cerrar <i class="material-icons right">done</i></a>
+              <% end %>
             </div>
-
+            <% end %>
             <div class="ticket-responses-area">
               <% @ticket.ticket_responses.order('created_at DESC').each do |msg| %>
               <div class="log-item">
@@ -51,23 +55,34 @@
             </div>
           </div>
 
+
+
           
 
 
   	  	</div>
   	  	<div class="col s4">
   	  		<div class="input-field ticket-side-action">
-		      <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name  %>
+		        <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name  %>
 	          <%= form.label :agent_id, "Agente" %>
-		    </div>
+		      </div>
 
-          	<div class="input-field ticket-side-action">
-              <% priority_array = Ticket::PRIORITIES.invert %>
-              <%= form.select :priority, options_for_select(priority_array, @ticket.priority) %>
+          <div class="input-field ticket-side-action">
+            <% priority_array = Ticket::PRIORITIES.invert %>
+            <%= form.select :priority, options_for_select(priority_array, @ticket.priority) %>
 	          <%= form.label :priority, 'Prioridad' %>
-            </div>
+          </div>
+
+          <div class="input-field ticket-side-action">
+            <% status_array = Ticket::STATUS_TEXT.invert %>
+            <%= form.select :status, options_for_select(status_array, @ticket.status) %>
+            <%= form.label :status, 'Estado' %>
+          </div>
+
+
   	  	</div>
   	  </div>
+      
   	</div>
   </div>
 </div>

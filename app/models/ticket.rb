@@ -39,6 +39,14 @@ class Ticket < ApplicationRecord
     STATUS_TEXT[status]
   end
 
+  def status_color
+    c = 'red' if status == STATUS_CANCELED
+    c = 'blue' if status == STATUS_OPEN
+    c = 'green lighten-1' if status == STATUS_CLOSED
+    c = 'amber' if status == STATUS_PENDING
+    c
+  end
+
   def priority_text
     PRIORITIES[priority]
   end

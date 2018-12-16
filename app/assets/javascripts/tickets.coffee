@@ -16,6 +16,10 @@ $(document).on('change', '#ticket_agent_id', () ->
   $('#ticket-form').submit()
 )
 
+$(document).on('change', '#ticket_status', () ->
+  $('#ticket-form').submit()
+)
+
 $(document).on('change', '#ticket_priority', () ->
   $('#ticket-form').submit()
 )
