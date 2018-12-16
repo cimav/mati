@@ -35,6 +35,14 @@ class Ticket < ApplicationRecord
     STATUS_CANCELED => 'Cancelado'
   }
 
+  FIELDS = {
+    'agent_id' => 'Agente',
+    'people_id' => 'Solicitante',
+    'description' => 'Descripción',
+    'status' => 'Estado',
+    'priority' => 'Prioridad'
+  }
+
   def status_text
     STATUS_TEXT[status]
   end
@@ -63,5 +71,15 @@ class Ticket < ApplicationRecord
     year = Date.today.year.to_s.last(2)
     self.identificator = "#{year}/#{consecutivo}"
     self.save(:validate => false)
+  end
+
+
+  def field_text(f)
+    if FIELDS[f]
+      v = FIELDS[f]
+    else 
+      v = f
+    end
+    return v 
   end
 end

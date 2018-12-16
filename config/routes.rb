@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     resources :activity_logs, :path=>'log'
     resources :attachments, :path=>'attachments'
     resources :ticket_items, :path=>'items'
+    resources :activity_logs, :path=>'log'
   end
 
 

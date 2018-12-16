@@ -3,6 +3,9 @@
     <% if @referer == 'items' %>
   	  <a href="/cmdb">Inventario</a> <span class="grey-text">></span> <%= @element.name %> </a>
     <% end %>
+    <% if @referer == 'tickets' %>
+      <a href="/tickets">Tickets</a> <span class="grey-text">></span> <%= @element.identificator %> </a>
+    <% end %>
     <% if @referer == 'contracts' %>
       <a href="/contracts">Contratos</a> <span class="grey-text">></span> <%= @element.name %> </a>
     <% end %>
@@ -25,6 +28,11 @@
     <% if @referer == 'contracts' %>
       <% @contract = @element %>
       <%= render partial:"contracts/menu", locals: {active: 'actividad'} %>
+    <% end %>
+
+    <% if @referer == 'tickets' %>
+      <% @ticket = @element %>
+      <%= render partial:"tickets/menu", locals: {active: 'actividad'} %>
     <% end %>
 
     <% if @referer == 'people' %>
