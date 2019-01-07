@@ -13,7 +13,7 @@
           <table>
           	<tr><th colspan="3">Disponibles</th></tr>
             <% @loanables.each do |i| %>
-              <tr><td><%= i.name %></td><td><%= i.item_type.name %></td><td><a href="#" class="waves-effect waves-light btn-small blue-grey btn modal-trigger" data-target="modal-loan">Prestar</a>
+              <tr><td><%= i.name %></td><td><%= i.item_type.name %></td><td><a href="#" class="waves-effect waves-light btn-small blue-grey btn modal-trigger" data-target="modal-loan" data-item-id="<%= i.id %>" id="prestar-<%= i.id %>">Prestar</a>
               </td></tr>
             <% end %>
           </table>  
@@ -39,18 +39,19 @@
   <div id="modal-loan" class="modal">
     <% @loan = Loan.new %>
     <%= form_with(model: @loan, local: true) do |form| %>
+      <%= form.hidden_field :item_id %>
     <div class="modal-content">
       <div class="row">
         <div class="input-field col s12">
-          <%= form.collection_select :person_id, Person.order('first_name', 'last_name'), :id, :full_name  %>
-          <%= form.label :person_id, "Solicitante" %>
+          <%= form.collection_select :people_id, Person.order('first_name', 'last_name'), :id, :full_name  %>
+          <%= form.label :people_id, "Solicitante" %>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <%= form.text_area :description, id: :ticket_description, 'class': "materialize-textarea" %>
-          <%= form.label :description, 'Notas' %>
+          <%= form.text_area :notes, id: :ticket_notes, 'class': "materialize-textarea" %>
+          <%= form.label :notes, 'Notas' %>
         </div>
       </div>
     </div>
@@ -62,6 +63,10 @@
 
 <script>
   $(document).ready(function(){
-    $('#modal-loan').modal();
+    $('#modal-loan').modal({
+      onOpenStart: function(modal, trigger) { 
+        $("#loan_item_id").val($("#" + trigger.id).data("item-id"));
+      }
+    });
   });
 </script>

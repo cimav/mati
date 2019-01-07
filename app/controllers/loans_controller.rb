@@ -9,17 +9,17 @@ class LoansController < ApplicationController
   end
 
   def create
-    @loan = loan.new(loan_params)
+    @loan = Loan.new(loan_params)
     respond_to do |format|
       if @loan.save
         @activity_log = @loan.activity_logs.new
         @activity_log.agent_id = current_user.id
-        @activity_log.message = "El contrato #{@loan.name} fue creado."
+        @activity_log.message = "El prestamo #{@loan.name} fue creado."
         @activity_log.save
-        format.html { redirect_to @loan, notice: 'Contrato creado.' }
-        format.json { render :show, status: :created, location: @loan }
+        format.html { redirect_to @loan, notice: 'Prestamo creado.' }
+        format.json { render :index, status: :created, location: @loan }
       else
-        format.html { render :new }
+        format.html { render :index }
         format.json { render json: @loan.errors, status: :unprocessable_entity }
       end
     end
@@ -35,10 +35,10 @@ class LoansController < ApplicationController
         @activity_log = @loan.activity_logs.new
         @activity_log.agent_id = current_user.id
         @activity_log.changed_values = changes.to_json
-        @activity_log.message = "El contrato #{@loan.name} fue actualizado."
+        @activity_log.message = "El prestamo #{@loan.name} fue actualizado."
         @activity_log.save
 
-        format.html { redirect_to @loan, notice: "Contrato actualizado correctamente." }
+        format.html { redirect_to @loan, notice: "Prestamo actualizado correctamente." }
         format.json { render :show, status: :ok, location: @loan }
       else
         format.html { render :edit }
@@ -49,10 +49,10 @@ class LoansController < ApplicationController
 
   private
     def set_loan
-      @loan = loan.find(params[:id])
+      @loan = Loan.find(params[:id])
     end
 
     def loan_params
-      params.require(:loan).permit(:name, :number, :loan_type, :description, :start_date, :end_date, :notify_days, :notify_to, :cost, :status)
+      params.require(:loan).permit(:people_id, :item_id, :notes, :end_date)
     end
 end
