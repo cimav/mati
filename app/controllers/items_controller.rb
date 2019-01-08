@@ -122,6 +122,10 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def tickets 
+    @item = Item.find(params[:item_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
