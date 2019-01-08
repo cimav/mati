@@ -1,0 +1,37 @@
+<div class="module-header">
+  <div class="module-title">
+    <a href="<%= items_path %>">Inventario</a> <span class="grey-text">></span> <%= @item.name %> </a>
+  </div>
+</div>
+
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'tickets'} %>
+  </div>
+  <div class="item-area">
+    <div class="item-workarea">
+
+
+	  <% if @item.ticket_items.count == 0 %>
+	    <div class="no-items">No tiene tickets</div>
+	  <% else %>
+        <div class="log-items">
+          <% @item.ticket_items.each do |ti| %>
+            <% ticket = ti.ticket %>
+            <div class="log-item ticket-item">
+              <div class="log-picture">
+                <img src="<%= ticket.person.picture_url %>" alt="" class="circle responsive-img">
+              </div>
+              <div class="log-content">
+                <strong><%= ticket.person.full_name %></strong> <span class="log-date"> <%= ticket.created_at.strftime('%Y-%m-%d %H:%M') %></span> <span class="badge badge-index-ticket <%= ticket.status_color %>"><%= ticket.status_text %></span>
+                <br>
+                  <a href="<%= ticket_path(ticket) %>"><%= ticket.service.name %><% if ticket.description %>: <%= ticket.description %><% end %></a> 
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          <% end %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
