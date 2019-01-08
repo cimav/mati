@@ -208,3 +208,10 @@ body {
     padding: 8px;
 }
 
+.table-super-header {
+  th {
+    background-color: $sidebar-bg !important;
+    color: #fff;
+  }
+}
+

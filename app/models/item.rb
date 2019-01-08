@@ -18,6 +18,7 @@ class Item < ApplicationRecord
   has_many :contract_items
   has_many :ticket_items
 
+  LOANABLE = 1
 
   IMPACT_LOW    = 1
   IMPACT_MEDIUM = 2

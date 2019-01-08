@@ -4,22 +4,25 @@ class LoansController < ApplicationController
 
 
   def index
-  	@loanables = Item.where('is_loanable = 1').order(:name)
-  	@loaned = Loan.joins(:item).where(:status => Loan::LOANED).order('items.name')
+  	@loanables = Item.where(is_loanable: Item::LOANABLE)
+                     .where("id NOT IN (SELECT item_id FROM loans WHERE status = 1)")
+                     .order(:name)
+  	@loaned = Loan.joins(:item).where(status: Loan::LOANED).order('items.name')
   end
 
   def create
     @loan = Loan.new(loan_params)
+    @loan.status = Loan::LOANED
     respond_to do |format|
       if @loan.save
         @activity_log = @loan.activity_logs.new
         @activity_log.agent_id = current_user.id
-        @activity_log.message = "El prestamo #{@loan.name} fue creado."
+        @activity_log.message = "El prestamo fue creado."
         @activity_log.save
-        format.html { redirect_to @loan, notice: 'Prestamo creado.' }
+        format.html { redirect_to action: :index, notice: 'Prestamo creado.' }
         format.json { render :index, status: :created, location: @loan }
       else
-        format.html { render :index }
+        format.html { redirect_to action: :index}
         format.json { render json: @loan.errors, status: :unprocessable_entity }
       end
     end
@@ -53,6 +56,6 @@ class LoansController < ApplicationController
     end
 
     def loan_params
-      params.require(:loan).permit(:people_id, :item_id, :notes, :end_date)
+      params.require(:loan).permit(:person_id, :item_id, :notes, :return_date)
     end
 end
