@@ -1,0 +1,36 @@
+<div class="module-header">
+  <div class="module-title">
+    <a href="<%= items_path %>">Inventario</a> <span class="grey-text">></span> <%= @item.name %> </a>
+  </div>
+</div>
+
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'prestamos'} %>
+  </div>
+  <div class="item-area">
+    <div class="item-workarea">
+
+
+	  <% if @item.loans.count == 0 %>
+	    <div class="no-items">No tiene prestamos</div>
+	  <% else %>
+        <table>
+          <tr><th colspan="2">¿A quién?</th><th>Fecha prestamo</th><th>Prestado por</th><th>Fecha entrega</th><th>Fecha recibido</th><th>Recibido por</th><th>Estado</th></tr>
+          <% @item.loans.order('created_at DESC').each do |loan| %>
+            <tr>
+              <td><img src="<%= loan.person.picture_url %>" alt="" class="img32 circle responsive-img"></td>
+              <td><%= loan.person.full_name %></td>
+              <td><%= loan.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+              <td><%= loan.loaned_by_user.full_name rescue '--' %></td>
+              <td><%= loan.return_date.strftime("%Y-%m-%d") rescue '--' %></td>
+              <td><%= loan.received_date.strftime("%Y-%m-%d %H:%M") rescue '--' %></td>
+              <td><%= loan.received_by_user.full_name rescue '--' %></td>
+              <td><%= loan.status_text %></td>
+            </tr>
+          <% end %>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>

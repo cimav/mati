@@ -17,6 +17,7 @@ class Item < ApplicationRecord
 
   has_many :contract_items
   has_many :ticket_items
+  has_many :loans
 
   LOANABLE = 1
 

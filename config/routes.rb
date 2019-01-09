@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       resources :attachments, :path=>'attachments'
       get 'contracts'
       get 'tickets'
+      get 'loans'
     end
   end
 
