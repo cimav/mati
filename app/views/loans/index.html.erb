@@ -16,7 +16,7 @@
               <tr><td colspan="7">No existen prestamos actualmente.</td></tr>
             <% else %>
               <tr>
-                <th colspan="2">¿A quién?</th>
+                 <th colspan="2">¿A quién?</th>
                 <th>Tipo</th>
                 <th>¿Cuándo?</th>
                 <th>Regresar en</th>
@@ -31,7 +31,7 @@
                   <td><%= loan.created_at.strftime('%Y-%m-%d') %></td>
                   <td><%= loan.return_date.strftime('%Y-%m-%d') %></td>
                   <td><%= loan.notes %></td>
-                  <td><a href="#modal-return" class="waves-effect waves-light btn-small blue-grey modal-trigger">Regresar</a></td>
+                  <td><a href="#modal-return" class="waves-effect waves-light btn-small blue-grey modal-trigger" data-loan-id="<%= loan.id %>" id="regresar-<%= loan.id %>">Regresar</a></td>
                 </tr>
               <% end %>
             <% end %>
@@ -65,7 +65,7 @@
   </div>
 </div>
 
-<!-- Modal Structure -->
+<!-- Modal Prestar -->
   <div id="modal-loan" class="modal">
     <% @loan = Loan.new %>
     <% @loan.return_date = (Time.now + 1.day).strftime("%Y-%d-%m") %>
@@ -100,11 +100,40 @@
     <% end %>
   </div>
 
+
+<!-- Modal Regresar -->
+  <div id="modal-return" class="modal">
+    <%= form_tag('#', method: "post", id: 'loan-return-form') do |form| %>
+    <div class="modal-content">
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= text_area_tag :return_notes, '', id: :ticket_return_notes, 'class': "materialize-textarea" %>
+          <%= label_tag :return_notes, 'Notas' %>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag 'Regresar', class: 'waves-effect waves-light btn-small blue-grey' %>
+    </div>
+    <% end %>
+  </div>
+
 <script>
   $(document).ready(function(){
     $('#modal-loan').modal({
       onOpenStart: function(modal, trigger) { 
         $("#loan_item_id").val($("#" + trigger.id).data("item-id"));
+      }
+    });
+  });
+
+  $(document).ready(function(){
+    $('#modal-return').modal({
+      onOpenStart: function(modal, trigger) { 
+        var return_action = '/loans/' + $("#" + trigger.id).data("loan-id") + '/return';
+        $("#loan-return-form").attr('action', return_action);
       }
     });
   });

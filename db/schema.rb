@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_08_000436) do
+ActiveRecord::Schema.define(version: 2019_01_09_191724) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -144,6 +144,10 @@ ActiveRecord::Schema.define(version: 2019_01_08_000436) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "received_by"
+    t.date "received_date"
+    t.text "return_notes"
+    t.integer "loaned_by"
     t.index ["item_id"], name: "index_loans_on_item_id"
     t.index ["person_id"], name: "index_loans_on_person_id"
   end

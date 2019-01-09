@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   resources :loans do
     resources :activity_logs, :path=>'log'
+    post 'return'
   end
 
   resources :people do
