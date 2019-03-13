@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.where(status: [1,3,5])
   end
 
   def show
