@@ -8,7 +8,8 @@
 </div>
 <div class="module-workarea">
   <div class="module-menu">
-    <%= render partial:"menu_index", locals: {active: 'sin_resolver', unsolved_count: @tickets.count} %>
+  	<% @unsolved = @tickets.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]) %>
+    <%= render partial:"menu_index", locals: {active: 'todos', unsolved_count: @unsolved.count} %>
   </div>
   <div class="item-area">
   	<div class="item-workarea">

@@ -30,11 +30,13 @@ Rails.application.routes.draw do
     get 'items'
   end
 
+  get '/tickets/all' => 'tickets#all'
   resources :tickets do
     resources :activity_logs, :path=>'log'
     resources :attachments, :path=>'attachments'
     resources :ticket_items, :path=>'items'
   end
+
 
 
   scope 'cmdb' do

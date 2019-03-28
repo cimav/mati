@@ -3,7 +3,11 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tickets = Ticket.all
+    @tickets = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]).order('created_at DESC')
+  end
+
+  def all
+    @tickets = Ticket.order('created_at DESC')
   end
 
   def show

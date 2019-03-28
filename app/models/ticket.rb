@@ -31,7 +31,7 @@ class Ticket < ApplicationRecord
   STATUS_TEXT = {
     STATUS_OPEN => 'Abierto',
     STATUS_CLOSED => 'Cerrado',
-    STATUS_PENDING => 'Pendiente',
+    STATUS_PENDING => 'En espera / Pendiente',
     STATUS_CANCELED => 'Cancelado'
   }
 
