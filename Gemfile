@@ -66,5 +66,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '~> 0.6.1'
 gem 'carrierwave' 
