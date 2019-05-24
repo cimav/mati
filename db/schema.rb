@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_09_191724) do
+ActiveRecord::Schema.define(version: 2019_05_24_230410) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 2019_01_09_191724) do
     t.integer "managed_by"
     t.datetime "assigned_on"
     t.boolean "is_loanable"
+    t.boolean "has_access_controls"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
   end
 
@@ -180,6 +181,20 @@ ActiveRecord::Schema.define(version: 2019_01_09_191724) do
     t.string "identificator"
     t.index ["location_id"], name: "index_people_on_location_id"
     t.index ["person_id"], name: "index_people_on_person_id"
+  end
+
+  create_table "permissions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "item_id"
+    t.bigint "person_id"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "agent_id"
+    t.integer "status"
+    t.datetime "removed_date"
+    t.text "removed_notes"
+    t.index ["item_id"], name: "index_permissions_on_item_id"
+    t.index ["person_id"], name: "index_permissions_on_person_id"
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

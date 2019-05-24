@@ -108,6 +108,15 @@
 	      	</div>
 	      </div>
 
+	      <div class="row" id="item_accesscontrol" style="display: none;">
+            <div class="input-field col s6">
+		      <label>
+		        <%= form.check_box :has_access_controls %>
+                <span>Administrar control de accesos</span>
+              </label>
+		    </div>    
+	      </div>
+
 
       
 
@@ -118,4 +127,12 @@
 <% end %>
 <script>
   M.updateTextFields()
+
+  $(document).on('change', '#item_item_type_id', function(){
+  	if ($('#item_item_type_id').val() == <%= Item::ITEM_SOFTWARE %>) {
+  	  $('#item_accesscontrol').show();
+  	} else {
+  	  $('#item_accesscontrol').hide();
+  	}
+  })
 </script>

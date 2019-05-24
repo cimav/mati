@@ -25,6 +25,11 @@ class Item < ApplicationRecord
   IMPACT_MEDIUM = 2
   IMPACT_HIGH   = 3
 
+  ITEM_HARDWARE       = 1
+  ITEM_SOFTWARE       = 2
+  ITEM_COMMUNICATIONS = 3
+  ITEM_LOCATION       = 4
+
   IMPACT = {
     IMPACT_LOW    => 'Bajo',
     IMPACT_MEDIUM => 'Medio',

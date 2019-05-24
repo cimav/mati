@@ -84,6 +84,11 @@
             <div class="col s3 item-field-name">¿Disponible para préstamo?</div>
             <div class="col s9 item-field-value"><%= @item.is_loanable?? 'SI':'NO'  %></div>
           </div>
+          <% if @item.has_access_controls? %>
+          <div class="row item-main-field">
+            Tiene administración de control de accesos
+          </div>
+          <% end %>
         </div>
       </div>
   	</div>
