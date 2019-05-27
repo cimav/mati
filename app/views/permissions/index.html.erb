@@ -14,14 +14,16 @@
   	<div class="item-workarea">
   	  <div class="row">
         <div class="col s12 item-main">
-          <div class="log-itemss">
+          <% active_permissions = @permissions.where(status: Permission::ACTIVE) %>
+          <% if active_permissions.count > 0 %>
+          <div>
           <table>
             <tr>
               <th colspan="5">PERMISOS ACTIVOS</th>
             </tr><tr>
               <th>Nombre</th><th>Notas</th><th>Dado por</th><th>Fecha alta</th><th></th>
             </tr>
-          <% @permissions.where(status: Permission::ACTIVE).each do |permission| %>
+          <% active_permissions.each do |permission| %>
             <tr>
               <td><%= permission.item.name %></td>
               <td><%= permission.notes %></td>
@@ -29,29 +31,42 @@
               <td><%= permission.created_at %></td>
               <td><%= link_to 'Quitar permiso', person_permission_path(@person, permission), data: {:confirm => '¿Confirmar?'}, :method => :delete %></td>
             </tr>
+
           <% end %>
           </table>
-          <br/><br/>
+          <% else %>
+            <br/><br/>
+            <div class="center grey-text">La persona no tiene permisos asignados</div>
+            <br/><br/>
+          <% end %>
+           <br/><br/>
+          <% removed_permissions = @permissions.where(status: Permission::REMOVED) %>
+          <% if removed_permissions.count > 0 %>
           <table>
             <tr>
               <th colspan="6">PERMISOS ANTERIORES</th>
             </tr><tr>
               <th>Nombre</th><th>Notas</th><th>Dado por</th><th>Fecha alta</th><th>Fecha baja</th><th>Notas Baja</th>
             </tr>
-          <% @permissions.where(status: Permission::REMOVED).each do |permission| %>
+          <% removed_permissions.each do |permission| %>
             <tr>
               <td><%= permission.item.name %></td>
               <td><%= permission.notes %></td>
               <td><%= permission.agent.full_name %></td>
               <td><%= permission.created_at %></td>
               <td><%= permission.removed_date %></td>
-              <td><%= permission.removed_notes %></td>
+              <td>
+                Quitado por: <%= permission.removed_by_user.full_name %><br/>
+                <%= permission.removed_notes %>
+                
+              </td>
                
             </tr>
           <% end %>
           </table>
+          <% end %>
           <div class="clearfix"></div>
-
+          <% if @list.count > 0 %>
           <div class="log-item log-item-new">
             <%= form_for [@person, @permission], :html => {:multipart => true}  do |form| %>
               <%= form.collection_select :item_id, @list, :id, :name  %>
@@ -61,6 +76,7 @@
             
             <div class="clearfix"></div>
           </div>
+          <% end %>
 
 
           </div>

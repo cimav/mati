@@ -5,7 +5,7 @@ class PermissionsController < ApplicationController
   def index
   	@permission = Permission.new
   	@permissions = @person.permissions.order('created_at DESC')
-    @list = Item.where(has_access_controls: true).where.not(id: @permissions.map(&:item_id)).order('name')
+    @list = Item.where(has_access_controls: true).where.not(id: @permissions.where(status: Permission::ACTIVE).map(&:item_id)).order('name')
   end
 
   def new
@@ -37,6 +37,7 @@ class PermissionsController < ApplicationController
   def destroy
     @permission.status = Permission::REMOVED
     @permission.removed_date = Date.today
+    @permission.removed_by = current_user.id
     respond_to do |format|
       if @permission.save
         format.html { redirect_to person_permissions_path(@person), notice: 'Permiso eliminado.' }

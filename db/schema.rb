@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_24_230410) do
+ActiveRecord::Schema.define(version: 2019_05_27_171619) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2019_05_24_230410) do
     t.integer "status"
     t.datetime "removed_date"
     t.text "removed_notes"
+    t.integer "removed_by"
     t.index ["item_id"], name: "index_permissions_on_item_id"
     t.index ["person_id"], name: "index_permissions_on_person_id"
   end
