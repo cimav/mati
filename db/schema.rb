@@ -24,11 +24,12 @@ ActiveRecord::Schema.define(version: 2019_05_27_171619) do
   end
 
   create_table "agents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "person_id"
     t.integer "agent_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "person_id"
     t.integer "status"
+    t.index ["person_id"], name: "index_agents_on_person_id"
   end
 
   create_table "attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

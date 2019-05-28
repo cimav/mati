@@ -7,9 +7,16 @@
 <div class="module-workarea">
   <div class="people-letter-links">
     <% ("A".."Z").each do |l| %>
-      <span class="people-letter"><a href="/people?l=<%= l %>"><%= l %></a> </span>
+      <span class="people-letter"><a href="/people?l=<%= l %><% if params[:b] == 'b' %>&b=b<% end %>" <% if params[:l] == l %>class="people-letter-active"<% end %>  ><%= l %></a> </span>
     <% end %>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label>
+      <input type="checkbox" id="mostrar-bajas" name="b" value="b"
+      <% if params[:b] == 'b' %> checked="checked" <% end %>>
+      <span>Mostrar bajas</span>
+    </label>
   </div>
+  <div id="live-search">
   <table class="highlight">
   	<thead>
   	  <tr>
@@ -29,4 +36,22 @@
       <% end %>
     </tbody>
   </table>
+  </div>
 </div>
+
+<script>
+  $('#mostrar-bajas').change(function () {
+    url = window.location.pathname + window.location.search;
+    if ($('#mostrar-bajas').prop('checked')) {
+      if (window.location.search != '') {
+        window.location = url + '&b=b';
+      } else {
+        window.location = url + '?b=b';  
+      }
+      
+    } else {
+      url = url.replace('b=b','');
+      window.location = url;
+    }
+  });
+</script>

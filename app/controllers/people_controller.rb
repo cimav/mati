@@ -3,12 +3,30 @@ class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
   def index
-  	@people = Person.all
+  	@people = Person.all.order(:first_name, :last_name, :last_name2)
 
     if params[:l] && params[:l] != ''
       @people = @people.where("first_name LIKE :l", l: "#{params[:l]}%")
+    else
+      @people = @people.where("first_name LIKE 'A%'")
+      params[:l] = 'A'
     end
+
+    if params[:b] != 'b'
+      @people = @people.where(status: Person::STATUS_ACTIVE)
+    end
+
   end
+
+  def live_search
+    @people = People.order(:first_name, :last_name, :last_name2)
+    if !params[:q].blank?
+      @people = @people.where("(first_name LIKE :q OR last_name LIKE :q OR last_name2 LIKE :q)", {:q => "%#{params[:q]}%"})
+    end
+    render :layout => false
+  end
+
+
 
   def new
   	@person = Person.new
