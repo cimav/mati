@@ -22,7 +22,7 @@ class PermissionsController < ApplicationController
       if @permission.save
         @activity_log = @person.activity_logs.new
         @activity_log.agent_id = current_user.id
-        @activity_log.message = "El permiso fue agregado."
+        @activity_log.message = "El permiso #{@permission.item.name } fue agregado."
         @activity_log.save
         format.html { redirect_to person_permissions_path(@person), notice: 'Permiso agregado.' }
         format.json { render :show, status: :created, location: @permission }
@@ -38,6 +38,12 @@ class PermissionsController < ApplicationController
     @permission.status = Permission::REMOVED
     @permission.removed_date = Date.today
     @permission.removed_by = current_user.id
+
+    @activity_log = @person.activity_logs.new
+    @activity_log.agent_id = current_user.id
+    @activity_log.message = "El permiso #{@permission.item.name } fue quitado."
+    @activity_log.save
+
     respond_to do |format|
       if @permission.save
         format.html { redirect_to person_permissions_path(@person), notice: 'Permiso eliminado.' }
