@@ -48,6 +48,10 @@ class Person < ApplicationRecord
     'identificator' => 'Identificador'
   }
 
+  def type_text
+    PERSON_TYPES[person_type]
+  end
+
   def field_text(f)
     if FIELDS[f]
       v = FIELDS[f]

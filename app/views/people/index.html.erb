@@ -20,6 +20,7 @@
   <table class="highlight">
   	<thead>
   	  <tr>
+        <th>Tipo</th>
   	    <th>Nombre</th>
   	    <th>Correo</th>
   	    <th>Departamento</th>
@@ -29,6 +30,7 @@
       <% @people.each do |person| %>
 	      <tr>
           <% full_name = person.full_name rescue '--' %>
+          <td><%= person.type_text %></td>
 	  	    <td><%= link_to full_name, person  %></td>
 	  	    <td><%= person.email rescue '--'%></td>
 	  	    <td><%= person.department.name  rescue '--'%></td>
