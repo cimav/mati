@@ -4,7 +4,7 @@
     <div class="item-section-workarea">
       <% cols = 2 %>
       <% col = 0 %>
-  	  <% item_type.item_fields.each do |field| %>
+  	  <% item_type.item_fields.order(:position).each do |field| %>
         <% col = col + 1 %>
         <% if col == 1 %>
           <div class="row">
@@ -19,6 +19,11 @@
          %>
          <% if field.field_type == ItemField::TYPE_TEXT %> 
             <input id="extra-<%= field.id %>" type="text" name="extra-<%= field.id %>" value="<%= value  %>">
+            <label for="extra-<%= field.id %>"><%= field.name %></label>
+          <% end %>
+
+          <% if field.field_type == ItemField::TYPE_DATE %> 
+            <input id="extra-<%= field.id %>" type="date" name="extra-<%= field.id %>" value="<%= value  %>">
             <label for="extra-<%= field.id %>"><%= field.name %></label>
           <% end %>
 

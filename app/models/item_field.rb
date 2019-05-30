@@ -5,4 +5,5 @@ class ItemField < ApplicationRecord
   TYPE_SELECT = 'SELECT'
   TYPE_CHECKBOX = 'CHECKBOX'
   TYPE_RADIO = 'RADIO'
+  TYPE_DATE = 'DATE'
 end

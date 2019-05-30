@@ -28,7 +28,10 @@ class Item < ApplicationRecord
   ITEM_HARDWARE       = 1
   ITEM_SOFTWARE       = 2
   ITEM_COMMUNICATIONS = 3
-  ITEM_LOCATION       = 4
+  ITEM_CONSUMABLE     = 4
+  ITEM_SERVICE        = 5
+  ITEM_LOCATION       = 6
+  ITEM_DOCUMENT       = 7
 
   IMPACT = {
     IMPACT_LOW    => 'Bajo',
