@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_27_171619) do
+ActiveRecord::Schema.define(version: 2019_05_30_221153) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 2019_05_27_171619) do
     t.bigint "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "path"
     t.index ["location_id"], name: "index_locations_on_location_id"
   end
 

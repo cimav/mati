@@ -28,7 +28,7 @@
   	      </div>
   	      <div class="row item-main-field">
   	  	    <div class="col s3 item-field-name">Tipo</div>
-  	  	    <div class="col s9 item-field-value"><%= @item.item_type.name %></div>
+  	  	    <div class="col s9 item-field-value"><%= @item.item_type.name rescue '--' %></div>
   	      </div>
   	      <div class="row item-main-field">
   	  	    <div class="col s3 item-field-name">Impacto</div>
@@ -62,19 +62,25 @@
       	  </div>
       	  <div class="row item-main-field">
       	  	<div class="col s3 item-field-name">Ubicación</div>
-      	  	<div class="col s9 item-field-value"><%= @item.location.name %></div>
+            <%
+            location = ''
+            JSON.parse(@item.location.path).each do |k,v|
+              location = location + v + " / "
+            end
+            %>
+      	  	<div class="col s9 item-field-value"><%= location rescue '--' %></div>
       	  </div>
       	  <div class="row item-main-field">
       	  	<div class="col s3 item-field-name">Departamento</div>
-      	    <div class="col s9 item-field-value"><%= @item.department.name %></div>
+      	    <div class="col s9 item-field-value"><%= @item.department.name rescue '--' %></div>
       	  </div>
       	  <div class="row item-main-field">
       	  	<div class="col s3 item-field-name">Usado por</div>
-      	  	<div class="col s9 item-field-value"><%= @item.user.full_name %></div>
+      	  	<div class="col s9 item-field-value"><%= @item.user.full_name rescue '--' %></div>
       	  </div>
       	  <div class="row item-main-field">
-      	  	<div class="col s3 item-field-name">Administrador por</div>
-      	  	<div class="col s9 item-field-value"><%= @item.agent.full_name %></div>
+      	  	<div class="col s3 item-field-name">Administrado por</div>
+      	  	<div class="col s9 item-field-value"><%= @item.agent.full_name rescue '--' %></div>
       	  </div>
       	  <div class="row item-main-field">
       	  	<div class="col s3 item-field-name">Fecha de asignación</div>

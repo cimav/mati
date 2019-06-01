@@ -9,22 +9,27 @@
   	<thead>
   	  <tr>
   	    <th>Nombre</th>
+        <th>Identificador</th>
   	    <th>Tipo</th>
   	    <th>Ubicación</th>
   	    <th>Usado por</th>
-  	    <th>Departamento</th>
-  	    <th>Administrado por</th>
       </tr>
     </thead>
     <tbody>
       <% @items.each do |item| %>
+        <%
+        location = ''
+        json_loc = JSON.parse(item.location.path) rescue JSON.parse('{"0":"SIN UBICACION"}')
+        json_loc.each do |k,v|
+          location = location + v + " / "
+        end
+        %>
 	      <tr>
 	  	    <td><%= link_to item.name, item %></td>
-	  	    <td><%= item.item_type.name rescue '--'%></td>
-	  	    <td><%= item.location.name  rescue '--'%></td>
-	  	    <td><%= item.user.full_name rescue '--' %></td>
-	  	    <td><%= item.department.name rescue '--' %></td>
-	  	    <td><%= item.agent.full_name rescue '--' %></td>
+          <td><%= link_to item.identificator, item %></td>
+	  	    <td><%= item.item_type.name rescue '--' %></td>
+	  	    <td><%= location  rescue '--' %></td>
+	  	    <td><%= item.user.full_name rescue '--' %><br/><%= item.department.name rescue '--' %></td>
 	      </tr>
       <% end %>
     </tbody>
