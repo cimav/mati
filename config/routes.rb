@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   scope 'cmdb' do
     get 'items/select_search' => 'items#select_search'
+    get 'items/live_search' => 'items#live_search'
   	resources :items do
       resources :item_relationships, :path=>'rel'
       resources :activity_logs, :path=>'log'

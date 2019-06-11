@@ -5,33 +5,17 @@
   </div>
 </div>
 <div class="module-workarea">
-  <table class="highlight">
-  	<thead>
-  	  <tr>
-  	    <th>Nombre</th>
-        <th>Identificador</th>
-  	    <th>Tipo</th>
-  	    <th>Ubicación</th>
-  	    <th>Usado por</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @items.each do |item| %>
-        <%
-        location = ''
-        json_loc = JSON.parse(item.location.path) rescue JSON.parse('{"0":"SIN UBICACION"}')
-        json_loc.each do |k,v|
-          location = location + v + " / "
-        end
-        %>
-	      <tr>
-	  	    <td><%= link_to item.name, item %></td>
-          <td><%= link_to item.identificator, item %></td>
-	  	    <td><%= item.item_type.name rescue '--' %></td>
-	  	    <td><%= location  rescue '--' %></td>
-	  	    <td><%= item.user.full_name rescue '--' %><br/><%= item.department.name rescue '--' %></td>
-	      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="row">
+
+    <div class="col s4">
+      <%= select_tag :ls_search_type_id, options_from_collection_for_select(ItemType.all, :id, :name), prompt: "Selecciona el tipo" %>
+    </div>
+    <div class="col s8">
+      <%= text_field_tag :ls_item_q, nil, placeholder: 'Busca...' %>
+    </div>
+
+  </div>
+  <div id="items-live-search">
+    <%= render partial:"live_search", locals: {items: @items} %>
+  </div>
 </div>
