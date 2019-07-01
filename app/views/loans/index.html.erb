@@ -66,7 +66,7 @@
 <!-- Modal Prestar -->
   <div id="modal-loan" class="modal">
     <% @loan = Loan.new %>
-    <% @loan.return_date = (Time.now + 1.day).strftime("%Y-%d-%m") %>
+    <% @loan.return_date = (Time.now + 1.day).strftime("%Y-%m-%d") %>
     <%= form_with(model: @loan, local: true) do |form| %>
       <%= form.hidden_field :item_id %>
     <div class="modal-content">

@@ -12,7 +12,7 @@ class LoansController < ApplicationController
 
   def create
     @loan = Loan.new(loan_params)
-    @loan.loaned_by = current_user.id
+    @loan.loaned_by = current_user.person.id
     @loan.status = Loan::LOANED
     respond_to do |format|
       if @loan.save
@@ -34,7 +34,7 @@ class LoansController < ApplicationController
       @loan = Loan.find(params[:loan_id])
       @loan.return_notes = params[:return_notes]
       @loan.status = Loan::RETURNED
-      @loan.received_by = current_user.id
+      @loan.received_by = current_user.person.id
       @loan.received_date = Time.now 
       
       if @loan.save
