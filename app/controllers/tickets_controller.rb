@@ -42,7 +42,7 @@ class TicketsController < ApplicationController
       if params[:ticket_message] 
         msg = @ticket.ticket_responses.new
         msg.message = params[:ticket_message]
-        msg.from = Person.find(current_user.id)
+        msg.from = Person.find(current_user.person_id)
         msg.to = Person.find(@ticket.person_id)
         msg.save
       end
