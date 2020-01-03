@@ -16,12 +16,13 @@
   <% if @person.items.count == 0 %>
     <tr><td class="no-items">No tiene nada en su inventario</td></tr>
   <% else %>
-    <tr><th>Tipo</th><th>Elemento</th><th>Fecha asignado</th></tr>
+    <tr><th>Tipo</th><th>Elemento</th><th>Identificador</th><th>Fecha asignado</th></tr>
 	<% end %>
 	<% @person.items.each do |i| %>
 	  <tr>
       <td><%= i.item_type.name %></td>
 	  	<td><%= link_to i.name, i %></td>
+      <td><%= link_to i.identificator, i %></td>
 	  	<td><%= i.assigned_on.strftime("%Y-%m-%d %H:%M") rescue '--'%></td>
 	  </tr>
 	<% end %>

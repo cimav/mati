@@ -27,7 +27,7 @@
                 <tr>
                   <td class="loan-img"><img src="<%= loan.person.picture_url %>" alt="" class="circle responsive-img"></td>
                   <td><%= loan.person.full_name %></td>
-                  <td><a href="<%= item_path loan.item %>"><%= loan.item.item_type.name %>: <%= loan.item.name %></a></td>
+                  <td><a href="<%= item_path loan.item %>"><%= loan.item.item_type.name %>: <%= loan.item.name %> (<%= loan.item.identificator %>)</a></td>
                   <td><%= loan.created_at.strftime('%Y-%m-%d') %></td>
                   <td><%= loan.return_date.strftime('%Y-%m-%d') %></td>
                   <td><%= loan.notes %></td>
@@ -51,7 +51,7 @@
               </tr>
               <% @loanables.each do |i| %>
                 <tr>
-                  <td><a href="<%= item_path i %>"><%= i.item_type.name %>: <%= i.name %></a></td>
+                  <td><a href="<%= item_path i %>"><%= i.item_type.name %>: <%= i.name %> (<%= i.identificator %>)</a></td>
                   <td><a href="#" class="waves-effect waves-light btn-small blue-grey btn modal-trigger" data-target="modal-loan" data-item-id="<%= i.id %>" id="prestar-<%= i.id %>">Prestar</a></td>
                 </tr>
               <% end %>
