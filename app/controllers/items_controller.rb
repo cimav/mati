@@ -10,7 +10,21 @@ class ItemsController < ApplicationController
     end
 
     if params[:t] && params[:t] != ''
-      @items = @items.where("item_type_id = :t", t: params[:t])
+      types = []
+      items = ActiveRecord::Base.connection.execute("WITH RECURSIVE cteTree AS ( 
+                                        SELECT id
+                                        FROM item_types   
+                                        WHERE id = #{params[:t]}
+                                      UNION ALL 
+                                        SELECT pt.id
+                                        FROM item_types AS pt   
+                                        JOIN cteTree AS ct ON ct.id = pt.item_type_id 
+                                      ) SELECT *   FROM cteTree")
+      items.each do |row|
+        types << row[0]
+      end
+
+      @items = @items.where(item_type_id: types)
     end
 
     render :layout => false
@@ -24,7 +38,21 @@ class ItemsController < ApplicationController
     end
 
     if params[:t] && params[:t] != ''
-      @items = @items.where("item_type_id = :t", t: params[:t])
+      types = []
+      items = ActiveRecord::Base.connection.execute("WITH RECURSIVE cteTree AS ( 
+                                        SELECT id
+                                        FROM item_types   
+                                        WHERE id = #{params[:t]}
+                                      UNION ALL 
+                                        SELECT pt.id
+                                        FROM item_types AS pt   
+                                        JOIN cteTree AS ct ON ct.id = pt.item_type_id 
+                                      ) SELECT *   FROM cteTree")
+      items.each do |row|
+        types << row[0]
+      end
+
+      @items = @items.where(item_type_id: types)
     end
 
     @items = @items.limit(50)
