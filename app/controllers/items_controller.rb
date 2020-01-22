@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
     @items = Item.all
     
     if params[:q] && params[:q] != ''
-      @items = @items.where("name LIKE :q", q: "%#{params[:q]}%")
+      @items = @items.where("name LIKE :q OR identificator LIKE :q", q: "%#{params[:q]}%")
     end
 
     if params[:t] && params[:t] != ''
