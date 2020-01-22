@@ -42,7 +42,7 @@
                 <% v.each do |i| %>
                   <% r = ItemRelationship.find(i[0]) %>
                   <% if first %>
-                    <td><%= link_to i[1].name %> (<%= i[1].item_type.name %>) 
+                    <td><%= link_to i[1].name, i[1] %> (<%= i[1].item_type.name %>) 
                       <%= link_to item_item_relationship_path(@item, r), method: :delete, class: 'delete-link' do %> 
                         <i class="material-icons">delete</i> 
                       <% end %>
