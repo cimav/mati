@@ -71,7 +71,7 @@
             <%= form_for [@person, @permission], :html => {:multipart => true}  do |form| %>
               <%= form.collection_select :item_id, @list, :id, :name  %>
               <%= form.text_field :notes, id: :notes, placeholder: 'Notas' %>
-              <%= form.submit 'Agregar', class: 'waves-effect waves-light btn-small blue-grey' %>
+              <%= form.submit 'Agregar', class: 'waves-effect waves-light btn-small light-blue' %>
             <% end %>
             
             <div class="clearfix"></div>
