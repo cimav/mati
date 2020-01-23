@@ -24,10 +24,10 @@
 		    </div>
 		  <% end %>
 
-          <div class="row">
-	      	<div class="input-field col s12">
-		      <%= form.collection_select :person_id, Person.order('first_name', 'last_name'), :id, :full_name  %>
-	          <%= form.label :person_id, "Solicitante" %>
+          <div class="row select2-field">
+          	<div class="input-field col s12">
+		      <%= form.collection_select :person_id, Person.order('first_name', 'last_name'), :id, :full_name, {}, {class: 'browser-default'} %>
+		      <%= form.label :person_id, 'Solicitante' %>
 		    </div>
           </div>
           <div class="row">
@@ -62,4 +62,9 @@
   	</div>
   </div>
 </div>
+<script>
+  $( "#ticket_person_id" ).select2({
+
+  });
+</script>
 <% end %>
