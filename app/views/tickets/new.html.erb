@@ -54,8 +54,8 @@
             </div>
 	      	<div class="input-field col s4">
               <% status_array = Ticket::STATUS_TEXT.invert %>
-              <%= form.select :priority, options_for_select(status_array) %>
-	          <%= form.label :priority, 'Estado' %>
+              <%= form.select :status, options_for_select(status_array) %>
+	          <%= form.label :status, 'Estado' %>
             </div>
           </div>
 	    </div>

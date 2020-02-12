@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_30_221153) do
+ActiveRecord::Schema.define(version: 2020_02_11_235306) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -29,6 +29,9 @@ ActiveRecord::Schema.define(version: 2019_05_30_221153) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+    t.string "access_token"
+    t.string "refresh_token"
+    t.datetime "expires_at"
     t.index ["person_id"], name: "index_agents_on_person_id"
   end
 
@@ -40,6 +43,19 @@ ActiveRecord::Schema.define(version: 2019_05_30_221153) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_attachments_on_agent_id"
+  end
+
+  create_table "aux", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "i", default: 0, null: false
+    t.string "p", limit: 282
+  end
+
+  create_table "ci", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "id", default: 0, null: false
+    t.string "af01_cve_interna", limit: 18, collation: "latin1_swedish_ci"
+    t.string "identificator"
+    t.integer "af01_fecha_compra"
+    t.decimal "af01_costo", precision: 14, scale: 2
   end
 
   create_table "contract_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -215,6 +231,15 @@ ActiveRecord::Schema.define(version: 2019_05_30_221153) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "surveys", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "ticket_id"
+    t.integer "rating"
+    t.text "comments"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ticket_id"], name: "index_surveys_on_ticket_id"
+  end
+
   create_table "ticket_collaborators", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "ticket_id"
     t.bigint "agent_id"
@@ -259,6 +284,14 @@ ActiveRecord::Schema.define(version: 2019_05_30_221153) do
     t.index ["service_id"], name: "index_tickets_on_service_id"
   end
 
+  create_table "tokens", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "access_token"
+    t.string "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "vendors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "contact"
@@ -269,6 +302,12 @@ ActiveRecord::Schema.define(version: 2019_05_30_221153) do
     t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "xxx", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "af01_cve_interna", limit: 18, collation: "latin1_swedish_ci"
+    t.integer "af01_fecha_compra"
+    t.decimal "af01_costo", precision: 14, scale: 2
   end
 
   add_foreign_key "item_relationships", "relationships"

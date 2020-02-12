@@ -1,3 +1,6 @@
+require 'google/apis/gmail_v1'
+require 'google/api_client/client_secrets'
+
 class ApplicationController < ActionController::Base
 
   protect_from_forgery unless: -> { request.format.json? }
@@ -8,6 +11,12 @@ class ApplicationController < ActionController::Base
       user = Agent.joins(:person).where(people: { email: session[:user_email], status: Person::STATUS_ACTIVE }).first
 
       session[:user_auth] = user && user.person.email == session[:user_email]
+      auth = session[:user_credentials]
+      user.access_token = auth['token']
+      user.refresh_token = auth['refresh_token']
+      user.expires_at = Time.at(auth['expires_at']).to_datetime
+      user.save!
+
       if session[:user_auth]
         session[:agent_id] = user.id
       end

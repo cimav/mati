@@ -1,3 +1,4 @@
+# encoding: utf-8
 class TicketsController < ApplicationController
   before_action :auth_required
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
@@ -45,6 +46,10 @@ class TicketsController < ApplicationController
         msg.from = Person.find(current_user.person_id)
         msg.to = Person.find(@ticket.person_id)
         msg.save
+
+        body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: msg})
+        current_user.send_mail(msg.to.email, "Actualización ticket #{@ticket.identificator}", body)
+        
       end
       @ticket.assign_attributes(ticket_params)
       changes = @ticket.changes
@@ -56,6 +61,10 @@ class TicketsController < ApplicationController
         @activity_log.changed_values = changes.to_json
         @activity_log.message = "El ticket #{@ticket.identificator} fue actualizado."
         @activity_log.save
+
+        if @ticket.status == Ticket::STATUS_CLOSED
+          TicketMailer.ticket_closed(@ticket).deliver_later
+        end
 
         format.html { redirect_to @ticket, notice: "Ticket actualizado correctamente." }
         format.json { render :show, status: :ok, location: @ticket }
