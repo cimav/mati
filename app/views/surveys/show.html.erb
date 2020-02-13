@@ -1,0 +1,14 @@
+<div class="container">
+<p>Encuesta previamente llenada</p>
+<p style="text-align:center">
+  <% @survey.rating.times do |i| %>
+	<span style="color: #ffe700; font-size: 2em; text-decoration: none;">★</span>
+  <% end %>
+  <%
+    pending = 5 - @survey.rating 
+    pending.times do |i| %>
+	<span style="color: #999; font-size: 2em; text-decoration: none;">★</span>
+  <% end %>
+</p>
+<p><%= @survey.comments %></p>
+</div>

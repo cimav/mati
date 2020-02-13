@@ -4,6 +4,7 @@ class Ticket < ApplicationRecord
   has_many :attachments, as: :element
   has_many :ticket_items
   has_many :ticket_responses
+  has_many :surveys
 
   belongs_to :agent
   belongs_to :person, optional: true

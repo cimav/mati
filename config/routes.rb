@@ -60,4 +60,8 @@ Rails.application.routes.draw do
     resources :agents
   end
 
+  get 'encuesta/:token/:rating' => 'surveys#vote'
+  get 'encuesta/:token' => 'surveys#show', :as => 'show_survey'
+  patch 'encuesta/:token' => 'surveys#save'
+
 end

@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'digest/md5'
 class TicketsController < ApplicationController
   before_action :auth_required
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
@@ -40,16 +41,15 @@ class TicketsController < ApplicationController
 
   def update
     respond_to do |format|
+      from = Person.find(current_user.person_id)
+      to = Person.find(@ticket.person_id)
+
       if params[:ticket_message] 
         msg = @ticket.ticket_responses.new
         msg.message = params[:ticket_message]
-        msg.from = Person.find(current_user.person_id)
-        msg.to = Person.find(@ticket.person_id)
-        msg.save
-
-        body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: msg})
-        current_user.send_mail(msg.to.email, "Actualización ticket #{@ticket.identificator}", body)
-        
+        msg.from = from
+        msg.to = to
+        msg.save     
       end
       @ticket.assign_attributes(ticket_params)
       changes = @ticket.changes
@@ -63,7 +63,12 @@ class TicketsController < ApplicationController
         @activity_log.save
 
         if @ticket.status == Ticket::STATUS_CLOSED
-          TicketMailer.ticket_closed(@ticket).deliver_later
+          survey = @ticket.surveys.new
+          survey.rating = 0
+          survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
+          survey.save
+          body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: params[:ticket_message], survey: survey })
+          current_user.send_mail(to.email, "Ticket Resuelto #{@ticket.identificator}", body)
         end
 
         format.html { redirect_to @ticket, notice: "Ticket actualizado correctamente." }

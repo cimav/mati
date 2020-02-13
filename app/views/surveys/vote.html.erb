@@ -1,0 +1,26 @@
+<div class="container">
+<p style="text-align:center">
+  <% @survey.rating.times do |i| %>
+	<span style="color: #ffe700; font-size: 2em; text-decoration: none;">★</span>
+  <% end %>
+  <%
+    pending = 5 - @survey.rating 
+    pending.times do |i| %>
+	<span style="color: #999; font-size: 2em; text-decoration: none;">★</span>
+  <% end %>
+</p>
+<p>Gracias por la evaluación, si deseas hacer más comentarios acerca de nuestro servicio, puedes hacerlo en el siguiente espacio:</p>
+<%= form_with(model: @survey, local: true, url: "/encuesta/#{@survey.token}") do |form| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= form.text_area :comments, class: 'materialize-textarea', rows: 10 %>
+      <%= form.label :comments, 'Comentarios' %>
+    </div>
+  </div>
+  <div class="row">
+  	<div style="text-align: center;">
+  		<%= form.submit 'Guardar', class: 'btn blue' %>
+  	</div>
+  </div>
+<% end %>
+</div>

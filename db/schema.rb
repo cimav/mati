@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_235306) do
+ActiveRecord::Schema.define(version: 2020_02_12_231437) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -237,6 +237,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_235306) do
     t.text "comments"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token"
     t.index ["ticket_id"], name: "index_surveys_on_ticket_id"
   end
 

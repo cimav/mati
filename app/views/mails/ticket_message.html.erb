@@ -1,2 +1,24 @@
-<h1>Ticket #<%= ticket.identificator %> </h1>
-<p><%= message.message %></p>
+<div style="padding: 2em;">
+  <div style="padding: 0.5em 0; border-bottom: 1px solid #ddd; font-size: 1.5em;">
+    <strong>Ticket #<%= ticket.identificator %> </strong>
+  </div>
+  <% if !message.blank? %>
+    <p><%= message %></p>
+  <% end %>
+  <p>Esperamos que el ticket haya sido resuelto de manera satisfactoria. Si sientes que el ticket no debió haber sido cerrado o si el ticket no ha sido resuelto, por favor envíanos una respuesta a este correo.</p>
+  <p>
+  	<strong>Cuentanos que te pareció nuestro Soporte Técnico.</strong><br>
+  	<table>
+  	   <tr><td><a href="<%= survey.survey_url %>/5" style="text-decoration: none;">Excelente</a> </td><td><a href="<%= survey.survey_url %>/5" style="color: #ffe700; font-size: 1.2em; text-decoration: none;">★★★★★</a></td></tr>
+       <tr><td><a href="<%= survey.survey_url %>/4" style="text-decoration: none;">Bueno</a> </td><td><a href="<%= survey.survey_url %>/4" style="color: #ffe700; font-size: 1.2em; text-decoration: none;">★★★★</a></td></tr>
+       <tr><td><a href="<%= survey.survey_url %>/3" style="text-decoration: none;">Regular</a> </td><td><a href="<%= survey.survey_url %>/3" style="color: #ffe700; font-size: 1.2em; text-decoration: none;">★★★</a></td></tr>
+       <tr><td><a href="<%= survey.survey_url %>/2" style="text-decoration: none;">Malo</a> </td><td><a href="<%= survey.survey_url %>/2" style="color: #ffe700; font-size: 1.2em; text-decoration: none;">★★</a></td></tr>
+       <tr><td><a href="<%= survey.survey_url %>/1" style="text-decoration: none;">Pésimo</a> </td><td><a href="<%= survey.survey_url %>/1" style="color: #ffe700; font-size: 1.2em; text-decoration: none;">★</a></td></tr>
+  	</table>
+  </p>
+  <p>Saludos,<br>
+  <%= ticket.agent.full_name %><br>
+  Coordinación de Tecnologías de la Información<br>
+  CIMAV
+  </p>
+</div>
