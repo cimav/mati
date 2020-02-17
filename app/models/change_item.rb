@@ -1,0 +1,2 @@
+class ChangeItem < ApplicationRecord
+end

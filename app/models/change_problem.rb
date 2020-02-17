@@ -1,0 +1,2 @@
+class ChangeProblem < ApplicationRecord
+end

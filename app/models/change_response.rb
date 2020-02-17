@@ -1,0 +1,2 @@
+class ChangeResponse < ApplicationRecord
+end

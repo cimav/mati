@@ -1,0 +1,2 @@
+class ChangeTicket < ApplicationRecord
+end

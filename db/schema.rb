@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_200101) do
+ActiveRecord::Schema.define(version: 2020_02_17_231144) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -48,6 +48,63 @@ ActiveRecord::Schema.define(version: 2020_02_17_200101) do
   create_table "aux", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "i", default: 0, null: false
     t.string "p", limit: 282
+  end
+
+  create_table "change_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "change_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["change_id"], name: "index_change_items_on_change_id"
+    t.index ["item_id"], name: "index_change_items_on_item_id"
+  end
+
+  create_table "change_problems", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "change_id"
+    t.bigint "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["change_id"], name: "index_change_problems_on_change_id"
+    t.index ["problem_id"], name: "index_change_problems_on_problem_id"
+  end
+
+  create_table "change_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "change_id"
+    t.integer "from"
+    t.integer "to"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["change_id"], name: "index_change_responses_on_change_id"
+  end
+
+  create_table "change_tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "changes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "consecutive"
+    t.string "identificator"
+    t.bigint "agent_id"
+    t.bigint "people_id"
+    t.text "description"
+    t.text "reason"
+    t.text "impact"
+    t.text "rollout_plan"
+    t.text "backout_plan"
+    t.integer "change_type"
+    t.integer "risk_type"
+    t.date "start_date_planned"
+    t.date "end_date_planned"
+    t.date "start_date_real"
+    t.date "end_date_real"
+    t.integer "status"
+    t.integer "priority"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_changes_on_agent_id"
+    t.index ["people_id"], name: "index_changes_on_people_id"
   end
 
   create_table "ci", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
