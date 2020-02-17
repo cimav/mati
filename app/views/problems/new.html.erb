@@ -1,0 +1,53 @@
+<%= form_with(model: @problem, local: true) do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/problems">Problemas</a> <span class="grey-text">></span> Nuevo</a>
+  </div>
+  <div class="module-actions">
+  	<%= form.submit 'Guardar', class: 'waves-effect waves-light btn-small light-blue' %>
+  </div>
+</div>
+<div class="module-workarea">
+
+  	<div class="item-workarea">
+  	  <div class="item-section">
+        <div class="item-section-workarea">
+          <% if @problem.errors.any? %>
+		    <div id="error_explanation">
+		      <h2><%= pluralize(@problem.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+		      <ul>
+		      <% @problem.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+          <div class="row">
+	      	<div class="input-field col s12">
+	          <%= form.text_area :description, id: :ticket_description, 'class': "materialize-textarea" %>
+	          <%= form.label :description, 'Descripción' %>
+	        </div>
+          </div>
+          <div class="row">
+          	<div class="input-field col s4">
+		      <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name, {:selected => current_user.id}  %>
+	          <%= form.label :agent_id, "Agente" %>
+		    </div>
+          	<div class="input-field col s4">
+              <% priority_array = Problem::PRIORITIES.invert %>
+              <%= form.select :priority, options_for_select(priority_array) %>
+	          <%= form.label :priority, 'Prioridad' %>
+            </div>
+	      	<div class="input-field col s4">
+              <% status_array = Problem::STATUS_TEXT.invert %>
+              <%= form.select :status, options_for_select(status_array) %>
+	          <%= form.label :status, 'Estado' %>
+            </div>
+          </div>
+	    </div>
+  	</div>
+  </div>
+</div>
+
+<% end %>

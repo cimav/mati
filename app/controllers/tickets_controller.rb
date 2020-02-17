@@ -4,6 +4,16 @@ class TicketsController < ApplicationController
   before_action :auth_required
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
+  def select_search
+    @tickets = Ticket.all
+    
+    if params[:q] && params[:q] != ''
+      @tickets = @tickets.where("description LIKE :q OR identificator LIKE :q", q: "%#{params[:q]}%")
+    end
+
+    render :layout => false
+  end
+
   def index
     @tickets = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]).order('created_at DESC')
   end

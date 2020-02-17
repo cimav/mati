@@ -45,6 +45,12 @@ class ActivityLogsController < ApplicationController
         @element_url = ticket_activity_logs_url(@element)
       end
 
+      if uri[1] == 'problems'
+        @element = Problem.find(params[:problem_id])
+        @referer = 'problems'
+        @element_url = problem_activity_logs_url(@element)
+      end
+
       if uri[1] == 'people'
         @element = Person.find(params[:person_id])
         @referer = 'people'

@@ -1,0 +1,54 @@
+<%= form_for [@problem, @problem_item] do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="<%= problems_path %>">Problemas</a> <span class="grey-text">></span> <%= @problem.identificator %> </a>
+  </div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"problems/menu", locals: {active: 'elementos'} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <div class="item-relationship-title row">
+            <div class="col s10">
+        	  <%= @problem.identificator %> tiene  
+        	  <span id="item-relationship-to">...</span>
+            </div>
+            <div class="col s2">
+              <%= form.submit 'Agregar elementos', class: 'waves-effect waves-light btn-small light-blue' %>
+            </div>
+          </div>
+
+          <div class="row">
+          	
+          	<div class="col s12">
+          	  <table>
+          	  	<tr>
+          	  	  <td>
+          	  	    <%= select_tag :search_type_id, options_from_collection_for_select(ItemType.all, :id, :name), prompt: "Selecciona el tipo" %>
+
+          	  	  </td>
+          	  	</tr>
+          	  	<tr>
+          	  	  <td>
+          	  	  	<%= text_field_tag :q, nil, placeholder: 'Busca...' %>
+          	  	  </td>
+          	  	</tr>
+                <tbody id="select-search-results">
+                  <%= render partial:"items/select_search", locals: {items: Item.order('created_at DESC').limit(20)} %>
+                </tbody>
+          	  </table>
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

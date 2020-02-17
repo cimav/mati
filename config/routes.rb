@@ -32,10 +32,19 @@ Rails.application.routes.draw do
   end
 
   get '/tickets/all' => 'tickets#all'
+  get 'tickets/select_search' => 'tickets#select_search'
   resources :tickets do
     resources :activity_logs, :path=>'log'
     resources :attachments, :path=>'attachments'
     resources :ticket_items, :path=>'items'
+  end
+
+  get '/problems/all' => 'problems#all'
+  resources :problems do
+    resources :activity_logs, :path=>'log'
+    resources :attachments, :path=>'attachments'
+    resources :problem_items, :path=>'items'
+    resources :problem_tickets, :path=>'tickets'
   end
 
 

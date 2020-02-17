@@ -208,11 +208,17 @@ body {
   margin: 1em 0;
 }
 
-.ticket-responses-title {
-    color: #111;
-    background: lighten($light-bg, 2);
-    padding: 8px;
+.ticket-responses-title,
+.problem-responses-title,
+.problem-analysis-title,
+.problem-solution-title {
+    color: #000;
+    border-bottom: 1px solid #ddd;
+    padding: 0.5em 0;
+    font-weight: bold;
+    margin: 2em 0 1em 0;
 }
+
 
 .table-super-header {
   th {
@@ -234,4 +240,8 @@ body {
 .img24 {
   width: 24px !important;
   height: 24px !important;
+}
+
+.spaced {
+  padding: 1em 0;
 }

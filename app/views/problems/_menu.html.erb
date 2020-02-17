@@ -1,0 +1,14 @@
+<%
+detalle_class = active == 'detalle'? 'active' : ''
+tickets_class = active == 'tickets'? 'active' : ''
+elementos_class = active == 'elementos'? 'active' : ''
+archivos_class = active == 'archivos'? 'active' : ''
+actividad_class = active == 'actividad'? 'active' : ''
+%>
+<ul class="tabs">
+  <li class="tab col s2"><%= link_to 'Detalles', problem_path(@problem), target: "_self", class: detalle_class  %></li>
+  <li class="tab col s2"><%= link_to 'Tickets', problem_problem_tickets_path(@problem), target: "_self", class: tickets_class%></li>
+  <li class="tab col s2"><%= link_to 'Elementos', problem_problem_items_path(@problem), target: "_self", class: elementos_class%></li>
+  <li class="tab col s2"><%= link_to 'Archivos', problem_attachments_path(@problem), target: "_self", class: archivos_class%></li>
+  <li class="tab col s2"><%= link_to 'Actividad', problem_activity_logs_path(@problem), target: "_self", class: actividad_class%></li>
+</ul>

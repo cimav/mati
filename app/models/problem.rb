@@ -1,15 +1,13 @@
-class Ticket < ApplicationRecord
+class Problem < ApplicationRecord
 
   has_many :activity_logs, as: :element
   has_many :attachments, as: :element
-  has_many :ticket_items
-  has_many :ticket_responses
+  has_many :problem_items
   has_many :problem_tickets
-  has_many :surveys
+  has_many :problem_responses
 
   belongs_to :agent
   belongs_to :person, optional: true
-  belongs_to :service
 
   after_create :set_extra
 
@@ -41,6 +39,9 @@ class Ticket < ApplicationRecord
     'agent_id' => 'Agente',
     'people_id' => 'Solicitante',
     'description' => 'Descripción',
+    'cause' => 'Causa',
+    'impact' => 'Impacto',
+    'solution' => 'Solución',
     'status' => 'Estado',
     'priority' => 'Prioridad'
   }
@@ -62,7 +63,7 @@ class Ticket < ApplicationRecord
   end
 
   def set_extra
-    con = Ticket.where("EXTRACT(YEAR FROM created_at) = :year", {:year => Date.today.year}).maximum('consecutive')
+    con = Problem.where("EXTRACT(YEAR FROM created_at) = :year", {:year => Date.today.year}).maximum('consecutive')
     if con.nil?
       con = 1
     else
@@ -71,7 +72,7 @@ class Ticket < ApplicationRecord
     consecutivo = "%04d" % con
     self.consecutive = con
     year = Date.today.year.to_s.last(2)
-    self.identificator = "#{year}/#{consecutivo}"
+    self.identificator = "PROB-#{year}/#{consecutivo}"
     self.save(:validate => false)
   end
 
@@ -85,3 +86,4 @@ class Ticket < ApplicationRecord
     return v 
   end
 end
+

@@ -1,0 +1,15 @@
+<% tickets.all.each do |i| %>
+  <tr>
+	<td>
+	  <label>
+        <input type="checkbox" value="<%= i.id %>" name="ticket[]" class="rel-cb-item" data-name="<%= i.identificator %>" />
+        <span><%= i.identificator %>: <%= i.description %></span>
+      </label>
+    </td>
+  </tr>
+<% end %>
+<% if tickets.count == 0 %>
+  <tr>
+  	<td class="no-tickets">No existen elementos</td>
+  </tr>
+<% end %>

@@ -1,0 +1,40 @@
+<div class="module-header">
+  <div class="module-title"><a href="<%= problems_path %>">Problemas</a> <span class="grey-text">></span> <%= @problem.identificator rescue '--' %></div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"problems/menu", locals: {active: 'tickets'} %>
+  </div>
+  <div class="item-area">
+  <div class="item-workarea">
+
+
+	<table>
+  <% if @problem.problem_tickets.count == 0 %>
+    <tr><td class="no-items">No existen tickets asociados</td></tr>
+  <% else %>
+    <tr><th>Ticket</th><th>Descripción</th><th>Fecha agregado</th><th></th></tr>
+	<% end %>
+	<% @problem.problem_tickets.each do |ti| %>
+	  <tr>
+	  	<td><%= link_to ti.ticket.identificator, ti.ticket %></td>
+      <td><%= ti.ticket.description %></td>
+	  	<td><%= ti.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td>
+        <%= link_to problem_problem_ticket_path(@problem, ti), method: :delete, class: 'delete-link', data: {confirm: '¿Confirmar borrado?'} do %> 
+                        <i class="material-icons">delete</i> 
+                      <% end %>
+      </td>
+	  </tr>
+	<% end %>
+	</table>
+  <div class="right spaced">
+            <a class="btn-floating btn-small waves-effect waves-light light-blue" href="<%=new_problem_problem_ticket_url(@problem) %>"><i class="material-icons">add</i></a>
+  </div>
+  <div class="clearfix"></div>
+  </div>
+</div>
+</div>

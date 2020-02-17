@@ -1,15 +1,15 @@
-// Place all the styles related to the Tickets controller here.
+// Place all the styles related to the Problems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.ticket-desc {
+.problem-desc {
   font-size: 120%;
 }
 
-.ticket-header {
+.problem-header {
   border-bottom: 1px solid #ddd;
   margin: 16px 0;
-  .ticket-picture {
+  .problem-picture {
     float: left;
     height: 80px;
     width: 80px;
@@ -19,35 +19,29 @@
       width: 64px;
     }
   }
-  .ticket-person {
+  .problem-person {
     font-weight: 500;
   }	
 }
 
-#ticket-responses {
+#problem-responses {
   margin-top: 48px;
 }
 
-.ticket-responses-actions {
+.problem-responses-actions {
   text-align: right;
   padding-bottom: 32px;
   border-bottom: 1px solid #ddd;
   margin-bottom: 32px;
 }
 
-.ticket-side-action {
+.problem-side-action {
   margin-bottom: 32px;
-  li {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 0.5em;
-    margin-bottom: 0.5em;
-  }
 }
 
-#ticket-survey {
+#problem-survey {
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   margin: 1em 0;
   padding: 1em 0;
 }
-

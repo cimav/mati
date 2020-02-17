@@ -98,6 +98,16 @@
             <%= form.label :status, 'Estado' %>
           </div>
 
+          <% if @ticket.problem_tickets.count > 0 %>
+            <div class="ticket-side-action">
+              <strong>Problemas asociados:</strong>
+              <ul>
+              <% @ticket.problem_tickets.each do |tp| %>
+                <li><%= link_to tp.problem.identificator, tp.problem  %>: <%= tp.problem.description %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
 
   	  	</div>
   	  </div>

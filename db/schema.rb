@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_231437) do
+ActiveRecord::Schema.define(version: 2020_02_17_200101) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -214,6 +214,52 @@ ActiveRecord::Schema.define(version: 2020_02_12_231437) do
     t.integer "removed_by"
     t.index ["item_id"], name: "index_permissions_on_item_id"
     t.index ["person_id"], name: "index_permissions_on_person_id"
+  end
+
+  create_table "problem_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "problem_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_problem_items_on_item_id"
+    t.index ["problem_id"], name: "index_problem_items_on_problem_id"
+  end
+
+  create_table "problem_responses", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "problem_id"
+    t.integer "from"
+    t.integer "to"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_problem_responses_on_problem_id"
+  end
+
+  create_table "problem_tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "problem_id"
+    t.bigint "ticket_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_problem_tickets_on_problem_id"
+    t.index ["ticket_id"], name: "index_problem_tickets_on_ticket_id"
+  end
+
+  create_table "problems", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "consecutive"
+    t.string "identificator"
+    t.bigint "agent_id"
+    t.bigint "person_id"
+    t.text "description"
+    t.text "cause"
+    t.text "impact"
+    t.text "symptom"
+    t.text "solution"
+    t.integer "status"
+    t.integer "priority"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_problems_on_agent_id"
+    t.index ["person_id"], name: "index_problems_on_person_id"
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

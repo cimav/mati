@@ -1,0 +1,38 @@
+<div class="module-header">
+  <div class="module-title">
+    Problemas
+  </div>
+  <div class="module-actions">
+  	<a class="waves-effect waves-light btn-small light-blue" href="/problems/new">Agregar nuevo</a>
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+  	<% @unsolved = @problems.where(status: [Problem::STATUS_OPEN, Problem::STATUS_PENDING]) %>
+    <%= render partial:"menu_index", locals: {active: 'todos', unsolved_count: @unsolved.count} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <div class="log-items">
+          <% @problems.each do |problem| %>
+            <div class="log-item problem-item">
+              <div class="log-picture">
+                <img src="<%= problem.person.picture_url %>" alt="" class="circle responsive-img">
+              </div>
+              <div class="log-content">
+                <strong><%= problem.person.full_name %></strong> <span class="log-date"> <%= problem.created_at.strftime('%Y-%m-%d %H:%M') %></span> <span class="badge badge-index-problem <%= problem.status_color %>"><%= problem.status_text %></span>
+                <br>
+                  <a href="<%= problem_path(problem) %>"><% if problem.description %><%= problem.description %><% end %></a> 
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          <% end %>
+          </div>
+            
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>
