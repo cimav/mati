@@ -4,6 +4,11 @@ $light-bg: #f5f5f5;
 body {
   background-color: $light-bg;
 }
+.dropdown-content {
+   max-height: 350px !important;
+   overflow-y: auto !important;
+   backface-visibility: hidden !important;
+}
 #sidebar {
   position: absolute;
   width: 64px;
