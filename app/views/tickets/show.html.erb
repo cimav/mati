@@ -24,6 +24,26 @@
   	  	  	<div class="clearfix"></div>
   	  	  </div>
           <div class="ticket-desc"><%= @ticket.description %></div>
+          <% if @ticket.status == Ticket::STATUS_CLOSED %>
+            <div id="ticket-survey">
+              <% survey = @ticket.surveys.last %>
+              <% if survey.rating > 0 %>
+                <p style="text-align:center">
+                  <% survey.rating.times do |i| %>
+                  <span style="color: #ffe700; font-size: 2em; text-decoration: none;">★</span>
+                  <% end %>
+                  <%
+                    pending = 5 - survey.rating 
+                    pending.times do |i| %>
+                  <span style="color: #999; font-size: 2em; text-decoration: none;">★</span>
+                  <% end %>
+                </p>
+                <p><%= survey.comments %></p>
+              <% else %>
+              <div class="no-items">La encuesta no ha sido contestada</div>
+              <% end %>
+            </div>
+          <% end %>
           <div id="ticket-responses">
             <% if @ticket.status == Ticket::STATUS_OPEN || @ticket.status == Ticket::STATUS_PENDING %>
             <div class="ticket-responses-title">Respuestas</div>

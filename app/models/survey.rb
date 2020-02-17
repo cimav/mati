@@ -2,7 +2,12 @@ class Survey < ApplicationRecord
   belongs_to :ticket
 
   def survey_url
-  	"http://soporte.cimav.edu.mx/encuesta/#{self.token}"
+  	if Rails.env.production? 
+      host = "http://soporte.cimav.edu.mx"
+  	else 
+  	  host = "http://localhost:3000"	
+  	end
+  	"#{host}/encuesta/#{self.token}"
   end
 
 end
