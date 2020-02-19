@@ -9,6 +9,9 @@
     <% if @referer == 'problems' %>
       <a href="/problems">Problemas</a> <span class="grey-text">></span> <%= @element.identificator %> </a>
     <% end %>
+    <% if @referer == 'changes' %>
+      <a href="/changes">Cambios</a> <span class="grey-text">></span> <%= @element.identificator %> </a>
+    <% end %>
     <% if @referer == 'contracts' %>
       <a href="/contracts">Contratos</a> <span class="grey-text">></span> <%= @element.name %> </a>
     <% end %>
@@ -41,6 +44,11 @@
     <% if @referer == 'problems' %>
       <% @problem = @element %>
       <%= render partial:"problems/menu", locals: {active: 'actividad'} %>
+    <% end %>
+
+    <% if @referer == 'changes' %>
+      <% @change = @element %>
+      <%= render partial:"changes/menu", locals: {active: 'actividad'} %>
     <% end %>
 
     <% if @referer == 'people' %>

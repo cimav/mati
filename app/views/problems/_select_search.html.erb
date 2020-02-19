@@ -1,0 +1,15 @@
+<% problems.all.each do |i| %>
+  <tr>
+	<td>
+	  <label>
+        <input type="checkbox" value="<%= i.id %>" name="problem[]" class="rel-cb-item" data-name="<%= i.identificator %>" />
+        <span><%= i.identificator %>: <%= i.description %></span>
+      </label>
+    </td>
+  </tr>
+<% end %>
+<% if problems.count == 0 %>
+  <tr>
+  	<td class="no-items">No existen elementos</td>
+  </tr>
+<% end %>

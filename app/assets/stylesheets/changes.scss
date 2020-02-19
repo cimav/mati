@@ -1,15 +1,15 @@
-// Place all the styles related to the Problems controller here.
+// Place all the styles related to the Changes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.problem-desc {
+.change-desc {
   font-size: 120%;
 }
 
-.problem-header {
+.change-header {
   border-bottom: 1px solid #ddd;
   margin: 16px 0;
-  .problem-picture {
+  .change-picture {
     float: left;
     height: 80px;
     width: 80px;
@@ -19,23 +19,22 @@
       width: 64px;
     }
   }
-  .problem-person {
+  .change-person {
     font-weight: 500;
   }	
 }
 
-#problem-responses {
+#change-responses {
   margin-top: 48px;
 }
 
-.problem-responses-actions {
+.change-responses-actions {
   text-align: right;
   padding-bottom: 32px;
   border-bottom: 1px solid #ddd;
   margin-bottom: 32px;
 }
 
-.problem-side-action {
+.change-side-action {
   margin-bottom: 32px;
 }
-

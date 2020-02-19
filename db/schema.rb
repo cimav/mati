@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_231144) do
+ActiveRecord::Schema.define(version: 2020_02_18_192648) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -79,15 +79,19 @@ ActiveRecord::Schema.define(version: 2020_02_17_231144) do
   end
 
   create_table "change_tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "change_id"
+    t.bigint "ticket_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["change_id"], name: "index_change_tickets_on_change_id"
+    t.index ["ticket_id"], name: "index_change_tickets_on_ticket_id"
   end
 
   create_table "changes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.integer "consecutive"
     t.string "identificator"
     t.bigint "agent_id"
-    t.bigint "people_id"
+    t.bigint "person_id"
     t.text "description"
     t.text "reason"
     t.text "impact"
@@ -104,7 +108,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_231144) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_changes_on_agent_id"
-    t.index ["people_id"], name: "index_changes_on_people_id"
+    t.index ["person_id"], name: "index_changes_on_person_id"
   end
 
   create_table "ci", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

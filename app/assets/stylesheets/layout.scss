@@ -208,10 +208,7 @@ body {
   margin: 1em 0;
 }
 
-.ticket-responses-title,
-.problem-responses-title,
-.problem-analysis-title,
-.problem-solution-title {
+.section-title {
     color: #000;
     border-bottom: 1px solid #ddd;
     padding: 0.5em 0;
@@ -244,4 +241,9 @@ body {
 
 .spaced {
   padding: 1em 0;
+}
+
+.datetime-select .select-dropdown {
+  width: 1em;
+  border: 1px solid #f90;
 }

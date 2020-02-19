@@ -29,7 +29,7 @@
   	  	  </div>
           <div class="problem-desc"><%= @problem.description %></div>
           <div id="problem-analysis">
-            <div class="problem-analysis-title">Análisis</div>
+            <div class="section-title">Análisis</div>
 
             <div class="row">
               <div class="input-field col s12">
@@ -55,7 +55,7 @@
           </div>
 
           <div id="problem-solution">
-            <div class="problem-solution-title">Solución</div>
+            <div class="section-title">Solución</div>
 
             <div class="row">
               <div class="input-field col s12">
@@ -68,7 +68,7 @@
 
           <div id="problem-responses">
             <% if @problem.status == Problem::STATUS_OPEN || @problem.status == Problem::STATUS_PENDING %>
-            <div class="problem-responses-title">Actualizaciones del problema</div>
+            <div class="section-title">Actualizaciones del problema</div>
             <div class="input-field">
               <%= text_area_tag :problem_message, nil, 'class': "materialize-textarea" %>
               <%= form.label :message, 'Respuesta' %>

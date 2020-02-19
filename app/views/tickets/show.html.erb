@@ -46,7 +46,7 @@
           <% end %>
           <div id="ticket-responses">
             <% if @ticket.status == Ticket::STATUS_OPEN || @ticket.status == Ticket::STATUS_PENDING %>
-            <div class="ticket-responses-title">Respuestas</div>
+            <div class="section-title">Respuestas</div>
             <div class="input-field">
               <%= text_area_tag :ticket_message, nil, 'class': "materialize-textarea" %>
               <%= form.label :message, 'Respuesta' %>
@@ -104,6 +104,17 @@
               <ul>
               <% @ticket.problem_tickets.each do |tp| %>
                 <li><%= link_to tp.problem.identificator, tp.problem  %>: <%= tp.problem.description %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <% if @ticket.change_tickets.count > 0 %>
+            <div class="ticket-side-action">
+              <strong>Cambios asociados:</strong>
+              <ul>
+              <% @ticket.change_tickets.each do |tp| %>
+                <li><%= link_to tp.change.identificator, tp.change  %>: <%= tp.change.description %></li>
               <% end %>
               </ul>
             </div>

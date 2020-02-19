@@ -2,6 +2,16 @@ class ProblemsController < ApplicationController
   before_action :auth_required
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
+  def select_search
+    @problems = Problem.all
+    
+    if params[:q_problem] && params[:q_problem] != ''
+      @problems = @problems.where("description LIKE :q OR identificator LIKE :q", q: "%#{params[:q]}%")
+    end
+
+    render :layout => false
+  end
+
   def index
     @problems = Problem.where(status: [Problem::STATUS_OPEN, Problem::STATUS_PENDING]).order('created_at DESC')
   end

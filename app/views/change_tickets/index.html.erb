@@ -1,0 +1,40 @@
+<div class="module-header">
+  <div class="module-title"><a href="<%= changes_path %>">Cambios</a> <span class="grey-text">></span> <%= @change.identificator rescue '--' %></div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"changes/menu", locals: {active: 'tickets'} %>
+  </div>
+  <div class="item-area">
+  <div class="item-workarea">
+
+
+	<table>
+  <% if @change.change_tickets.count == 0 %>
+    <tr><td class="no-items">No existen tickets asociados</td></tr>
+  <% else %>
+    <tr><th>Ticket</th><th>Descripción</th><th>Fecha agregado</th><th></th></tr>
+	<% end %>
+	<% @change.change_tickets.each do |ti| %>
+	  <tr>
+	  	<td><%= link_to ti.ticket.identificator, ti.ticket %></td>
+      <td><%= ti.ticket.description %></td>
+	  	<td><%= ti.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td>
+        <%= link_to change_change_ticket_path(@change, ti), method: :delete, class: 'delete-link', data: {confirm: '¿Confirmar borrado?'} do %> 
+                        <i class="material-icons">delete</i> 
+                      <% end %>
+      </td>
+	  </tr>
+	<% end %>
+	</table>
+  <div class="right spaced">
+            <a class="btn-floating btn-small waves-effect waves-light light-blue" href="<%=new_change_change_ticket_url(@change) %>"><i class="material-icons">add</i></a>
+  </div>
+  <div class="clearfix"></div>
+  </div>
+</div>
+</div>

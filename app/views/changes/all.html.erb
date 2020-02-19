@@ -1,0 +1,38 @@
+<div class="module-header">
+  <div class="module-title">
+    Cambios
+  </div>
+  <div class="module-actions">
+  	<a class="waves-effect waves-light btn-small light-blue" href="/changes/new">Agregar nuevo</a>
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+  	<% @unsolved = @changes.where(status: [Change::STATUS_OPEN, Change::STATUS_PENDING]) %>
+    <%= render partial:"menu_index", locals: {active: 'todos', unsolved_count: @unsolved.count} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <div class="log-items">
+          <% @changes.each do |change| %>
+            <div class="log-item change-item">
+              <div class="log-picture">
+                <img src="<%= change.person.picture_url %>" alt="" class="circle responsive-img">
+              </div>
+              <div class="log-content">
+                <strong><%= change.person.full_name %></strong> <span class="log-date"> <%= change.created_at.strftime('%Y-%m-%d %H:%M') %></span> <span class="badge badge-index-change <%= change.status_color %>"><%= change.status_text %></span>
+                <br>
+                  <a href="<%= change_path(change) %>"><% if change.description %><%= change.description %><% end %></a> 
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          <% end %>
+          </div>
+            
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>

@@ -5,6 +5,7 @@ class Ticket < ApplicationRecord
   has_many :ticket_items
   has_many :ticket_responses
   has_many :problem_tickets
+  has_many :change_tickets
   has_many :surveys
 
   belongs_to :agent
