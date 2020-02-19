@@ -84,6 +84,12 @@ class AttachmentsController < ApplicationController
         @element_url = problem_attachments_url(@element)
       end
 
+      if uri[1] == 'projects'
+        @element = Project.find(params[:project_id])
+        @referer = 'projects'
+        @element_url = project_attachments_url(@element)
+      end
+
       if uri[1] == 'changes'
         @element = Change.find(params[:change_id])
         @referer = 'changes'

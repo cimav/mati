@@ -1,0 +1,40 @@
+<div class="module-header">
+  <div class="module-title"><a href="<%= projects_path %>">Proyectos</a> <span class="grey-text">></span> <%= @project.identificator rescue '--' %></div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"projects/menu", locals: {active: 'changes'} %>
+  </div>
+  <div class="item-area">
+  <div class="item-workarea">
+
+
+	<table>
+  <% if @project.project_changes.count == 0 %>
+    <tr><td class="no-items">No existen cambios asociados</td></tr>
+  <% else %>
+    <tr><th>Cambio</th><th>Descripción</th><th>Fecha agregado</th><th></th></tr>
+	<% end %>
+	<% @project.project_changes.each do |ti| %>
+	  <tr>
+	  	<td><%= link_to ti.change.identificator, ti.change %></td>
+      <td><%= ti.change.description %></td>
+	  	<td><%= ti.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+      <td>
+        <%= link_to project_project_change_path(@project, ti), method: :delete, class: 'delete-link', data: {confirm: '¿Confirmar borrado?'} do %> 
+                        <i class="material-icons">delete</i> 
+                      <% end %>
+      </td>
+	  </tr>
+	<% end %>
+	</table>
+  <div class="right spaced">
+            <a class="btn-floating btn-small waves-effect waves-light light-blue" href="<%=new_project_project_change_url(@project) %>"><i class="material-icons">add</i></a>
+  </div>
+  <div class="clearfix"></div>
+  </div>
+</div>
+</div>

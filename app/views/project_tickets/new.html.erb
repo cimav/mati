@@ -1,0 +1,48 @@
+<%= form_for [@project, @project_ticket] do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="<%= projects_path %>">Proyectos</a> <span class="grey-text">></span> <%= @project.identificator %> </a>
+  </div>
+  <div class="module-actions">
+  	
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"projects/menu", locals: {active: 'tickets'} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <div class="item-relationship-title row">
+            <div class="col s10">
+        	  <%= @project.identificator %> tiene  
+        	  <span id="item-relationship-to">...</span>
+            </div>
+            <div class="col s2">
+              <%= form.submit 'Agregar tickets', class: 'waves-effect waves-light btn-small light-blue' %>
+            </div>
+          </div>
+
+          <div class="row">
+          	
+          	<div class="col s12">
+          	  <table>
+          	  	<tr>
+          	  	  <td>
+          	  	  	<%= text_field_tag :q_ticket, nil, placeholder: 'Busca...' %>
+          	  	  </td>
+          	  	</tr>
+                <tbody id="select-search-results">
+                  <%= render partial:"tickets/select_search", locals: {tickets: Ticket.where(status: Ticket::STATUS_OPEN).order('created_at DESC')} %>
+                </tbody>
+          	  </table>
+          	</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

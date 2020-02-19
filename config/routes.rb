@@ -56,6 +56,16 @@ Rails.application.routes.draw do
     resources :change_problems, :path=>'problems'
   end
 
+  get '/projects/all' => 'projects#all'
+  resources :projects do
+    resources :activity_logs, :path=>'log'
+    resources :attachments, :path=>'attachments'
+    resources :project_items, :path=>'items'
+    resources :project_tickets, :path=>'tickets'
+    resources :project_problems, :path=>'problems'
+    resources :project_changes, :path=>'changes'
+  end
+
 
 
   scope 'cmdb' do

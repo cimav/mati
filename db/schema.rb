@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_18_192648) do
+ActiveRecord::Schema.define(version: 2020_02_19_194057) do
 
   create_table "activity_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "agent_id"
@@ -321,6 +321,72 @@ ActiveRecord::Schema.define(version: 2020_02_18_192648) do
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_problems_on_agent_id"
     t.index ["person_id"], name: "index_problems_on_person_id"
+  end
+
+  create_table "project_changes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "change_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["change_id"], name: "index_project_changes_on_change_id"
+    t.index ["project_id"], name: "index_project_changes_on_project_id"
+  end
+
+  create_table "project_items", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_project_items_on_item_id"
+    t.index ["project_id"], name: "index_project_items_on_project_id"
+  end
+
+  create_table "project_problems", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_project_problems_on_problem_id"
+    t.index ["project_id"], name: "index_project_problems_on_project_id"
+  end
+
+  create_table "project_tasks", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "project_id"
+    t.date "start_date"
+    t.date "due_date"
+    t.string "description"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "agent_id"
+    t.index ["project_id"], name: "index_project_tasks_on_project_id"
+  end
+
+  create_table "project_tickets", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "ticket_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_tickets_on_project_id"
+    t.index ["ticket_id"], name: "index_project_tickets_on_ticket_id"
+  end
+
+  create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.integer "consecutive"
+    t.string "identificator"
+    t.bigint "agent_id"
+    t.bigint "person_id"
+    t.text "description"
+    t.date "start_date_planned"
+    t.date "end_date_planned"
+    t.date "start_date_real"
+    t.date "end_date_real"
+    t.integer "priority"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_projects_on_agent_id"
+    t.index ["person_id"], name: "index_projects_on_person_id"
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

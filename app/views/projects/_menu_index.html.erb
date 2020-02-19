@@ -1,0 +1,8 @@
+<%
+sin_resolver_class = active == 'sin-resolver'? 'active' : ''
+todos_class = active == 'todos'? 'active' : ''
+%>
+<ul class="tabs">
+  <li class="tab col s2"><%= link_to "#{unsolved_count} abiertos", projects_path, target: "_self", class: sin_resolver_class  %></li>
+  <li class="tab col s2"><%= link_to 'Todos', projects_all_path, target: "_self", class: todos_class %></li>
+</ul>

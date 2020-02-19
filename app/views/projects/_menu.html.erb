@@ -1,0 +1,18 @@
+<%
+detalle_class = active == 'detalle'? 'active' : ''
+tickets_class = active == 'tickets'? 'active' : ''
+problems_class = active == 'problems'? 'active' : ''
+changes_class = active == 'changes'? 'active' : ''
+elementos_class = active == 'elementos'? 'active' : ''
+archivos_class = active == 'archivos'? 'active' : ''
+actividad_class = active == 'actividad'? 'active' : ''
+%>
+<ul class="tabs">
+  <li class="tab col s2"><%= link_to 'Detalles', project_path(@project), target: "_self", class: detalle_class  %></li>
+  <li class="tab col s2"><%= link_to 'Tickets', project_project_tickets_path(@project), target: "_self", class: tickets_class%></li>
+  <li class="tab col s2"><%= link_to 'Problemas', project_project_problems_path(@project), target: "_self", class: problems_class%></li>
+  <li class="tab col s2"><%= link_to 'Cambios', project_project_changes_path(@project), target: "_self", class: changes_class%></li>
+  <li class="tab col s2"><%= link_to 'Elementos', project_project_items_path(@project), target: "_self", class: elementos_class%></li>
+  <li class="tab col s2"><%= link_to 'Archivos', project_attachments_path(@project), target: "_self", class: archivos_class%></li>
+  <li class="tab col s2"><%= link_to 'Actividad', project_activity_logs_path(@project), target: "_self", class: actividad_class%></li>
+</ul>

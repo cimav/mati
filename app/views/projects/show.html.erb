@@ -1,0 +1,88 @@
+<%= form_with(model: @project, local: true, id: 'project-form') do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/projects">Proyectos</a> <span class="grey-text">></span> <%= @project.identificator %> </a>
+  </div>
+  <div class="module-actions">
+
+    <%= form.submit 'Actualizar', class: 'waves-effect waves-light btn-small light-blue' %>
+
+    <span class="badge-status <%= @project.status_color %>"><%= @project.status_text %></span>
+
+  </div>
+</div>
+
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'detalles'} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+  	  	<div class="col s8">
+  	  	  
+          <div class="project-desc"><%= @project.description %></div>
+
+          <div class="project-extra">
+            <table>
+              <tr>
+                <td class="avatar"><img src="<%= @project.person.picture_url %>" alt="" class="circle responsive-img"></td>
+                <td>Creado por <a href="<%= person_path(@project.person) %>"><%= @project.person.full_name %></a> <%= @project.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+              </tr>
+            </table>
+          </div>
+            
+
+          <div id="project-tasks">
+            <div class="section-title">Tareas</div>
+            
+          </div>
+  	  	</div>
+  	  	<div class="col s4">
+  	  		<div class="input-field project-side-action">
+		        <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name  %>
+	          <%= form.label :agent_id, "Dueño del proyecto" %>
+		      </div>
+
+          <div class="input-field project-side-action">
+            <%= form.datetime_field :start_date_planned %>
+            <%= form.label :start_date_planned, 'Fecha de inicio planeada', class: 'active' %>
+          </div>
+
+          <div class="input-field project-side-action">
+            <%= form.datetime_field :end_date_planned %>
+            <%= form.label :start_date_planned, 'Fecha de termino planeada', class: 'active' %>
+          </div>
+
+          <div class="input-field project-side-action">
+            <%= form.datetime_field :start_date_real %>
+            <%= form.label :start_date_real, 'Fecha de inicio real', class: 'active' %>
+          </div>
+
+          <div class="input-field project-side-action">
+            <%= form.datetime_field :start_date_real %>
+            <%= form.label :end_date_real, 'Fecha de termino real', class: 'active' %>
+          </div>
+
+
+          <div class="input-field project-side-action">
+            <% priority_array = Project::PRIORITIES.invert %>
+            <%= form.select :priority, options_for_select(priority_array, @project.priority) %>
+	          <%= form.label :priority, 'Prioridad' %>
+          </div>
+
+          <div class="input-field project-side-action">
+            <% status_array = Project::STATUS_TEXT.invert %>
+            <%= form.select :status, options_for_select(status_array, @project.status) %>
+            <%= form.label :status, 'Estado' %>
+          </div>
+
+
+
+  	  	</div>
+  	  </div>
+      
+  	</div>
+  </div>
+</div>
+<% end %>

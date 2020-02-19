@@ -1,0 +1,49 @@
+// Place all the styles related to the projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.project-desc {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.project-extra {
+  border-bottom: 1px solid #ddd;
+  color: #666;
+  margin: 16px 0;
+  font-size: 80%;
+  img {
+      height: 24px;
+      width: 24px;
+  }
+  table {
+    border: 0;
+    border-collapse: collapse;
+    tr {
+       td {
+         border: 0;
+       }
+    }
+  }
+  .avatar {
+    width: 48px;
+  }
+  a {
+    color: #333;
+  }	
+}
+
+#project-responses {
+  margin-top: 48px;
+}
+
+.project-responses-actions {
+  text-align: right;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 32px;
+}
+
+.project-side-action {
+  margin-bottom: 32px;
+}

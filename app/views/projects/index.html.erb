@@ -1,0 +1,39 @@
+<div class="module-header">
+  <div class="module-title">
+    Proyectos
+  </div>
+  <div class="module-actions">
+  	<a class="waves-effect waves-light btn-small light-blue" href="/projects/new">Agregar nuevo</a>
+  </div>
+</div>
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu_index", locals: {active: 'sin_resolver', unsolved_count: @projects.count} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+  	  <div class="row">
+        <div class="col s12 item-main">
+          <div class="log-items">
+          <% if @projects.count == 0 %>
+            <div class="no-items">No existen proyectos abiertos</div>
+          <% end %>
+          <% @projects.each do |project| %>
+            <div class="log-item project-item">
+              <div class="log-picture">
+                <img src="<%= project.person.picture_url %>" alt="" class="circle responsive-img">
+              </div>
+              <div class="log-content">
+                <strong><%= project.person.full_name %></strong> <span class="log-date"> <%= project.created_at.strftime('%Y-%m-%d %H:%M') %></span> <span class="badge badge-index-project <%= project.status_color %>"><%= project.status_text %></span>
+                <br>
+                  <a href="<%= project_path(project) %>"><% if project.description %><%= project.description %><% end %></a> 
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          <% end %>
+          </div>
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>

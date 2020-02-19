@@ -2,6 +2,16 @@ class ChangesController < ApplicationController
   before_action :auth_required
   before_action :set_change, only: [:show, :edit, :update, :destroy]
 
+  def select_search
+    @change = Change.all
+    
+    if params[:q] && params[:q] != ''
+      @change = @change.where("description LIKE :q OR identificator LIKE :q", q: "%#{params[:q]}%")
+    end
+
+    render :layout => false
+  end
+
   def index
     @changes = Change.where(status: [Change::STATUS_OPEN, Change::STATUS_PENDING]).order('created_at DESC')
   end
