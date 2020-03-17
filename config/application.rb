@@ -24,8 +24,8 @@ module Mati
         :port      => 587,
         :domain    => "cimav.edu.mx",
         :authentication => :plain,
-        :user_name      => "notificaciones@cimav.edu.mx",
-        :password       => "N0t1f1c4c10n35@C1m4v!",
+        :user_name      => ENV['EMAIL_USER'],
+        :password       => ENV['EMAIL_PASS'],
         :enable_starttls_auto => true
     }
   end
