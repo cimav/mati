@@ -64,8 +64,11 @@ Rails.application.routes.draw do
     resources :project_tickets, :path=>'tickets'
     resources :project_problems, :path=>'problems'
     resources :project_changes, :path=>'changes'
+    resources :project_tasks, :path=>'tasks'
   end
 
+  post '/project_tasks/move/:id/:source/:target/:sibling' => 'project_tasks#move'
+  get '/project_tasks/kanban/:project_id' => 'project_tasks#kanban'
 
 
   scope 'cmdb' do
@@ -91,5 +94,7 @@ Rails.application.routes.draw do
   get 'encuesta/:token/:rating' => 'surveys#vote'
   get 'encuesta/:token' => 'surveys#show', :as => 'show_survey'
   patch 'encuesta/:token' => 'surveys#save'
+
+
 
 end

@@ -5,6 +5,7 @@ class Project < ApplicationRecord
   has_many :project_tickets
   has_many :project_problems
   has_many :project_changes
+  has_many :project_tasks
 
   belongs_to :agent
   belongs_to :person, optional: true
@@ -54,10 +55,17 @@ class Project < ApplicationRecord
   end
 
   def status_color
-    c = 'red' if status == STATUS_CANCELED
-    c = 'blue' if status == STATUS_OPEN
-    c = 'green lighten-1' if status == STATUS_CLOSED
-    c = 'amber' if status == STATUS_PENDING
+    c = 'red' if status == HIGH
+    c = 'blue' if status == LOW
+    c = 'amber' if status == MEDIUM
+    c
+  end
+
+  def priority_color
+    c = 'red' if priority == STATUS_CANCELED
+    c = 'blue' if priority == STATUS_OPEN
+    c = 'green lighten-1' if priority == STATUS_CLOSED
+    c = 'amber' if priority == STATUS_PENDING
     c
   end
 

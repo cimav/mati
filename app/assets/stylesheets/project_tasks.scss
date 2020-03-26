@@ -1,0 +1,48 @@
+// Place all the styles related to the ProjectTasks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.task-title {
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+  text-transform: uppercase;
+  font-size: 80%;
+}
+
+.task-container {
+  min-height: 40em;
+}
+
+
+.task-item {
+  border: 1px solid #fff176;
+  background-color: #fffde7;
+  font-size: 90%;
+  padding: 1em;
+  margin: 0.5em;
+  cursor: move;
+
+  .responsive-img {
+    width: 28px;
+    height: 28px;
+    float: left;
+    margin-right: 0.5em;
+  }
+
+  .task-extra {
+    font-size: 80%;
+  }
+}
+
+#modal-add-task {
+  .input-field {
+    margin-bottom: 1.5em;
+  }
+}
+
+#due-date-area {
+  display: none;
+}

@@ -1,0 +1,74 @@
+<%= form_with(model: @project, local: true, id: 'project-form') do |form| %>
+<div class="module-header">
+  <div class="module-title">
+  	<a href="/projects">Proyectos</a> <span class="grey-text">></span> <a href="<%= project_path(@project) %>"><%= @project.identificator %></a> <span class="grey-text">></span> Editar
+  </div>
+  <div class="module-actions">
+
+    <%= form.submit 'Actualizar', class: 'waves-effect waves-light btn-small light-blue' %>
+
+    <span class="badge-status <%= @project.status_color %>"><%= @project.status_text %></span>
+
+  </div>
+</div>
+
+<div class="module-workarea">
+  <div class="module-menu">
+    <%= render partial:"menu", locals: {active: 'detalles'} %>
+  </div>
+  <div class="item-area">
+  	<div class="item-workarea">
+
+      <div class="row">
+        <div class="input-field col s12">
+          <%= form.text_area :description, id: :ticket_description, 'class': "materialize-textarea" %>
+          <%= form.label :description, 'Descripción' %>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="input-field col s4">
+          <%= form.collection_select :agent_id, Agent.joins(:person).order('people.first_name', 'people.last_name'), :id, :full_name, {:selected => current_user.id}  %>
+          <%= form.label :agent_id, "Agente" %>
+        </div>
+
+          <div class="input-field col s4">
+            <% priority_array = Project::PRIORITIES.invert %>
+            <%= form.select :priority, options_for_select(priority_array) %>
+          <%= form.label :priority, 'Prioridad' %>
+          </div>
+
+        <div class="input-field col s4">
+            <% status_array = Project::STATUS_TEXT.invert %>
+            <%= form.select :status, options_for_select(status_array) %>
+          <%= form.label :status, 'Estado' %>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="input-field col s4">
+            <%= form.datetime_field :start_date_planned %>
+            <%= form.label :start_date_planned, 'Fecha de inicio planeada', class: 'active' %>
+          </div>
+
+          <div class="input-field col s4">
+            <%= form.datetime_field :end_date_planned %>
+            <%= form.label :start_date_planned, 'Fecha de termino planeada', class: 'active' %>
+          </div>
+
+          <div class="input-field col s4">
+            <%= form.datetime_field :start_date_real %>
+            <%= form.label :start_date_real, 'Fecha de inicio real', class: 'active' %>
+          </div>
+      </div>
+      <div class="row">
+          <div class="input-field col s4">
+            <%= form.datetime_field :start_date_real %>
+            <%= form.label :end_date_real, 'Fecha de termino real', class: 'active' %>
+          </div>
+      </div>
+      
+  	</div>
+  </div>
+</div>
+<% end %>

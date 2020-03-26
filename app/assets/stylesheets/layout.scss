@@ -211,9 +211,15 @@ body {
 .section-title {
     color: #000;
     border-bottom: 1px solid #ddd;
-    padding: 0.5em 0;
+    padding: 0.5em 0 1em;
     font-weight: bold;
     margin: 2em 0 1em 0;
+
+    .btn-small {
+     font-weight: normal;
+     float: right;
+     font-size: 80%;
+    }
 }
 
 
