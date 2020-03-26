@@ -34,13 +34,18 @@
 
   .task-extra {
     font-size: 80%;
+    padding-left: 34px;
   }
 }
 
 #modal-add-task {
   .input-field {
-    margin-bottom: 1.5em;
+    margin-bottom: 1em;
   }
+}
+
+#start-date-area {
+  display: none;
 }
 
 #due-date-area {

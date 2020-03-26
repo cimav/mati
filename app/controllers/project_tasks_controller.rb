@@ -9,6 +9,7 @@ class ProjectTasksController < ApplicationController
     @task = @project.project_tasks.new
     @task.description = params[:description]
     @task.agent_id = params[:agent]
+    @task.start_date = params[:start_date]
     @task.due_date = params[:due_date]
     @task.status = ProjectTask::TODO
     

@@ -9,8 +9,11 @@
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"><%= task.description %>
 			<div class="task-extra">
+			  <% if !task.start_date.blank? %>
+			    Inicio programado: <%= task.start_date %><br>
+			  <% end %>
 			  <% if !task.due_date.blank? %>
-			    Fecha compromiso: <%= task.due_date %>
+			    Termino programado: <%= task.due_date %>
 			  <% end %>
 			</div>
 		  </div>
@@ -25,8 +28,14 @@
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"> <%= task.description %>
 			<div class="task-extra">
+			  <% if !task.start_date.blank? %>
+			    Inicio programado: <%= task.start_date %><br>
+			  <% end %>
+			  
+			  Iniciada en: <%= task.doing_date.strftime('%Y-%m-%d') %><br>
+			  
 			  <% if !task.due_date.blank? %>
-			    Fecha compromiso: <%= task.due_date %>
+			    Termino programado: <%= task.due_date %>
 			  <% end %>
 			</div>
 		  </div>
@@ -41,9 +50,18 @@
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"> <%= task.description %>
 			<div class="task-extra">
-			  <% if !task.due_date.blank? %>
-			    Fecha compromiso: <%= task.due_date %>
+			  <% if !task.start_date.blank? %>
+			    Inicio programado: <%= task.start_date %><br>
 			  <% end %>
+			  
+			  Iniciada en: <%= task.doing_date.strftime('%Y-%m-%d') %><br>
+			  
+			  <% if !task.due_date.blank? %>
+			    Termino programado: <%= task.due_date %>
+			  <% end %>
+			  
+			  Finalizada en: <%= task.done_date.strftime('%Y-%m-%d') %><br>
+			  
 			</div>
 		  </div>
 		<% end %>
@@ -57,7 +75,7 @@
   <div id="modal-add-task" class="modal">
     <div class="modal-content">
       <div class="input-field">
-        <input type="text" name="task-description" id="new-task-description">
+        <input type="text" name="task-description" id="new-task-description" required>
         <label for="new-task-description">Tarea</label>
       </div>
       <div class="input-field">
@@ -74,24 +92,54 @@
         </select>
         <label for="new-task-agent">Agente</label>
       </div>
-      <div class="input-field">
-        <p>
-        <label>
-          <input name="with-due-date" id="with-due-date-no" value="no" type="radio" checked />
-          <span>Sin fecha compromiso</span>
-        </label>
-      </p>
-      <p>
-        <label>
-          <input name="with-due-date" id="with-due-date-yes" value="yes" type="radio" />
-          <span>Con fecha compromiso</span>
-        </label>
-        </p>
-      </div>
-      <div class="input-field" id="due-date-area">
-        <input type="date" name="task-due-date" id="new-task-due-date">
-        <label for="new-task-due-date">Fecha compromiso</label>
-      </div>
+      <div class="row">
+      	<div class="col s6">
+	       <div class="input-field">
+	        <p>
+	        <label>
+	          <input name="with-start-date" id="with-start-date-no" value="no" type="radio" checked />
+	          <span>Sin Inicio Programado</span>
+	        </label>
+	      </p>
+	      <p>
+	        <label>
+	          <input name="with-start-date" id="with-start-date-yes" value="yes" type="radio" />
+	          <span>Con Inicio Programado</span>
+	        </label>
+	        </p>
+	      </div>
+	    </div>
+	    <div class="col s6">
+	      <div class="input-field" id="start-date-area">
+	        <input type="date" name="task-start-date" id="new-task-start-date">
+	        <label for="new-task-start-date">Inicio programado</label>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="row">
+	  	<div class="col s6">
+	      <div class="input-field">
+	        <p>
+	        <label>
+	          <input name="with-due-date" id="with-due-date-no" value="no" type="radio" checked />
+	          <span>Sin Termino Programado</span>
+	        </label>
+	      </p>
+	      <p>
+	        <label>
+	          <input name="with-due-date" id="with-due-date-yes" value="yes" type="radio" />
+	          <span>Con Termino Programado</span>
+	        </label>
+	        </p>
+	      </div>
+	    </div>
+	    <div class="col s6">
+	      <div class="input-field" id="due-date-area">
+	        <input type="date" name="task-due-date" id="new-task-due-date">
+	        <label for="new-task-due-date">Termino programado</label>
+	      </div>
+	    </div>
+	  </div>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-close waves-effect waves-green btn green lighten-1" id="button-add-new-task">Agregar tarea</a>
@@ -102,6 +150,15 @@
 $(document).ready(function(){
 	$('#modal-add-task').modal();
 	$('select').formSelect();
+
+	$(document).on('click', '#with-start-date-no', function() {
+      $('#start-date-area').hide();
+      $('#new-task-start-date').val('');
+    });
+
+	$(document).on('click', '#with-start-date-yes', function() {
+      $('#start-date-area').show();
+    });
 
 	$(document).on('click', '#with-due-date-no', function() {
       $('#due-date-area').hide();
@@ -118,20 +175,29 @@ $(document).ready(function(){
     });
 
     $(document).on('click', '#button-add-new-task', function() {
-
+      var validated = true;
       description = $('#new-task-description').val();
-      agent = $('#new-task-agent').val();
-      due_date = $('#new-task-due-date').val();
-      url = '/projects/<%= project.id %>/tasks';
-      $('#modal-add-task').modal('destroy');
-      $.post(url, {description: description, agent: agent, due_date: due_date}, function( data ) {
-      	M.toast({html: data.message});
-         // Reload Kanban
-         kanban_url = '/project_tasks/kanban/<%= project.id %>';
-         $.get(kanban_url, function( data ) {
-           $('#kanban-area').html(data)
-         });
-      });
+      if (description == '') {
+      	$('#new-task-description').focus();
+      	alert('Se requiere descripción de la tarea');
+      	validated = false;
+      } 
+
+      if (validated) {
+	      agent = $('#new-task-agent').val();
+	      start_date = $('#new-task-start-date').val();
+	      due_date = $('#new-task-due-date').val();
+	      url = '/projects/<%= project.id %>/tasks';
+	      $('#modal-add-task').modal('destroy');
+	      $.post(url, {description: description, agent: agent, start_date: start_date, due_date: due_date}, function( data ) {
+	      	M.toast({html: data.message});
+	         // Reload Kanban
+	         kanban_url = '/project_tasks/kanban/<%= project.id %>';
+	         $.get(kanban_url, function( data ) {
+	           $('#kanban-area').html(data)
+	         });
+	      });
+	  }
     });
 
 
