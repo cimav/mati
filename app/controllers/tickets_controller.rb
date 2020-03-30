@@ -14,6 +14,10 @@ class TicketsController < ApplicationController
     render :layout => false
   end
 
+  def my 
+    @tickets = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING], agent_id: current_user.id).order('created_at DESC')
+  end
+
   def index
     @tickets = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]).order('created_at DESC')
   end
@@ -34,6 +38,8 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.new(ticket_params)
+    created = Person.find(current_user.person_id)
+    @ticket.created_by = created
     respond_to do |format|
       if @ticket.save
 

@@ -5,6 +5,24 @@
   </div>
 </div>
 <div class="module-workarea">
+  <div class="search-area">
+    <div class="row">
+      <div class="col s4">
+        <div class="input-field">
+          <% types_array = Person::PERSON_TYPES.invert %>
+          <select name="person_t" id="person_t">
+            <option value="*">Todos</option>
+            <%= options_for_select(types_array, params[:person_t]) %>
+          </select>
+        </div>
+      </div>
+      <div class="col s8">
+        <div class="input-field">
+          <input type="text" name="person_q" id="person_q" value="<%= params[:person_q] %>">
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="people-letter-links">
     <% ("A".."Z").each do |l| %>
       <span class="people-letter"><a href="/people?l=<%= l %><% if params[:b] == 'b' %>&b=b<% end %>" <% if params[:l] == l %>class="people-letter-active"<% end %>  ><%= l %></a> </span>
@@ -16,28 +34,8 @@
       <span>Mostrar bajas</span>
     </label>
   </div>
-  <div id="live-search">
-  <table class="highlight">
-  	<thead>
-  	  <tr>
-        <th>Tipo</th>
-  	    <th>Nombre</th>
-  	    <th>Correo</th>
-  	    <th>Departamento</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @people.each do |person| %>
-	      <tr>
-          <% full_name = person.full_name rescue '--' %>
-          <td><%= person.type_text %></td>
-	  	    <td><%= link_to full_name, person  %></td>
-	  	    <td><%= person.email rescue '--'%></td>
-	  	    <td><%= person.department.name  rescue '--'%></td>
-	      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div id="live-search-people">
+  <%= render partial:"live_search", locals: {people: @people} %>
   </div>
 </div>
 
@@ -54,6 +52,35 @@
     } else {
       url = url.replace('b=b','');
       window.location = url;
+    }
+  });
+
+ function live_search() {
+    var url = '/people/live-search?1=1'
+    if ($('#mostrar-bajas').prop('checked')) {
+      url = url + '&b=b';
+    } 
+    if ($('#person_q').val() != '') {
+      url = url + '&person_q=' + $('#person_q').val();
+    }
+    if ($('#person_t').val() != '*') {
+      url = url + '&person_t=' + $('#person_t').val();
+    }
+    
+    $.get(url, function( data ) {
+      $('#live-search-people').html(data)
+    });
+  }
+
+  $(document).on('keyup', '#person_q', function() {
+    if ($('#person_q').val().length > 3) {
+      live_search();
+    }
+  });
+
+  $(document).on('change', '#person_t', function() {
+    if ($('#person_t').val() != '*') {
+      live_search();
     }
   });
 </script>

@@ -1,0 +1,25 @@
+<table class="highlight">
+	<thead>
+	  <tr>
+      <th>Tipo</th>
+	    <th>Nombre</th>
+	    <th>Correo</th>
+	    <th>Departamento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% people.each do |person| %>
+      <tr>
+        <% full_name = person.full_name rescue '--' %>
+        <td><%= person.type_text %>
+          <% if person.status == Person::STATUS_INACTIVE %>
+            <span class="new badge red" data-badge-caption="BAJA"></span>          
+          <% end %>
+        </td>
+  	    <td><%= link_to full_name, person  %></td>
+  	    <td><%= person.email rescue '--'%></td>
+  	    <td><%= person.department.name  rescue '--'%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

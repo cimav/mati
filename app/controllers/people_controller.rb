@@ -19,10 +19,17 @@ class PeopleController < ApplicationController
   end
 
   def live_search
-    @people = People.order(:first_name, :last_name, :last_name2)
-    if !params[:q].blank?
-      @people = @people.where("(first_name LIKE :q OR last_name LIKE :q OR last_name2 LIKE :q)", {:q => "%#{params[:q]}%"})
+    @people = Person.order(:first_name, :last_name, :last_name2)
+    if !params[:person_q].blank?
+      @people = @people.where("(first_name LIKE :q OR last_name LIKE :q OR last_name2 LIKE :q)", {:q => "%#{params[:person_q]}%"})
     end
+    if !params[:person_t].blank?
+      @people = @people.where(person_type: params[:person_t])
+    end
+    if params[:b] != 'b'
+      @people = @people.where(status: Person::STATUS_ACTIVE)
+    end
+
     render :layout => false
   end
 

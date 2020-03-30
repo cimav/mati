@@ -1,8 +1,13 @@
 <%
 sin_resolver_class = active == 'sin-resolver'? 'active' : ''
+mis_sin_resolver_class = active == 'mis-sin-resolver'? 'active' : ''
 todos_class = active == 'todos'? 'active' : ''
+unsolved_count = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]).count
+my_unsolved_count = 0
+my_unsolved_count = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING], agent_id: current_user.id).count
 %>
 <ul class="tabs">
   <li class="tab col s2"><%= link_to "#{unsolved_count} Sin Resolver", tickets_path, target: "_self", class: sin_resolver_class  %></li>
+  <li class="tab col s2"><%= link_to "#{my_unsolved_count} que no he resuelto", tickets_my_path, target: "_self", class: mis_sin_resolver_class  %></li>
   <li class="tab col s2"><%= link_to 'Todos', tickets_all_path, target: "_self", class: todos_class %></li>
 </ul>
