@@ -10,6 +10,7 @@ class Ticket < ApplicationRecord
 
   belongs_to :agent
   belongs_to :person, optional: true
+  belongs_to :created_by, :foreign_key => "created_by", :class_name => "Person"
   belongs_to :service
 
   after_create :set_extra

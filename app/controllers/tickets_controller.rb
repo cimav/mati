@@ -34,6 +34,8 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.new(ticket_params)
+    created = Person.find(current_user.person_id)
+    @ticket.created_by = created
     respond_to do |format|
       if @ticket.save
         @activity_log = @ticket.activity_logs.new
