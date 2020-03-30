@@ -1,0 +1,30 @@
+<% projects = Project.order(:description) %>
+<% total_tasks = 0 %>
+<% projects.each do |project| %>
+  <% tasks = project.project_tasks.where(status: ProjectTask::DOING).order(:position) %>
+  <% if tasks.count > 0 %>
+    <% total_tasks = total_tasks + tasks.count %>
+    <div class="dashboard-sub-section-title"><a href="<%= project_url(project) %>"><%= project.description %></a></div>
+    <div class="dashboard-tasks">
+	    <% tasks.each do |task| %>
+	      <div class="dashboard-task-item ">
+		    <img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"><%= task.description %>
+			<div class="task-extra">
+
+			  <% if !task.start_date.blank? %>
+			    Inicio programado: <%= task.start_date %><br>
+			  <% end %>
+	          Iniciada en: <%= task.doing_date.strftime('%Y-%m-%d') %><br>
+			  <% if !task.due_date.blank? %>
+			    Termino programado: <%= task.due_date %>
+			  <% end %>
+			</div>
+	      </div>
+	    <% end %>
+	</div>
+	<div class="clearfix"></div>
+  <% end %>
+<% end %>
+<% if total_tasks == 0 %>
+  <div class="no-items">No hay tareas en curso</div>
+<% end %>

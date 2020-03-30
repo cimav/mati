@@ -1,3 +1,61 @@
 // Place all the styles related to the dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.dashboard-80 {
+  font-size: 80%;
+}
+
+.dashboard-task-item {
+  border: 1px solid #fff176;
+  background-color: #fffde7;
+  font-size: 90%;
+  padding: 1em;
+  margin: 0.5em;
+  cursor: move;
+
+  .responsive-img {
+    width: 28px;
+    height: 28px;
+    float: left;
+    margin-right: 0.5em;
+  }
+
+  .task-extra {
+    font-size: 80%;
+    padding-left: 34px;
+  }
+}
+
+.dashboard-area {
+  .dashboard-section-title {
+    color: #fff;
+    background: #2196f3;
+    width: 100%;
+    font-size: 100%;
+    text-transform: uppercase;
+    padding: 0.5em;
+    .material-icons {
+      margin: 0 8px 0 0;
+      padding: 0;
+      float: left;
+    }
+  }
+  .dashboard-alert-title {
+    background-color: #f9a825 !important;
+  }
+  .dashboard-sub-section-title {
+    background-color: #e3f2fd;
+    font-weight: bold;
+    color: #0d47a1;
+    padding: 0.5em;
+    a {
+      color: #0d47a1;
+    }
+  }
+}
+
+.dashboard-tasks {
+	margin-bottom: 2em;
+}

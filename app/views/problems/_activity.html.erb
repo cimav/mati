@@ -1,0 +1,14 @@
+<% problems = Problem.where(status: [Problem::STATUS_OPEN, Problem::STATUS_PENDING]).order('created_at DESC') %>
+<% problems.each do |problem| %>
+<div class="log-item problem-item">
+  <div class="log-picture">
+    <img src="<%= problem.person.picture_url %>" alt="" class="circle responsive-img">
+  </div>
+  <div class="log-content">
+    <strong><%= problem.person.full_name %></strong> <span class="log-date"> <%= problem.created_at.strftime('%Y-%m-%d %H:%M') %></span> <span class="badge badge-index-problem <%= problem.priority_color %>"><%= problem.priority_text %></span>
+    <br>
+      <a href="<%= problem_path(problem) %>"><% if problem.description %><%= problem.description %><% end %></a> 
+  </div>
+  <div class="clearfix"></div>
+</div>
+<% end %>

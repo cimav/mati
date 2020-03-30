@@ -62,6 +62,13 @@ class Problem < ApplicationRecord
     PRIORITIES[priority]
   end
 
+  def priority_color
+    c = 'red' if priority == HIGH
+    c = 'blue' if priority == LOW
+    c = 'amber' if priority == MEDIUM
+    c
+  end
+
   def set_extra
     con = Problem.where("EXTRACT(YEAR FROM created_at) = :year", {:year => Date.today.year}).maximum('consecutive')
     if con.nil?

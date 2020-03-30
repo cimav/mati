@@ -60,7 +60,6 @@ class Agent < ApplicationRecord
 
   def send_mail(to, subject, body)
     service = Google::Apis::GmailV1::GmailService.new
-    #service.client_options.application_name = 'PRUEBA'
     service.authorization = self.google_api_authorization 
 
     message = RMail::Message.new

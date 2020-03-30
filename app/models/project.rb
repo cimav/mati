@@ -54,18 +54,18 @@ class Project < ApplicationRecord
     STATUS_TEXT[status]
   end
 
-  def status_color
-    c = 'red' if status == HIGH
-    c = 'blue' if status == LOW
-    c = 'amber' if status == MEDIUM
+  def priority_color
+    c = 'red' if priority == HIGH
+    c = 'blue' if priority == LOW
+    c = 'amber' if priority == MEDIUM
     c
   end
 
-  def priority_color
-    c = 'red' if priority == STATUS_CANCELED
-    c = 'blue' if priority == STATUS_OPEN
-    c = 'green lighten-1' if priority == STATUS_CLOSED
-    c = 'amber' if priority == STATUS_PENDING
+  def status_color
+    c = 'red' if status == STATUS_CANCELED
+    c = 'blue' if status == STATUS_OPEN
+    c = 'green lighten-1' if status == STATUS_CLOSED
+    c = 'amber' if status == STATUS_PENDING
     c
   end
 

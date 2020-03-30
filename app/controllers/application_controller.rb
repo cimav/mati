@@ -8,8 +8,6 @@ class ApplicationController < ActionController::Base
 
 
   def authenticated?
-    puts "AUTH?"
-    puts "xxxx#{session[:user_auth]}yyyyy"
     
     if !session[:user_email].blank?
       puts "U Auth: #{session[:user_auth]}"
@@ -18,6 +16,8 @@ class ApplicationController < ActionController::Base
 
       session[:user_auth] = user && user.person.email == session[:user_email]
       auth = session[:user_credentials]
+      puts auth
+      puts "XXXXXXXX"
       user.access_token = auth['token']
       user.refresh_token = auth['refresh_token']
       user.expires_at = Time.at(auth['expires_at']).to_datetime

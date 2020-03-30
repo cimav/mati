@@ -1,0 +1,14 @@
+<% changes = Change.where(status: [Change::STATUS_OPEN, Change::STATUS_PENDING]).order('created_at DESC') %>
+<% changes.each do |change| %>
+<div class="log-item change-item">
+  <div class="log-picture">
+    <img src="<%= change.person.picture_url %>" alt="" class="circle responsive-img">
+  </div>
+  <div class="log-content">
+    <strong><%= change.person.full_name %></strong> <span class="log-date"> <%= change.created_at.strftime('%Y-%m-%d %H:%M') %></span> <span class="badge badge-index-change <%= change.priority_color %>"><%= change.priority_text %></span>
+    <br>
+      <a href="<%= change_path(change) %>"><% if change.description %><%= change.description %><% end %></a> 
+  </div>
+  <div class="clearfix"></div>
+</div>
+<% end %>

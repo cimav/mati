@@ -69,8 +69,13 @@ class TicketsController < ApplicationController
 
   def update
     respond_to do |format|
+      puts "FROM"
       from = Person.find(current_user.person_id)
+      puts from
+      puts "TO"
       to = Person.find(@ticket.person_id)
+      puts to
+      puts "00000000"
 
       if params[:ticket_message] 
         msg = @ticket.ticket_responses.new
