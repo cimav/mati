@@ -10,13 +10,15 @@
 <div class="module-workarea dashboard-area">
   <div class="row">
     <div class="col s6">
-
-       <div class="card">
-        <div class="dashboard-section-title dashboard-alert-title"><i class="material-icons">report_problem</i> Problemas abiertos</div>
-        <div class="dashboard-section-workarea dashboard-80">
-          <%= render partial:"problems/activity" %>
+      <% problems = Problem.where(status: [Problem::STATUS_OPEN, Problem::STATUS_PENDING]).order('created_at DESC') %>
+      <% if problems.count > 0 %>
+        <div class="card">
+          <div class="dashboard-section-title dashboard-alert-title"><i class="material-icons">report_problem</i> Problemas abiertos</div>
+          <div class="dashboard-section-workarea dashboard-80">
+            <%= render partial:"problems/activity", locals: {problems: problems} %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <div class="card">
       <% tickets = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]) %>
@@ -29,13 +31,15 @@
       </div>
     </div>
     <div class="col s6">
-
-      <div class="card">
-        <div class="dashboard-section-title"><i class="material-icons">track_changes</i> Cambios en curso</div>
-        <div class="dashboard-section-workarea dashboard-80">
-          <%= render partial:"changes/activity" %>
+      <% changes = Change.where(status: [Change::STATUS_OPEN, Change::STATUS_PENDING]).order('created_at DESC') %>
+      <% if changes.count > 0 %>
+        <div class="card">
+          <div class="dashboard-section-title"><i class="material-icons">track_changes</i> Cambios en curso</div>
+          <div class="dashboard-section-workarea dashboard-80">
+            <%= render partial:"changes/activity", locals: {changes: changes} %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <div class="card">
         <div class="dashboard-section-title"><i class="material-icons">library_books</i> Actividad en proyectos</div>

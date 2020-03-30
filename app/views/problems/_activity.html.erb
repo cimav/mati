@@ -1,4 +1,3 @@
-<% problems = Problem.where(status: [Problem::STATUS_OPEN, Problem::STATUS_PENDING]).order('created_at DESC') %>
 <% problems.each do |problem| %>
 <div class="log-item problem-item">
   <div class="log-picture">

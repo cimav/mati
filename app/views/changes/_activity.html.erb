@@ -1,4 +1,3 @@
-<% changes = Change.where(status: [Change::STATUS_OPEN, Change::STATUS_PENDING]).order('created_at DESC') %>
 <% changes.each do |change| %>
 <div class="log-item change-item">
   <div class="log-picture">
