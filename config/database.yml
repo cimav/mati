@@ -20,7 +20,7 @@ default: &default
 
 development:
   <<: *default
-  database: mati_development
+  database: mati_production
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -51,5 +51,3 @@ test:
 production:
   <<: *default
   database: mati_production
-  username: mati
-  password: <%= ENV['MATI_DATABASE_PASSWORD'] %>

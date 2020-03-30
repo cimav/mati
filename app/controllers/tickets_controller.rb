@@ -36,6 +36,18 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new(ticket_params)
     respond_to do |format|
       if @ticket.save
+
+        if @ticket.status == Ticket::STATUS_CLOSED
+          from = Person.find(current_user.person_id)
+          to = Person.find(@ticket.person_id)
+          survey = @ticket.surveys.new
+          survey.rating = 0
+          survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
+          survey.save
+          body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: params[:ticket_message], survey: survey })
+          current_user.send_mail(to.email, "Ticket Resuelto #{@ticket.identificator}", body)
+        end
+
         @activity_log = @ticket.activity_logs.new
         @activity_log.agent_id = current_user.id
         @activity_log.message = "El ticket #{@ticket.identificator} fue creado."

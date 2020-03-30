@@ -1,4 +1,5 @@
 class ServicesController < ApplicationController
+  before_action :auth_required
   before_action :set_service, only: [:show, :edit, :update, :destroy]
 
   # GET /services

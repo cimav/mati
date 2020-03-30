@@ -3,7 +3,7 @@ class Survey < ApplicationRecord
 
   def survey_url
   	if Rails.env.production? 
-      host = "http://soporte.cimav.edu.mx"
+      host = "http://mati.cimav.edu.mx"
   	else 
   	  host = "http://localhost:3000"	
   	end

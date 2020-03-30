@@ -2,10 +2,11 @@
   <div style="padding: 0.5em 0; border-bottom: 1px solid #ddd; font-size: 1.5em;">
     <strong>Ticket #<%= ticket.identificator %> </strong>
   </div>
+  <p>Descripción: <%= ticket.description %></p>
   <% if !message.blank? %>
-    <p><%= message %></p>
+    <p>Mensaje: <%= message %></p>
   <% end %>
-  <p>Esperamos que el ticket haya sido resuelto de manera satisfactoria. Si sientes que el ticket no debió haber sido cerrado o si el ticket no ha sido resuelto, por favor envíanos una respuesta a este correo.</p>
+  <p>Esperamos que el ticket haya sido resuelto de manera satisfactoria. Si piensas que el ticket no debió haber sido cerrado o si el ticket no ha sido resuelto, por favor envíanos una respuesta a este correo.</p>
   <p>
   	<strong>Cuentanos que te pareció nuestro Soporte Técnico.</strong><br>
   	<table>

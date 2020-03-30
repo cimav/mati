@@ -4,11 +4,17 @@ require 'google/api_client/client_secrets'
 class ApplicationController < ActionController::Base
 
   protect_from_forgery unless: -> { request.format.json? }
+  skip_before_action :verify_authenticity_token
+
 
   def authenticated?
-    if session[:user_auth].blank?
-
+    puts "AUTH?"
+    puts "xxxx#{session[:user_auth]}yyyyy"
+    
+    if !session[:user_email].blank?
+      puts "U Auth: #{session[:user_auth]}"
       user = Agent.joins(:person).where(people: { email: session[:user_email], status: Person::STATUS_ACTIVE }).first
+      puts "User #{user}"
 
       session[:user_auth] = user && user.person.email == session[:user_email]
       auth = session[:user_credentials]
