@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     post 'return'
   end
 
+  get 'people/live-search' => 'people#live_search'
+
   resources :people do
     resources :activity_logs, :path=>'log'
     resources :attachments, :path=>'attachments'
