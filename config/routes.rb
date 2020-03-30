@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   end
 
   get '/tickets/all' => 'tickets#all'
+  get '/tickets/my' => 'tickets#my'
   get 'tickets/select_search' => 'tickets#select_search'
   resources :tickets do
     resources :activity_logs, :path=>'log'

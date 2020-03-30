@@ -8,8 +8,7 @@
 </div>
 <div class="module-workarea">
   <div class="module-menu">
-  	<% @unsolved = @tickets.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]) %>
-    <%= render partial:"menu_index", locals: {active: 'todos', unsolved_count: @unsolved.count} %>
+    <%= render partial:"menu_index", locals: {active: 'todos'} %>
   </div>
   <div class="item-area">
   	<div class="item-workarea">
@@ -25,6 +24,12 @@
                 <strong><%= ticket.person.full_name %></strong> <span class="log-date"> <%= ticket.created_at.strftime('%Y-%m-%d %H:%M') %></span> <span class="badge badge-index-ticket <%= ticket.status_color %>"><%= ticket.status_text %></span>
                 <br>
                   <a href="<%= ticket_path(ticket) %>"><%= ticket.service.name %><% if ticket.description %>: <%= ticket.description %><% end %></a> 
+                  <div class="ticket-index-extra">
+                  <br>Asignado a: <%= ticket.agent.full_name %>
+                  <% if ticket.created_by && ticket.agent.person_id != ticket.created_by.id  %>
+                    – Creado por <%= ticket.created_by.full_name rescue '--' %>
+                  <% end %> 
+                  </div>
               </div>
               <div class="clearfix"></div>
             </div>

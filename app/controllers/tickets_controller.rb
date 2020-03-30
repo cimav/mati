@@ -14,6 +14,10 @@ class TicketsController < ApplicationController
     render :layout => false
   end
 
+  def my 
+    @tickets = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING], agent_id: current_user.id).order('created_at DESC')
+  end
+
   def index
     @tickets = Ticket.where(status: [Ticket::STATUS_OPEN, Ticket::STATUS_PENDING]).order('created_at DESC')
   end
