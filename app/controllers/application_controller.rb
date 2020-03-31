@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
 
 
   def authenticated?
-    
+    # URL DE PERMISOS
+    # https://myaccount.google.com/u/0/permissions?pli=1
     if !session[:user_email].blank?
       puts "U Auth: #{session[:user_auth]}"
       user = Agent.joins(:person).where(people: { email: session[:user_email], status: Person::STATUS_ACTIVE }).first
@@ -19,7 +20,9 @@ class ApplicationController < ActionController::Base
       puts auth
       puts "XXXXXXXX"
       user.access_token = auth['token']
-      user.refresh_token = auth['refresh_token']
+      if auth['refresh_token'] != ''
+        user.refresh_token = auth['refresh_token']
+      end
       user.expires_at = Time.at(auth['expires_at']).to_datetime
       user.save!
 
