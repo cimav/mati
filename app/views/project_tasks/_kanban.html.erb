@@ -27,6 +27,7 @@
 	  <div class="task-container" id="task-doing" data-id="<%= ProjectTask::DOING %>">
 		<% project.project_tasks.where(status: ProjectTask::DOING).order(:position).each do |task| %>
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
+		  	<div class="remove-task" data-task-id="<%= task.id %>" data-project-id="<%= task.project.id %>"><i class="material-icons tiny">close</i></div>
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"> <%= task.description %>
 			<div class="task-extra">
 			  <% if !task.start_date.blank? %>
@@ -49,6 +50,7 @@
 	  <div class="task-container" id="task-done" data-id="<%= ProjectTask::DONE %>">
 		<% project.project_tasks.where(status: ProjectTask::DONE).order(:position).each do |task| %>
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
+		  	<div class="remove-task" data-task-id="<%= task.id %>" data-project-id="<%= task.project.id %>"><i class="material-icons tiny">close</i></div>
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"> <%= task.description %>
 			<div class="task-extra">
 			  <% if !task.start_date.blank? %>
