@@ -25,6 +25,18 @@
   margin: 0.5em;
   cursor: move;
 
+  .remove-task {
+    float: right;
+    display: none;
+    cursor: ponter !important;
+  }
+
+  &:hover .remove-task {
+    float: right;
+    display: inline;
+    cursor: pointer !important;
+  }
+
   .responsive-img {
     width: 28px;
     height: 28px;
@@ -37,6 +49,8 @@
     padding-left: 34px;
   }
 }
+
+
 
 #modal-add-task {
   .input-field {

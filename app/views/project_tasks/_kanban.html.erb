@@ -1,12 +1,13 @@
 <div id="project-tasks">
-  <div class="section-title">Tareas <button class="waves-effect waves-light btn-small green lighten-1" id="button-add-task"><i class="material-icons left">add</i>Agregar tarea</button>
+  <div class="section-title">Tareas <button class="waves-effect waves-light btn-small green lighten-1" data-project-id="<%= project.id %>" id="button-add-task"><i class="material-icons left">add</i>Agregar tarea</button>
   </div>
   <div class="row">	
 	<div class="col s4">
 	  <div class="task-title">Pendiente</div>
 	  <div class="task-container" id="task-todo" data-id="<%= ProjectTask::TODO %>">
-		<% @project.project_tasks.where(status: ProjectTask::TODO).order(:position).each do |task| %>
+		<% project.project_tasks.where(status: ProjectTask::TODO).order(:position).each do |task| %>
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
+		  	<div class="remove-task" data-task-id="<%= task.id %>" data-project-id="<%= task.project.id %>"><i class="material-icons tiny">close</i></div>
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"><%= task.description %>
 			<div class="task-extra">
 			  <% if !task.start_date.blank? %>
@@ -24,7 +25,7 @@
     <div class="col s4">
 	  <div class="task-title">Haciendo</div>
 	  <div class="task-container" id="task-doing" data-id="<%= ProjectTask::DOING %>">
-		<% @project.project_tasks.where(status: ProjectTask::DOING).order(:position).each do |task| %>
+		<% project.project_tasks.where(status: ProjectTask::DOING).order(:position).each do |task| %>
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"> <%= task.description %>
 			<div class="task-extra">
@@ -46,7 +47,7 @@
 	<div class="col s4">
 	  <div class="task-title">Hecho</div>
 	  <div class="task-container" id="task-done" data-id="<%= ProjectTask::DONE %>">
-		<% @project.project_tasks.where(status: ProjectTask::DONE).order(:position).each do |task| %>
+		<% project.project_tasks.where(status: ProjectTask::DONE).order(:position).each do |task| %>
 		  <div class="task-item" data-id="<%= task.id %>" id="task-<%= task.id %>">
 			<img src="<%= task.agent.picture_url %>" alt="" class="circle responsive-img"> <%= task.description %>
 			<div class="task-extra">
@@ -142,7 +143,7 @@
 	  </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn green lighten-1" id="button-add-new-task">Agregar tarea</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn green lighten-1" id="button-add-new-task" data-project-id="<%= project.id %>">Agregar tarea</a>
     </div>
   </div>
 
@@ -176,7 +177,8 @@ $(document).ready(function(){
 
     $(document).on('click', '#button-add-new-task', function() {
       var validated = true;
-      description = $('#new-task-description').val();
+      var description = $('#new-task-description').val();
+      var project_id = $(this).data('project-id');
       if (description == '') {
       	$('#new-task-description').focus();
       	alert('Se requiere descripción de la tarea');
@@ -187,12 +189,12 @@ $(document).ready(function(){
 	      agent = $('#new-task-agent').val();
 	      start_date = $('#new-task-start-date').val();
 	      due_date = $('#new-task-due-date').val();
-	      url = '/projects/<%= project.id %>/tasks';
+	      url = '/projects/' + project_id + '/tasks';
 	      $('#modal-add-task').modal('destroy');
 	      $.post(url, {description: description, agent: agent, start_date: start_date, due_date: due_date}, function( data ) {
 	      	M.toast({html: data.message});
 	         // Reload Kanban
-	         kanban_url = '/project_tasks/kanban/<%= project.id %>';
+	         kanban_url = '/project_tasks/kanban/' + project_id;
 	         $.get(kanban_url, function( data ) {
 	           $('#kanban-area').html(data)
 	         });

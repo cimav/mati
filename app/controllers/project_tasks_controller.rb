@@ -27,6 +27,15 @@ class ProjectTasksController < ApplicationController
     end
   end
 
+  def destroy
+    @task = ProjectTask.find(params[:id])
+    if @task.destroy 
+      render json: {message: "Tarea eliminada", task: @task }
+    else
+      render json: @task.errors, status: :unprocessable_entity
+    end
+  end
+
   def move 
   	id = params[:id]
   	source = params[:source]
