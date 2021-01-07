@@ -43,16 +43,26 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if @ticket.save
 
+        # if @ticket.status == Ticket::STATUS_CLOSED
+        #   from = Person.find(current_user.person_id)
+        #   to = Person.find(@ticket.person_id)
+        #   survey = @ticket.surveys.new
+        #   survey.rating = 0
+        #   survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
+        #   survey.save
+        #   body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: params[:ticket_message], survey: survey })
+        #   current_user.send_mail(to.email, "Ticket Resuelto #{@ticket.identificator}", body)
+        # end
+
         if @ticket.status == Ticket::STATUS_CLOSED
-          from = Person.find(current_user.person_id)
-          to = Person.find(@ticket.person_id)
+          puts "---- MAIL TICKET----"
           survey = @ticket.surveys.new
           survey.rating = 0
           survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
           survey.save
-          body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: params[:ticket_message], survey: survey })
-          current_user.send_mail(to.email, "Ticket Resuelto #{@ticket.identificator}", body)
+          TicketMailer.ticket_closed(@ticket, survey, params[:ticket_message]).deliver_now
         end
+
 
         @activity_log = @ticket.activity_logs.new
         @activity_log.agent_id = current_user.id
@@ -95,13 +105,21 @@ class TicketsController < ApplicationController
         @activity_log.message = "El ticket #{@ticket.identificator} fue actualizado."
         @activity_log.save
 
+        # if @ticket.status == Ticket::STATUS_CLOSED
+        #   survey = @ticket.surveys.new
+        #   survey.rating = 0
+        #   survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
+        #   survey.save
+        #   body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: params[:ticket_message], survey: survey })
+        #   current_user.send_mail(to.email, "Ticket Resuelto #{@ticket.identificator}", body)
+        # end
         if @ticket.status == Ticket::STATUS_CLOSED
+          puts "---- MAIL TICKET----"
           survey = @ticket.surveys.new
           survey.rating = 0
           survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
           survey.save
-          body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: params[:ticket_message], survey: survey })
-          current_user.send_mail(to.email, "Ticket Resuelto #{@ticket.identificator}", body)
+          TicketMailer.ticket_closed(@ticket, survey, params[:ticket_message]).deliver_now
         end
 
         format.html { redirect_to @ticket, notice: "Ticket actualizado correctamente." }

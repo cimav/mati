@@ -25,7 +25,7 @@ module Mati
         :domain    => "cimav.edu.mx",
         :authentication => :plain,
         :user_name      => ENV['EMAIL_USER'],
-        :password       => ENV['EMAIL_PASS'],
+        :password       => ENV['EMAIL_PASSWORD'],
         :enable_starttls_auto => true
     }
   end
