@@ -2,9 +2,10 @@
 <div class="module-header">
   <div class="module-title">
   	<a href="/tickets">Tickets</a> <span class="grey-text">></span> <%= @ticket.identificator %> </a>
+    <span class="badge-status <%= @ticket.status_color %>"><%= @ticket.status_text %></span>
   </div>
   <div class="module-actions">
-    <div class="badge-status <%= @ticket.status_color %>"><%= @ticket.status_text %></div>
+    <a class="waves-effect waves-light btn green lighten-1" href="/tickets/new"><i class="material-icons ">add</i></a>
   </div>
 </div>
 
