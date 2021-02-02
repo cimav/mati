@@ -1,0 +1,14 @@
+<div style="padding: 2em;">
+  <div style="padding: 0.5em 0; border-bottom: 1px solid #ddd; font-size: 1.5em;">
+    <strong>Ticket #<%= @ticket.identificator %> </strong>
+  </div>
+  <p>Hacemos de tu conocimiento que hemos recibido tu petición y el Ticket #<%= @ticket.identificator %> ha sido creado.</p>
+  <p>Un técnico estará revisando tu petición y te enviará una respuesta personal. Usualmente en un periodo no mayor a 24 horas.</p>
+  <p>Descripción: <%= @ticket.description %></p>
+  
+  <p>Saludos,<br>
+  <%= @ticket.agent.full_name %><br>
+  Coordinación de Tecnologías de la Información<br>
+  CIMAV
+  </p>
+</div>

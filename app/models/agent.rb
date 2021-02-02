@@ -35,6 +35,10 @@ class Agent < ApplicationRecord
   	person.full_name
   end
 
+  def email
+    person.email
+  end
+
 
   def picture_url
   	person.picture_url

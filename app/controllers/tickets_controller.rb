@@ -43,24 +43,17 @@ class TicketsController < ApplicationController
     respond_to do |format|
       if @ticket.save
 
-        # if @ticket.status == Ticket::STATUS_CLOSED
-        #   from = Person.find(current_user.person_id)
-        #   to = Person.find(@ticket.person_id)
-        #   survey = @ticket.surveys.new
-        #   survey.rating = 0
-        #   survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
-        #   survey.save
-        #   body = render_to_string(template: 'mails/ticket_message', layout: false,  locals: {ticket: @ticket, message: params[:ticket_message], survey: survey })
-        #   current_user.send_mail(to.email, "Ticket Resuelto #{@ticket.identificator}", body)
-        # end
-
         if @ticket.status == Ticket::STATUS_CLOSED
-          puts "---- MAIL TICKET----"
           survey = @ticket.surveys.new
           survey.rating = 0
           survey.token = Digest::MD5.hexdigest("#{request.original_url}#{@ticket.identificator}")
           survey.save
           TicketMailer.ticket_closed(@ticket, survey, params[:ticket_message]).deliver_now
+        else
+          TicketMailer.ticket_open(@ticket).deliver_now
+          if @ticket.agent.email.to_s != @ticket.created_by.email.to_s
+            TicketMailer.ticket_assigned(@ticket).deliver_now
+          end
         end
 
 
